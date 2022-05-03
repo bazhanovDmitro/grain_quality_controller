@@ -1,0 +1,76 @@
+@import "./common/colors.module.scss";
+@import "./common/font.module.scss";
+@import "./logo.module.scss";
+
+@include logo();
+
+.background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: $WHITE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logoHolder {
+    position: relative;
+    .container {
+      color: $BLACK;
+      font-size: $SPINNER_H2;
+      svg {
+        width: 50px;
+        height: 110px;
+        path {
+          height: 100px;
+          width: 100px;
+          fill: $GRAIN_YELLOW;
+          stroke: $BLACK;
+        }
+      }
+    }
+    
+    @mixin curtain {
+      position: absolute;
+      background-color: $WHITE;
+      width: 110px;
+      height: 130px;
+      top: 0;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      animation: spinnerAnimation 1.5s infinite;
+    }
+    .curtainLeft {
+      @include curtain();
+      left: 0;
+    }
+    .curtainRight {
+      @include curtain();
+      right: 0;
+    }
+  }
+}
+
+@keyframes spinnerAnimation {
+  0% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  30% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  31% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  70% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+}
