@@ -1,0 +1,43 @@
+@import "./common/font.module.scss";
+@import "./common/colors.module.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: $WHITE;
+  width: 410px;
+  height: fit-content;
+  border-radius: 10px;
+  box-shadow: 0px 0px 12px $TRANSPARENT_BLACK;
+  border: solid $BLACK 1px;
+  overflow: hidden;
+
+  .headerContainer {
+    justify-content: center;
+    align-items: center;
+    font-size: $HINT_H2;
+    color: $WHITE;
+    font-weight: bold;
+    background-color: $SIDEBAR_BROWN;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid $BLACK;
+    padding: 5px;
+  }
+  .bodyContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $WHITE;
+    margin: 20px;
+    font-weight: lighter;
+    column-gap: 15px;
+
+    .textArea {
+      .highlighted {
+        font-weight: 900;
+        font-family: 'Radio Canada', sans-serif;
+        text-decoration: underline;
+      }
+    }
+  }
+}

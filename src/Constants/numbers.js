@@ -1,0 +1,1 @@
+export const STANDARD_HINT_TIMING = 2000;
