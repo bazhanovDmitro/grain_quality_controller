@@ -14,7 +14,6 @@
 }
 
 @mixin button {
-  font-size: $BUTTON_TEXT_SIZE;
   font-weight: 600;
   padding: 4px 40px;
   border-radius: 5px;
@@ -22,14 +21,30 @@
   cursor: pointer;
 }
 
-.transparentBlue {
+.transparentBlue_ordinary {
   @include button();
+  font-size: $BUTTON_TEXT_SMALL;
   border: solid $BLUE 1px;
   color: BLUE;
 }
 
-.transparentRed {
+.transparentRed_ordinary {
   @include button();
+  font-size: $BUTTON_TEXT_SMALL;
+  border: solid $RED 1px;
+  color: $RED;
+}
+
+.transparentBlue_big {
+  @include button();
+  font-size: $BUTTON_TEXT_SIZE;
+  border: solid $BLUE 1px;
+  color: BLUE;
+}
+
+.transparentRed_big {
+  @include button();
+  font-size: $BUTTON_TEXT_SIZE;
   border: solid $RED 1px;
   color: $RED;
 }

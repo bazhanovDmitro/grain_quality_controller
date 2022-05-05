@@ -1,32 +1,27 @@
-import Modal from "./Components/Modal";
-import { useState } from "react";
-import Confirm from "./Components/Confirm";
-import { CANCEL, DELETE } from "./Constants/text";
+import DropdownMenu from "./Components/DropdownMenu";
+import buttons from "./Assets/Styles/common/buttons.module.scss";
 
 function App() {
-  const [modal, setModal] = useState(false);
-
-  const md = (
-    <Modal onOtsideClick={() => setModal(false)}>
-      <Confirm
-        header={`Hello world`}
-        text={`Example text lorem ipsum dolor sit amet Example text lorem ipsum dolor sit amet Example text lorem ipsum dolor sit amet`}
-        highlighted={`Additional content`}
-        onDecline={() => setModal(false)}
-        onAccept={() => {
-          alert("Ok");
-          setModal(false);
-        }}
-        acceptText={DELETE}
-        declineText={CANCEL}
-      />
-    </Modal>
-  );
+  const buttonArray = [
+    {
+      text: `Print`,
+      className: buttons.transparentBlue_ordinary,
+      style: { padding: `5px 20px` },
+      onClick: () => alert(`test`),
+    },
+  ];
 
   return (
     <div className="App">
-      <button onClick={() => setModal(true)}>Modal</button>
-      {modal ? md : null}
+      <DropdownMenu buttons={buttonArray}>
+        <div
+          style={{
+            width: `500px`,
+            height: `300px`,
+            backgroundColor: `red`,
+          }}
+        ></div>
+      </DropdownMenu>
     </div>
   );
 }

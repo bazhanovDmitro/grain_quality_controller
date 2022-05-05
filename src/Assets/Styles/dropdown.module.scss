@@ -1,0 +1,18 @@
+@import "./common/colors.module.scss";
+
+.wrapper {
+  display: flex;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  .menu {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 20px;
+    border: solid $BLACK 1px;
+    background-color: $WHITE;
+    box-shadow: 0px 0px 10px $TRANSPARENT_BLACK;
+    border-radius: 5px;
+  }
+}

@@ -13,14 +13,14 @@ export default function Buttons({
     <div className={style.buttons}>
       <button
         onClick={onDecline}
-        className={buttons.transparentBlue}
+        className={buttons.transparentBlue_big}
         style={declineStyle ? declineStyle : null}
       >
         {declineText}
       </button>
       <button
         onClick={onAccept}
-        className={buttons.transparentRed}
+        className={buttons.transparentRed_big}
         style={acceptStyle ? acceptStyle : null}
       >
         {acceptText}
