@@ -1,0 +1,92 @@
+@import "./common/resolution.module.scss";
+@import "./common/colors.module.scss";
+@import "./logo.module.scss";
+@import "./common/font.module.scss";
+
+@include logo();
+
+.container {
+  border-bottom: 1px solid $WHITE;
+  height: 80px;
+  box-sizing: border-box;
+  svg {
+    width: 50px;
+    height: 50px
+  }
+  .text {
+    font-size: $TABLET_H1;
+  }
+}
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: $SIDEBAR_BROWN;
+  height: 100vh;
+  width: 300px;
+
+  @mixin sidebarLink {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    font-size: $BUTTON_TEXT_SMALL;
+    border: none;
+    background-color: transparent;
+    margin: {
+      top: 15px;
+      left: 15px;
+      right: 15px;
+    };
+    color: $WHITE;
+    font-weight: 900;
+    text-decoration: none;
+    width: fit-content;
+    cursor: pointer;
+
+    svg {
+      height: 45px;
+      width: 45px;
+    }
+  }
+
+  .logout {
+    @include sidebarLink();
+    position: absolute;
+    bottom: 15px;
+
+    &:hover {
+      color: $RED;
+      svg {
+        path {
+          fill: $RED;
+        }
+      }
+    }
+  }
+
+
+  .currentLocation {
+    @include sidebarLink();
+    cursor: default;
+    color: $GRAIN_YELLOW;
+    svg {
+      path {
+        fill: $GRAIN_YELLOW;
+      }
+    }
+  }
+
+  .standardButton {
+    @include sidebarLink();
+
+    &:hover {
+      color: $GRAIN_YELLOW_LIGHT;
+      svg {
+        path {
+          fill: $GRAIN_YELLOW_LIGHT;
+        }
+      }
+    }
+  }
+}
