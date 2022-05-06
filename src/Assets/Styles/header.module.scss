@@ -1,0 +1,102 @@
+@import "./common/colors.module.scss";
+@import "./common/font.module.scss";
+@import "./common/resolution.module.scss";
+
+@mixin wheat {
+  @media screen and (min-width: $MIN_DESCTOP) {
+    height: 80px;
+    width: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    path {
+      fill: $WHITE;
+    }
+  }
+  @media screen and (max-width: $MAX_TABLET){
+    height: 50px;
+    width: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    path {
+      fill: $WHITE;
+    }
+  }
+  
+  @media screen and (max-width: $MAX_MOBILE){
+    height: 35px;
+    width: 35px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    path {
+      fill: $WHITE;
+    }
+  }
+}
+
+
+@media screen and (min-width: $MIN_DESCTOP) {
+  .name {
+    font-size: $DESCTOP_H1;
+  }
+  .wheat_left {
+    @include wheat();
+    transform: rotate(45deg);
+  } 
+  .wheat_right {
+    @include wheat();
+    transform: rotate(315deg);
+  } 
+}
+@media screen and (max-width: $MAX_TABLET){
+  .name {
+    font-size: $TABLET_H1;
+  }
+  .wheat_left {
+    transform: rotate(45deg);
+  } 
+  .wheat_right {
+    transform: rotate(315deg);
+  } 
+}
+@media screen and (max-width: $MAX_MOBILE){
+  .name {
+    font-size: $TABLET_H1;
+    text-decoration: underline;
+  }
+  .wheat_left {
+    transform: rotate(0deg);
+  } 
+  .wheat_right {
+    transform: rotate(0deg);
+  } 
+}
+
+.container {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $HEADER_BROWN;
+  .wheat_left {
+    @include wheat();
+  } 
+  .wheat_right {
+    @include wheat();
+  } 
+  .name {
+    width: fit-content;
+    color: $WHITE;
+  }
+  .sidebar {
+    position: absolute;
+    display: flex;
+    left: 20px;
+    height: 65px;
+    width: 50px;
+  }
+}

@@ -1,28 +1,48 @@
-import DropdownMenu from "./Components/DropdownMenu";
-import buttons from "./Assets/Styles/common/buttons.module.scss";
+import { createContext, useState, useEffect } from "react";
+import Header from "./Layouts/Header";
+import { Outlet, useLocation } from "react-router-dom";
+import Sidebar from "./Components/Sidebar";
+
+export const UserContext = createContext();
 
 function App() {
-  const buttonArray = [
-    {
-      text: `Print`,
-      className: buttons.transparentBlue_ordinary,
-      style: { padding: `5px 20px` },
-      onClick: () => alert(`test`),
-    },
-  ];
+  const [isLogged, setLogged] = useState(false);
+
+  const [width, setWidth] = useState(null);
+
+  const { pathname } = useLocation();
+
+  const onResize = () => {
+    const windowWidth = window.innerWidth;
+    setWidth(windowWidth);
+  };
+
+  useEffect(() => {
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  const contextValue = {
+    isLogged: isLogged,
+    setLogged: setLogged,
+    width: width,
+    pathname: pathname,
+  };
 
   return (
-    <div className="App">
-      <DropdownMenu buttons={buttonArray}>
-        <div
-          style={{
-            width: `500px`,
-            height: `300px`,
-            backgroundColor: `red`,
-          }}
-        ></div>
-      </DropdownMenu>
-    </div>
+    <UserContext.Provider value={contextValue}>
+      <div className="App">
+        {/* Sidebar location */}
+        <div className="main">
+          <Header />
+          <Outlet />
+        </div>
+      </div>
+    </UserContext.Provider>
   );
 }
 

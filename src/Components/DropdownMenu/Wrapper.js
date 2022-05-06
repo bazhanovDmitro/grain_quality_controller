@@ -1,11 +1,21 @@
 import Menu from "./Menu";
 import { useState, useEffect } from "react";
 
-export default function DropdownWrapper({ children, buttons, style }) {
+export default function DropdownWrapper({
+  children,
+  buttons,
+  style,
+  closeAfterClick,
+}) {
   const [mouseCoords, setCoords] = useState(null);
 
-  const closeMenu = (event) => {
-    if (event.button !== 2 || event.target?.parrentElement?.id !== "wrapper")
+  const closeMenu = (event, forceClosing = false) => {
+    if (forceClosing) setCoords(null);
+    else if (
+      (event.button !== 2 || event.target?.parentElement?.id !== "wrapper") &&
+      event.target?.parentElement?.id !== "dropdownMenu" &&
+      event.target?.id !== "dropdownMenu"
+    )
       setCoords(null);
   };
 
@@ -34,7 +44,13 @@ export default function DropdownWrapper({ children, buttons, style }) {
       onContextMenu={onRightClick}
       onMouseDown={closeMenu}
     >
-      <Menu buttons={buttons} style={style} mouseCoordinates={mouseCoords} />
+      <Menu
+        buttons={buttons}
+        style={style}
+        mouseCoordinates={mouseCoords}
+        closeAfterClick={closeAfterClick}
+        onClose={closeMenu}
+      />
       {children}
     </div>
   );

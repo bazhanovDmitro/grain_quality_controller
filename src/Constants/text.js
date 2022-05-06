@@ -3,3 +3,6 @@ export const DELETE = "Delete";
 export const CANCEL = "Cancel";
 export const SAVE = "Save";
 export const PRONT = "Print";
+export const SYSTEM_FULL_NAME = "Grain Quality Controller";
+export const SYSTEM_SHORT_NAME = "GQC";
+export const LOGOUT = "Logout";
