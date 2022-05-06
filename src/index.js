@@ -3,14 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./Assets/Styles/global.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { INITIAL } from "./Constants/links";
+import { ABOUT, INITIAL } from "./Constants/links";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path={INITIAL} element={<App />}></Route>
+        <Route path={INITIAL} element={<App />}>
+          <Route path={ABOUT} element={<div>ABOUT</div>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
