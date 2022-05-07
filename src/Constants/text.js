@@ -6,3 +6,5 @@ export const PRONT = "Print";
 export const SYSTEM_FULL_NAME = "Grain Quality Controller";
 export const SYSTEM_SHORT_NAME = "GQC";
 export const LOGOUT = "Logout";
+export const LOGIN = "Login";
+export const FILL_THE_FORM = "Fill the form";

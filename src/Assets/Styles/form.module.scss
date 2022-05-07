@@ -1,0 +1,126 @@
+@import "./common/font.module.scss";
+@import "./common/buttons.module.scss";
+@import "./common/colors.module.scss";
+@import "./common/resolution.module.scss";
+
+@mixin comonStyles {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  padding: 25px;
+  width: 100%;
+  background-color: $SIDEBAR_BROWN;
+  border-radius: 15px;
+
+  .error {
+    position: absolute;
+    color: $RED;
+    bottom: -15px;
+    font-size: $ERROR_FONT;
+  }
+
+  .field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    input {
+      height: 36px;
+      padding: 5px;
+      font-size: $INPUT_FONT_MOBILE;
+      box-sizing: border-box;
+      margin: {
+        top: 25px;
+      }
+    }
+  }
+  .submit {
+    @include blue_small();
+    margin: {
+      top: 25px;
+    };
+  }
+
+  .paginator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .paginatorHeader {
+      font-size: $H3_MOBILE;
+      color: $WHITE;
+    }
+
+    .button {
+      position: relative;
+      @include blue_small;
+      padding: 0;
+      height: 40px;
+      width: 60px;
+      background-color: $BLUE;
+      border-radius: 5px;
+      border: solid 1px $BLUE;
+      cursor: pointer;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 25px;
+        path {
+          fill: $WHITE;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $MIN_DESCTOP) {
+  .form {
+    @include comonStyles();
+    display: inline-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 730px;
+
+    .fieldContainer {
+      display: inline-flex;
+      width: 100%;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      height: 439px;
+      .field {
+        width: 48%;
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .submit {
+      max-width: 360px;
+    }
+
+    .paginator {
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+}
+
+@media screen and (max-width: $MAX_TABLET) {
+  .form {
+    @include comonStyles();
+    max-width: 365px;
+    
+    .field {
+      input {
+        width: 100%;
+      }
+    }
+  }
+}

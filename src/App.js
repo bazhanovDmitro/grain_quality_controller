@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import Header from "./Layouts/Header";
 import { Outlet, useLocation } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
 
 export const UserContext = createContext();
 
