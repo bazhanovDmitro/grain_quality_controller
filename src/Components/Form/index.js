@@ -66,7 +66,7 @@ export default function CustomForm({
       {() => (
         <Form
           className={
-            width > TABLET_VIEW && fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+            width > TABLET_VIEW && fields.length >= INPUT_COUNT_ON_SINGLE_PAGE
               ? style.form
               : style.form_mobile
           }
@@ -84,7 +84,16 @@ export default function CustomForm({
                 : null
             }
           >
-            <h1 className={style?.name}>{formName}</h1>
+            <h1
+              className={style?.name}
+              style={
+                !(fields.length >= INPUT_COUNT_ON_SINGLE_PAGE)
+                  ? { width: `100%` }
+                  : null
+              }
+            >
+              {formName}
+            </h1>
             {onChangeForm &&
             width > TABLET_VIEW &&
             fields.length >= INPUT_COUNT_ON_SINGLE_PAGE ? (
@@ -119,7 +128,7 @@ export default function CustomForm({
           <div
             className={style?.fieldContainer}
             style={
-              fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+              fields.length >= INPUT_COUNT_ON_SINGLE_PAGE
                 ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54}px` }
                 : null
             }
