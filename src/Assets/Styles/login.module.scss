@@ -1,0 +1,21 @@
+@import "./common/colors.module.scss";
+
+.loginHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  height: fit-content;
+  width: fit-content;
+
+  span {
+    a {
+      margin-left: 5px;
+      color: $BLUE;
+    }
+  }
+}
