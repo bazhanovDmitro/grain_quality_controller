@@ -13,6 +13,7 @@ import style from "../../Assets/Styles/form.module.scss";
 
 export default function CustomForm({
   fields,
+  formName,
   onSubmit,
   onCancel,
   onChangeForm,
@@ -62,9 +63,18 @@ export default function CustomForm({
     >
       {() => (
         <Form
-          className={style.form}
-          style={isPaginatorVisible ? { height: `585px` } : null}
+          className={
+            width > TABLET_VIEW && fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+              ? style.form
+              : style.form_mobile
+          }
+          style={
+            isPaginatorVisible && width <= TABLET_VIEW
+              ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 61 + 124}px` }
+              : null
+          }
         >
+          <h1 className={style?.name}>{formName}</h1>
           {width > TABLET_VIEW && onCancel ? (
             <Close onClick={onCancelButtonClick} />
           ) : null}
@@ -76,17 +86,17 @@ export default function CustomForm({
               onPageIncrease={onIncrease}
               totalRecordNumber={fields.length}
               children={
-                <h3 className={style.paginatorHeader}>{FILL_THE_FORM}</h3>
+                <h3 className={style?.paginatorHeader}>{FILL_THE_FORM}</h3>
               }
               style={style}
             />
           ) : null}
           {onChangeForm ? (
             <div style={{ height: "36px", marginTop: "25px" }}>
-              Here should be a select elem and a name for this form
+              Select box will be here for cereal form
             </div>
           ) : null}
-          <div className={style.fieldContainer}>
+          <div className={style?.fieldContainer}>
             {fields.map((field, index) => (
               <div
                 key={field.name}
@@ -95,13 +105,13 @@ export default function CustomForm({
                     ? { display: `flex` }
                     : { display: `none` }
                 }
-                className={style.field}
+                className={style?.field}
               >
                 <Field type={field.type} name={field.name} />
                 <ErrorMessage
                   name={field.name}
                   render={(message) => (
-                    <Error message={message} className={style.error} />
+                    <Error message={message} className={style?.error} />
                   )}
                 />
               </div>
@@ -115,7 +125,7 @@ export default function CustomForm({
               onPageIncrease={onIncrease}
               totalRecordNumber={fields.length}
               children={
-                <button type="submit" className={style.submit}>
+                <button type="submit" className={style?.submit}>
                   {submitText}
                 </button>
               }
@@ -124,9 +134,11 @@ export default function CustomForm({
           ) : null}
           <>
             {!isPaginatorVisible || width <= TABLET_VIEW ? (
-              <button type="submit" className={style.submit}>
-                {submitText}
-              </button>
+              <div className={style.submitContainer}>
+                <button type="submit" className={style?.submit}>
+                  {submitText}
+                </button>
+              </div>
             ) : null}
             {width <= TABLET_VIEW && onCancel ? (
               <button onClick={onCancelButtonClick}>{CANCEL}</button>

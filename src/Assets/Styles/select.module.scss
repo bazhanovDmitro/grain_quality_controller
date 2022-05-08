@@ -1,0 +1,23 @@
+@import "../Styles/common/colors.module.scss";
+@import "../Styles/common/font.module.scss";
+
+.select {
+  position: relative;
+  background-color: $WHITE;
+  font-size: $INPUT_FONT_MOBILE;
+  width: 100%;
+  box-sizing: border-box;
+
+  .inputArea {
+    width: 90%;
+  }
+
+  svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 13px;
+    height: 5px;
+  }
+}

@@ -13,6 +13,12 @@
   background-color: $SIDEBAR_BROWN;
   border-radius: 15px;
 
+  .name {
+    text-align: center;
+    font-size: $H3_MOBILE;
+    color: $WHITE;
+  }
+
   .error {
     position: absolute;
     color: $RED;
@@ -77,50 +83,54 @@
   }
 }
 
-@media screen and (min-width: $MIN_DESCTOP) {
-  .form {
-    @include comonStyles();
+
+.form {
+  @include comonStyles();
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 730px;
+
+  .fieldContainer {
     display: inline-flex;
+    width: 100%;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 730px;
-
-    .fieldContainer {
-      display: inline-flex;
-      width: 100%;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      height: 439px;
-      .field {
-        width: 48%;
-        input {
-          width: 100%;
-        }
-      }
-    }
-
-    .submit {
-      max-width: 360px;
-    }
-
-    .paginator {
-      display: flex;
-      align-items: flex-end;
-    }
-  }
-}
-
-@media screen and (max-width: $MAX_TABLET) {
-  .form {
-    @include comonStyles();
-    max-width: 365px;
-    
+    align-content: flex-start;
+    height: 439px;
     .field {
+      width: 48%;
       input {
         width: 100%;
       }
+    }
+  }
+
+  .submitContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .submit {
+    max-width: 360px;
+  }
+
+  .paginator {
+    display: flex;
+    align-items: flex-end;
+  }
+}
+
+
+.form_mobile {
+  @include comonStyles();
+  max-width: 365px;
+
+  .field {
+    input {
+      width: 100%;
     }
   }
 }

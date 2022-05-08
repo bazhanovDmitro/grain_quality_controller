@@ -8,3 +8,4 @@ export const SYSTEM_SHORT_NAME = "GQC";
 export const LOGOUT = "Logout";
 export const LOGIN = "Login";
 export const FILL_THE_FORM = "Fill the form";
+export const ENTER_CREDENTIALS = "Enter your credentials";
