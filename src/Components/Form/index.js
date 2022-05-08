@@ -41,9 +41,11 @@ export default function CustomForm({
   const isPaginatorVisible = fields.length > input_count;
 
   useEffect(() => {
+    const reservedForSelector = onChangeForm ? 1 : 0;
+
     const new_ic =
       width <= TABLET_VIEW
-        ? INPUT_COUNT_ON_SINGLE_PAGE
+        ? INPUT_COUNT_ON_SINGLE_PAGE - reservedForSelector
         : 2 * INPUT_COUNT_ON_SINGLE_PAGE;
 
     setCount((prev) => {
@@ -53,7 +55,7 @@ export default function CustomForm({
       }
       return prev;
     });
-  }, [width]);
+  }, [width, onChangeForm]);
 
   return (
     <Formik
@@ -69,12 +71,35 @@ export default function CustomForm({
               : style.form_mobile
           }
           style={
-            isPaginatorVisible && width <= TABLET_VIEW
-              ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 61 + 124}px` }
+            fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+              ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54 + 124}px` }
               : null
           }
         >
-          <h1 className={style?.name}>{formName}</h1>
+          <div
+            className={style.nameContainer}
+            style={
+              width <= TABLET_VIEW && isPaginatorVisible
+                ? { display: `none` }
+                : null
+            }
+          >
+            <h1 className={style?.name}>{formName}</h1>
+            {onChangeForm &&
+            width > TABLET_VIEW &&
+            fields.length >= INPUT_COUNT_ON_SINGLE_PAGE ? (
+              <div>
+                <input
+                  style={{
+                    height: "36px",
+                    marginTop: "4px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+            ) : null}
+          </div>
           {width > TABLET_VIEW && onCancel ? (
             <Close onClick={onCancelButtonClick} />
           ) : null}
@@ -91,12 +116,28 @@ export default function CustomForm({
               style={style}
             />
           ) : null}
-          {onChangeForm ? (
-            <div style={{ height: "36px", marginTop: "25px" }}>
-              Select box will be here for cereal form
-            </div>
-          ) : null}
-          <div className={style?.fieldContainer}>
+          <div
+            className={style?.fieldContainer}
+            style={
+              fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+                ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54}px` }
+                : null
+            }
+          >
+            {(onChangeForm && width <= TABLET_VIEW) ||
+            (onChangeForm && fields.length < INPUT_COUNT_ON_SINGLE_PAGE) ? (
+              <div>
+                <input
+                  style={{
+                    height: "36px",
+                    width: "100%",
+                    marginTop: "18px",
+                    padding: "5px",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
+            ) : null}
             {fields.map((field, index) => (
               <div
                 key={field.name}
