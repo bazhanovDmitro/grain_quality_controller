@@ -37,6 +37,16 @@
   width: 100%;
 }
 
+@mixin red_small {
+  @include button();
+  font-size: $BUTTON_TEXT_SMALL;
+  border: solid $RED 1px;
+  background-color: $RED;
+  color: $WHITE;
+  height: 40px;
+  width: 100%;
+}
+
 .blue_small {
   @include button();
   font-size: $BUTTON_TEXT_SMALL;

@@ -4,10 +4,10 @@ import Error from "./Error";
 import { useState, useEffect, useContext } from "react";
 import {
   INPUT_COUNT_ON_SINGLE_PAGE,
+  MOBILE_VIEW,
   TABLET_VIEW,
 } from "../../Constants/numbers";
 import Paginator from "../Paginator";
-import Close from "../Buttons/Close";
 import { UserContext } from "../../App";
 import style from "../../Assets/Styles/form.module.scss";
 
@@ -40,6 +40,14 @@ export default function CustomForm({
 
   const isPaginatorVisible = fields.length > input_count;
 
+  const formClass = () => {
+    if (width <= MOBILE_VIEW) return style.form_mobile;
+    else if (width <= TABLET_VIEW) return style.form_tablet;
+    else if (width > TABLET_VIEW && fields.length > INPUT_COUNT_ON_SINGLE_PAGE)
+      return style.form;
+    else return style.form_tablet;
+  };
+
   useEffect(() => {
     const reservedForSelector = onChangeForm ? 1 : 0;
 
@@ -65,11 +73,7 @@ export default function CustomForm({
     >
       {() => (
         <Form
-          className={
-            width > TABLET_VIEW && fields.length >= INPUT_COUNT_ON_SINGLE_PAGE
-              ? style.form
-              : style.form_mobile
-          }
+          className={formClass()}
           style={
             fields.length > INPUT_COUNT_ON_SINGLE_PAGE
               ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54 + 124}px` }
@@ -109,9 +113,6 @@ export default function CustomForm({
               </div>
             ) : null}
           </div>
-          {width > TABLET_VIEW && onCancel ? (
-            <Close onClick={onCancelButtonClick} />
-          ) : null}
           {width <= TABLET_VIEW && isPaginatorVisible ? (
             <Paginator
               page={page}
@@ -157,7 +158,11 @@ export default function CustomForm({
                 }
                 className={style?.field}
               >
-                <Field type={field.type} name={field.name} />
+                <Field
+                  type={field.type}
+                  name={field.name}
+                  placeholder={field.name}
+                />
                 <ErrorMessage
                   name={field.name}
                   render={(message) => (
@@ -175,25 +180,39 @@ export default function CustomForm({
               onPageIncrease={onIncrease}
               totalRecordNumber={fields.length}
               children={
-                <button type="submit" className={style?.submit}>
-                  {submitText}
-                </button>
+                <div
+                  className={style.buttonContainer}
+                  style={width > TABLET_VIEW ? { width: `50%` } : null}
+                >
+                  <button type="submit" className={style?.submit}>
+                    {submitText}
+                  </button>
+                  {onCancel ? (
+                    <button
+                      className={style.cancel}
+                      onClick={onCancelButtonClick}
+                    >
+                      {CANCEL}
+                    </button>
+                  ) : null}
+                </div>
               }
               style={style}
             />
           ) : null}
-          <>
+          <div className={style.buttonContainer}>
             {!isPaginatorVisible || width <= TABLET_VIEW ? (
-              <div className={style.submitContainer}>
-                <button type="submit" className={style?.submit}>
-                  {submitText}
-                </button>
-              </div>
+              <button type="submit" className={style?.submit}>
+                {submitText}
+              </button>
             ) : null}
-            {width <= TABLET_VIEW && onCancel ? (
-              <button onClick={onCancelButtonClick}>{CANCEL}</button>
+            {(!isPaginatorVisible && onCancel) ||
+            (width <= TABLET_VIEW && onCancel) ? (
+              <button className={style.cancel} onClick={onCancelButtonClick}>
+                {CANCEL}
+              </button>
             ) : null}
-          </>
+          </div>
         </Form>
       )}
     </Formik>

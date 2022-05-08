@@ -46,11 +46,23 @@
       }
     }
   }
-  .submit {
-    @include blue_small();
-    margin: {
-      top: 25px;
-    };
+  .buttonContainer {
+    display: inline-flex;
+    justify-content: center;
+    column-gap: 10px;
+    width: 100%;
+
+    .submit {
+      @include blue_small();
+      margin: {
+        top: 25px;
+      };
+    }
+    .cancel {
+      @include red_small();
+      margin-top: 25px;
+      width: 100%;
+    }
   }
 
   .paginator {
@@ -111,12 +123,6 @@
     }
   }
 
-  .submitContainer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
   .submit {
     max-width: 360px;
   }
@@ -128,9 +134,24 @@
 }
 
 
+.form_tablet {
+  @include comonStyles();
+  max-width: 400px;
+  padding: {
+    left: 40px;
+    right: 40px;
+  }
+
+  .field {
+    input {
+      width: 100%;
+    }
+    }
+}
+
 .form_mobile {
   @include comonStyles();
-  max-width: 365px;
+  max-width: 400px;
 
   .field {
     input {
