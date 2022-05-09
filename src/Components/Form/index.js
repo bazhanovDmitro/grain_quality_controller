@@ -10,23 +10,30 @@ import {
 import Paginator from "../Paginator";
 import { UserContext } from "../../App";
 import style from "../../Assets/Styles/form.module.scss";
+import Select from "../Select";
 
 export default function CustomForm({
   fields,
-  formName,
+  formHeader,
   onSubmit,
   onCancel,
   onChangeForm,
+  formList,
+  currentFormIndex,
   validationSchema,
   submitText,
 }) {
   const { width } = useContext(UserContext);
   const [input_count, setCount] = useState(INPUT_COUNT_ON_SINGLE_PAGE);
   const [page, setPage] = useState(input_count);
+  const [formFields, setFormFields] = useState([]);
 
-  const getInitValuesObject = (fields) => {
+  const getInitValuesObject = (formFields) => {
     const initialValues = {};
-    fields.forEach((field) => (initialValues[field.name] = field.initialValue));
+    formFields?.forEach(
+      (field) => (initialValues[field.name] = field.initialValue)
+    );
+
     return initialValues;
   };
 
@@ -38,12 +45,15 @@ export default function CustomForm({
     onCancel();
   };
 
-  const isPaginatorVisible = fields.length > input_count;
+  const isPaginatorVisible = formFields?.length > input_count;
 
   const formClass = () => {
     if (width <= MOBILE_VIEW) return style.form_mobile;
     else if (width <= TABLET_VIEW) return style.form_tablet;
-    else if (width > TABLET_VIEW && fields.length > INPUT_COUNT_ON_SINGLE_PAGE)
+    else if (
+      width > TABLET_VIEW &&
+      formFields?.length > INPUT_COUNT_ON_SINGLE_PAGE
+    )
       return style.form;
     else return style.form_tablet;
   };
@@ -65,9 +75,13 @@ export default function CustomForm({
     });
   }, [width, onChangeForm]);
 
+  useEffect(() => {
+    setFormFields(fields);
+  }, [fields]);
+
   return (
     <Formik
-      initialValues={getInitValuesObject(fields)}
+      initialValues={getInitValuesObject(formFields)}
       validationSchema={validationSchema}
       onSubmit={(values) => onSubmit(values)}
     >
@@ -75,7 +89,7 @@ export default function CustomForm({
         <Form
           className={formClass()}
           style={
-            fields.length > INPUT_COUNT_ON_SINGLE_PAGE
+            formFields?.length > INPUT_COUNT_ON_SINGLE_PAGE
               ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54 + 124}px` }
               : null
           }
@@ -91,24 +105,21 @@ export default function CustomForm({
             <h1
               className={style?.name}
               style={
-                !(fields.length >= INPUT_COUNT_ON_SINGLE_PAGE)
+                !(formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE)
                   ? { width: `100%` }
                   : null
               }
             >
-              {formName}
+              {formHeader}
             </h1>
             {onChangeForm &&
             width > TABLET_VIEW &&
-            fields.length >= INPUT_COUNT_ON_SINGLE_PAGE ? (
-              <div>
-                <input
-                  style={{
-                    height: "36px",
-                    marginTop: "4px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                  }}
+            formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE ? (
+              <div className={style.selectHolder}>
+                <Select
+                  itemList={formList}
+                  onItemChange={onChangeForm}
+                  currentItemIndex={currentFormIndex}
                 />
               </div>
             ) : null}
@@ -119,7 +130,7 @@ export default function CustomForm({
               elementsNumberOnPage={input_count}
               onPageDecrease={onDecrease}
               onPageIncrease={onIncrease}
-              totalRecordNumber={fields.length}
+              totalRecordNumber={formFields?.length}
               children={
                 <h3 className={style?.paginatorHeader}>{FILL_THE_FORM}</h3>
               }
@@ -129,26 +140,23 @@ export default function CustomForm({
           <div
             className={style?.fieldContainer}
             style={
-              fields.length >= INPUT_COUNT_ON_SINGLE_PAGE
+              formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE
                 ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54}px` }
                 : null
             }
           >
             {(onChangeForm && width <= TABLET_VIEW) ||
-            (onChangeForm && fields.length < INPUT_COUNT_ON_SINGLE_PAGE) ? (
-              <div>
-                <input
-                  style={{
-                    height: "36px",
-                    width: "100%",
-                    marginTop: "18px",
-                    padding: "5px",
-                    boxSizing: "border-box",
-                  }}
+            (onChangeForm &&
+              formFields?.length < INPUT_COUNT_ON_SINGLE_PAGE) ? (
+              <div className={style.selectHolder}>
+                <Select
+                  itemList={formList}
+                  onItemChange={onChangeForm}
+                  currentItemIndex={currentFormIndex}
                 />
               </div>
             ) : null}
-            {fields.map((field, index) => (
+            {formFields?.map((field, index) => (
               <div
                 key={field.name}
                 style={
@@ -178,7 +186,7 @@ export default function CustomForm({
               elementsNumberOnPage={input_count}
               onPageDecrease={onDecrease}
               onPageIncrease={onIncrease}
-              totalRecordNumber={fields.length}
+              totalRecordNumber={formFields?.length}
               children={
                 <div
                   className={style.buttonContainer}

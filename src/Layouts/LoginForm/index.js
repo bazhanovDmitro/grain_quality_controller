@@ -9,18 +9,47 @@ import {
 import style from "../../Assets/Styles/login.module.scss";
 import { Link } from "react-router-dom";
 import { RESTORE_PASSWORD } from "../../Constants/links";
+import { useState, useEffect } from "react";
 
-const fields = [
-  { type: "text", name: "email", initialValue: "" },
-  { type: "password", name: "password", initialValue: "" },
+const requestedForms = [
+  {
+    name: `Wheat`,
+    fields: [
+      { type: "text", name: "email", initialValue: "" },
+      { type: "password", name: "password", initialValue: "" },
+    ],
+  },
+  {
+    name: `Rice`,
+    fields: [
+      { type: "text", name: "rice", initialValue: "" },
+      { type: "text", name: "text", initialValue: "" },
+    ],
+  },
 ];
 
 export default function LoginForm() {
+  const [currentFormIndex, setFormIndex] = useState(0);
+  const [forms, setForms] = useState(null);
+
+  const onFormChange = (name) => {
+    const form = forms.findIndex((form) => form.name === name);
+    setFormIndex(form);
+  };
+
+  useEffect(() => {
+    setFormIndex(0);
+    setForms(requestedForms);
+  }, []);
+
   return (
     <div className={style.loginHolder}>
       <CustomForm
-        formName={ENTER_CREDENTIALS}
-        fields={fields}
+        onChangeForm={onFormChange}
+        currentFormIndex={currentFormIndex}
+        formList={forms}
+        formHeader={ENTER_CREDENTIALS}
+        fields={forms?.[currentFormIndex].fields}
         validationSchema={loginSchema}
         submitText={LOGIN}
         onSubmit={(values) => console.log(values)}
