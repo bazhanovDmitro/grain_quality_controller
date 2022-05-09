@@ -28,9 +28,9 @@ export default function CustomForm({
   const [page, setPage] = useState(input_count);
   const [formFields, setFormFields] = useState([]);
 
-  const getInitValuesObject = (formFields) => {
+  const getInitValuesObject = (fields) => {
     const initialValues = {};
-    formFields?.forEach(
+    fields?.forEach(
       (field) => (initialValues[field.name] = field.initialValue)
     );
 
@@ -81,6 +81,7 @@ export default function CustomForm({
 
   return (
     <Formik
+      key={formFields?.[0]?.name}
       initialValues={getInitValuesObject(formFields)}
       validationSchema={validationSchema}
       onSubmit={(values) => onSubmit(values)}
