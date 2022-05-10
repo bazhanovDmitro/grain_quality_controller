@@ -6,7 +6,6 @@
 @include logo();
 
 .container {
-  border-bottom: 1px solid $WHITE;
   height: 80px;
   box-sizing: border-box;
   svg {
@@ -25,6 +24,19 @@
   background-color: $SIDEBAR_BROWN;
   height: 100vh;
   width: 300px;
+  z-index: 2;
+
+  .logoArea {
+    display: flex;
+    border-bottom: solid $WHITE 1px;
+    flex-direction: row;
+    align-items: center;
+
+    button {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 
   @mixin sidebarLink {
     display: flex;
@@ -79,6 +91,11 @@
 
   .standardButton {
     @include sidebarLink();
+    svg {
+      path {
+        fill: $WHITE;
+      }
+    }
 
     &:hover {
       color: $GRAIN_YELLOW_LIGHT;

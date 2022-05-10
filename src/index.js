@@ -17,6 +17,8 @@ import {
   RESTORE_PASSWORD,
 } from "./Constants/links";
 import LoginForm from "./Layouts/LoginForm";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import { WORKER, MANAGER, ADMIN } from "./Constants/roles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,24 +27,90 @@ root.render(
       <Routes>
         <Route path={INITIAL} element={<App />}>
           <Route path={INITIAL_DEFAULT} element={<LoginForm />} />
-          <Route path={ANALIZER} element={<div>ANALIZER</div>} />
-          <Route path={REPORTS} element={<div>REPORTS</div>} />
-          <Route path={REPORT_PREVIEW} element={<div>REPORT PREVIEW</div>} />
+          <Route
+            path={ANALIZER}
+            element={
+              <ProtectedRoute
+                requiredRoles={WORKER}
+                element={<div>ANALIZER</div>}
+              />
+            }
+          />
+          <Route
+            path={REPORTS}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER]}
+                element={<div>REPORTS</div>}
+              />
+            }
+          />
+          <Route
+            path={REPORT_PREVIEW}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER]}
+                element={<div>REPORT PREVIEW</div>}
+              />
+            }
+          />
 
-          <Route path={ABOUT} element={<div>ABOUT</div>} />
+          <Route
+            path={ABOUT}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER, ADMIN]}
+                element={<div>ABOUT</div>}
+              />
+            }
+          />
           <Route
             path={CHANGE_CREDENTIALS}
-            element={<div>CHANGE CREDENTIALS</div>}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER, ADMIN]}
+                element={<div>CHANGE CREDENTIALS</div>}
+              />
+            }
           />
 
-          <Route path={EMPLOYEE_LIST} element={<div>EMPLOYEE LIST</div>} />
+          <Route
+            path={EMPLOYEE_LIST}
+            element={
+              <ProtectedRoute
+                requiredRoles={MANAGER}
+                element={<div>EMPLOYEE LIST</div>}
+              />
+            }
+          />
           <Route
             path={ORGANIZATION_LIST}
-            element={<div>ORGANIZATION LIST</div>}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<div>ORGANIZATION LIST</div>}
+              />
+            }
           />
-          <Route path={NORMS} element={<div>NORM FORM</div>} />
+          <Route
+            path={NORMS}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<div>NORM FORM</div>}
+              />
+            }
+          />
 
-          <Route path={RESTORE_PASSWORD} element={<div>RESTORE PAGE</div>} />
+          <Route
+            path={RESTORE_PASSWORD}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER, ADMIN]}
+                element={<div>RESTORE PAGE</div>}
+              />
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
