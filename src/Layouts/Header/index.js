@@ -8,21 +8,21 @@ import { INITIAL } from "../../Constants/links";
 import { TABLET_VIEW, MOBILE_VIEW } from "../../Constants/numbers";
 
 export default function Header() {
-  const { isLogged, width, pathname } = useContext(UserContext);
+  const { role, width, pathname, setSidebar } = useContext(UserContext);
 
   const sidebar =
     pathname !== "/" + INITIAL && width < TABLET_VIEW ? (
-      <Sidebar className={style.sidebar} />
+      <Sidebar className={style.sidebar} onClick={() => setSidebar(true)} />
     ) : null;
 
   return (
     <div className={style.container}>
       {sidebar}
-      {!isLogged ? <Wheat className={style.wheat_left} /> : null}
+      {!role ? <Wheat className={style.wheat_left} /> : null}
       <h1 className={style.name}>
         {width > MOBILE_VIEW ? SYSTEM_FULL_NAME : SYSTEM_SHORT_NAME}
       </h1>
-      {!isLogged ? <Wheat className={style.wheat_right} /> : null}
+      {!role ? <Wheat className={style.wheat_right} /> : null}
     </div>
   );
 }

@@ -1,13 +1,15 @@
 import { createContext, useState, useEffect } from "react";
 import Header from "./Layouts/Header";
 import { Outlet, useLocation } from "react-router-dom";
+import Sidebar from "./Components/Sidebar/index";
 
 export const UserContext = createContext();
 
 function App() {
-  const [isLogged, setLogged] = useState(false);
+  const [role, setRole] = useState(3);
 
   const [width, setWidth] = useState(null);
+  const [isSidebarVisible, setSidebar] = useState(false);
 
   const { pathname } = useLocation();
 
@@ -26,16 +28,18 @@ function App() {
   }, []);
 
   const contextValue = {
-    isLogged: isLogged,
-    setLogged: setLogged,
+    role: role,
+    setRole: setRole,
     width: width,
     pathname: pathname,
+    isSidebarVisible: isSidebarVisible,
+    setSidebar: setSidebar,
   };
 
   return (
     <UserContext.Provider value={contextValue}>
       <div className="App">
-        {/* Sidebar location */}
+        <Sidebar />
         <div className="main">
           <Header />
           <Outlet />
