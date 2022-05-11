@@ -19,6 +19,7 @@ import {
 import LoginForm from "./Layouts/LoginForm";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import { WORKER, MANAGER, ADMIN } from "./Constants/roles";
+import About from "./Pages/About";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -60,7 +61,7 @@ root.render(
             element={
               <ProtectedRoute
                 requiredRoles={[WORKER, MANAGER, ADMIN]}
-                element={<div>ABOUT</div>}
+                element={<About />}
               />
             }
           />
