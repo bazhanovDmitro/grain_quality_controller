@@ -11,15 +11,25 @@ export default function HintCard({
   onClose,
   children,
   timing = null,
+  offScreenAnimation,
 }) {
   useEffect(() => {
+    let timeout;
     if (timing) {
-      setTimeout(() => onClose(), timing);
+      timeout = setTimeout(() => onClose(), timing);
     }
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [timing, onClose]);
 
   return (
-    <div className={style.container}>
+    <div
+      className={`${style.container} ${
+        offScreenAnimation ? style.animatedContainer : null
+      }`}
+    >
       <div
         className={style.headerContainer}
         style={{ display: children ? "inline-flex" : "flex" }}

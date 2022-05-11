@@ -33,3 +33,7 @@ export const HOW_TO_USE = "How to use it";
 export const PERFORM = "Perform";
 export const ARE_YOU_SURE = "Are you sure?";
 export const PERFORM_LINK_TRANSITION = "Are you sure you want to logout?";
+export const ENTER_NEW_CRED = "Enter new credentials";
+export const CONFIRM_CHANGES = "Confirm changes";
+export const PASSWORD_MUST_CONTAIN = "Minimum 8 characters and 1 number";
+export const PASSWORDS_MUST_MATCH = "Passwords must match";

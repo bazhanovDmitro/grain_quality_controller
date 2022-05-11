@@ -42,3 +42,20 @@
     }
   }
 }
+
+.animatedContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  transition: 0.3s ease-in-out;
+  animation: hintInvokation 0.3s forwards;
+}
+
+@keyframes hintInvokation {
+  0% {
+    margin-right: -450px;
+  }
+  100% {
+    margin-right: 0px;
+  }
+}

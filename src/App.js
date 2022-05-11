@@ -6,7 +6,7 @@ import Sidebar from "./Components/Sidebar/index";
 export const UserContext = createContext();
 
 function App() {
-  const [role, setRole] = useState(3);
+  const [role, setRole] = useState(1);
 
   const [width, setWidth] = useState(null);
   const [isSidebarVisible, setSidebar] = useState(false);
