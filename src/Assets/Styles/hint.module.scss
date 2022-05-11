@@ -21,7 +21,7 @@
     background-color: $SIDEBAR_BROWN;
     border-radius: 10px 10px 0 0;
     border-bottom: 1px solid $BLACK;
-    padding: 5px;
+    padding: 10px;
   }
   .bodyContainer {
     display: flex;
@@ -33,6 +33,7 @@
     column-gap: 15px;
 
     .textArea {
+      width: 100%;
       .highlighted {
         font-weight: 900;
         font-family: 'Radio Canada', sans-serif;

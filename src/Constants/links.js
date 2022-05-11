@@ -11,3 +11,4 @@ export const RESTORE_PASSWORD = "/auth/restore";
 export const EMPLOYEE_LIST = "/employee";
 export const ORGANIZATION_LIST = "/organizations";
 export const NORMS = "/norms/change";
+export const LOGOUT = "/auth/logout";

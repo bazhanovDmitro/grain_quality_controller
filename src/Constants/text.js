@@ -25,3 +25,11 @@ export const EMPLOYEE_LIST_TEXT = "Employee list";
 
 export const ORGANIZATION_LIST_TEXT = "Organization list";
 export const NORMS_TEXT = "Norms";
+export const PURPOSE = "Purpose";
+export const PURPOSE_TEXT =
+  "This project was developed to help you to analize grain quality.";
+export const HOW_TO_USE = "How to use it";
+
+export const PERFORM = "Perform";
+export const ARE_YOU_SURE = "Are you sure?";
+export const PERFORM_LINK_TRANSITION = "Are you sure you want to logout?";

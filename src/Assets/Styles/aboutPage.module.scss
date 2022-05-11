@@ -1,0 +1,73 @@
+@import "./common/colors.module.scss";
+@import "./common/resolution.module.scss";
+@import "./common/font.module.scss";
+
+.about {
+  display: flex;
+  flex-direction: column;
+  background-color: $WHITE;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 90%;
+  overflow: scroll;
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  box-sizing: border-box;
+
+  .textArea {
+    width: 100%;
+    margin-top: 40px;
+    font-size: $INPUT_FONT_MOBILE;
+
+    h2 {
+      margin: {
+        top: 15px;
+        bottom: 7px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $MIN_DESCTOP) {
+  .about {
+    max-width: 800px;
+
+    .OfficeSvg {
+      width: 450px;
+    }
+  }
+}
+
+@media screen and (max-width: $MAX_TABLET) {
+  .about {
+    max-width: 800px;
+
+    .svgContainer {
+      height: 330px;
+      width: 450px;
+      .OfficeSvg {
+        height: 330px;
+        width: 450px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $MAX_MOBILE) {
+  .about {
+    width: 100%;
+    padding: 20px;
+    .svgContainer {
+      display: none;
+    }
+
+    .textArea {
+      margin-top: 0;
+    }
+  }
+}

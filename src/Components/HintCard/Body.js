@@ -4,7 +4,7 @@ export default function Body({
   closeButton,
   onClose,
   text,
-  highlighted,
+  highlighted = "",
   style,
 }) {
   return (
