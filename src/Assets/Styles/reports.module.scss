@@ -61,6 +61,7 @@
     .half {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       column-gap: 5px;
       width: 48%;
     }
@@ -78,7 +79,8 @@
 
 @media screen and (max-width: $MAX_TABLET) {
   .reportsHolder {
-    max-width: 412px;
+    max-width: 410px;
+    width: 100%;
     .main {
       display: flex;
       flex-direction: column;
@@ -87,6 +89,10 @@
       .item {
         width: 100%;
       }
+    }
+    .line {
+      display: inline-flex;
+      justify-content: space-between;
     }
   }
 }

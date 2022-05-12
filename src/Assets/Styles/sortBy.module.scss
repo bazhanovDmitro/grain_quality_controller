@@ -1,0 +1,49 @@
+@import "./common/colors.module.scss";
+
+@mixin commonStyles {
+  width: fit-content;
+    box-sizing: border-box;
+    padding: {
+      left: 5px;
+      right: 5px;
+    }
+    background-color: $WHITE;
+}
+
+.sortByContainer {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  .sortBy {
+    @include commonStyles();
+    display: flex;
+    justify-content: center;
+    width: 54px;
+    align-items: center;
+    cursor: pointer;
+    height: 36px;
+    border: none;
+    border-radius: 5px;
+    svg {
+      width: 80%;
+      height: 80%;
+    }
+  }
+  .menu {
+    @include commonStyles();
+    position: absolute;
+    display: inline-flex;
+    justify-content: center;
+    height: 36px;
+    width: 140px;
+    border-radius: 5px;
+    left: -90px;
+    top: 40px;
+    border: solid $BLACK 1px;
+    box-shadow: 0px 0px 4px $BLACK;
+    .element {
+      cursor: pointer;
+      padding: 5px;
+    }
+  }
+}

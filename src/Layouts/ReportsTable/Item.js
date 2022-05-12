@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { REPORTS } from "../../Constants/links";
 import { ReactComponent as Positive } from "../../Assets/Svg/Positive.svg";
 import { ReactComponent as Negative } from "../../Assets/Svg/Negative.svg";
+import { POSSITIVE } from "../../Constants/sortTags";
 
 export default function Item({ date, mark, id, visible }) {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Item({ date, mark, id, visible }) {
   };
 
   const getMarkImage = () => {
-    if (mark) return <Positive className={style.mark} />;
+    if (mark === POSSITIVE) return <Positive className={style.mark} />;
     return <Negative className={style.mark} />;
   };
 
