@@ -68,44 +68,44 @@
       width: 100%;
     }
   }
+}
 
-  .paginator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+.paginator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: $WHITE;
+  font-size: 22px;
 
-    .paginatorHeader {
-      font-size: $H3_MOBILE;
-      color: $WHITE;
-    }
+  .paginatorHeader {
+    font-size: $H3_MOBILE;
+    color: $WHITE;
+  }
 
-    .button {
-      position: relative;
-      @include blue_small;
-      padding: 0;
-      height: 40px;
-      width: 60px;
-      background-color: $BLUE;
-      border-radius: 5px;
-      border: solid 1px $BLUE;
-      cursor: pointer;
+  .button {
+    position: relative;
+    @include blue_small;
+    padding: 0;
+    height: 40px;
+    width: 60px;
+    background-color: $BLUE;
+    border-radius: 5px;
+    border: solid 1px $BLUE;
+    cursor: pointer;
 
-      svg {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 40px;
-        height: 25px;
-        path {
-          fill: $WHITE;
-        }
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 25px;
+      path {
+        fill: $WHITE;
       }
     }
   }
 }
-
-
 .form {
   @include comonStyles();
   display: inline-flex;

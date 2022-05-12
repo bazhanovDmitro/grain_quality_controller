@@ -21,6 +21,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import { WORKER, MANAGER, ADMIN } from "./Constants/roles";
 import About from "./Pages/About";
 import ChangeCredentials from "./Pages/ChangeCredentials";
+import Reports from "./Pages/Reports";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -43,7 +44,7 @@ root.render(
             element={
               <ProtectedRoute
                 requiredRoles={[WORKER, MANAGER]}
-                element={<div>REPORTS</div>}
+                element={<Reports />}
               />
             }
           />

@@ -37,3 +37,7 @@ export const ENTER_NEW_CRED = "Enter new credentials";
 export const CONFIRM_CHANGES = "Confirm changes";
 export const PASSWORD_MUST_CONTAIN = "Minimum 8 characters and 1 number";
 export const PASSWORDS_MUST_MATCH = "Passwords must match";
+export const LAST_ANALYSIS_REPORTS = "Last analysis reports";
+export const REPORT_FROM = "Report from ";
+export const NEW_FIRST = "New first";
+export const OLD_FIRST = "Old first";

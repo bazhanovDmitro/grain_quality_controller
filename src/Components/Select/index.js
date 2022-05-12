@@ -17,7 +17,9 @@ export default function Select({ itemList, onItemChange, currentItemIndex }) {
       className={`${style.select} ${isOpen ? style.activeSelect : null}`}
       onClick={switchSelect}
     >
-      <div className={style.inputArea}>{itemList?.[currentItemIndex].name}</div>
+      <div className={style.inputArea}>
+        {itemList?.[currentItemIndex]?.name}
+      </div>
       <SmallArrow />
       {isOpen && (
         <Submenu

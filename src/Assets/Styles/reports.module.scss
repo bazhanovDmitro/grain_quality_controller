@@ -1,0 +1,92 @@
+@import "./common/colors.module.scss";
+@import "./common/font.module.scss";
+@import "./common/resolution.module.scss";
+
+.holder {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .reportsHolder {
+   height: 100%;
+   border-radius: 15px;
+   padding: 25px;
+   box-sizing: border-box;
+   max-height: 502px;
+   background-color: $SIDEBAR_BROWN; 
+
+   .reportHeader {
+     width: 100%;
+     display: inline-flex;
+     justify-content: space-between;
+
+     h1 {
+       font-size: $H3_MOBILE;
+       color: $WHITE;
+     }
+   }
+
+   .main {
+     margin-top: 15px;
+     row-gap: 15px;
+     align-content: flex-start;
+     width: 100%;
+     height: 100%;
+     max-height: 330px;
+     margin-bottom: 40px;
+
+     .item {
+       display: inline-flex;
+       box-sizing: border-box;
+       align-items: center;
+       cursor: pointer;
+       justify-content: space-between;
+       background-color: $WHITE;
+       font-size: 18px;
+       padding: 5px 15px;
+       border-radius: 5px;
+
+       .mark {
+         width: 30px;
+       }
+     }
+   }
+  }
+}
+
+@media screen and (min-width: $MIN_DESCTOP) {
+  .reportsHolder {
+    max-width: 780px;
+    .half {
+      display: flex;
+      flex-direction: row;
+      column-gap: 5px;
+      width: 48%;
+    }
+    .main {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+     .item {
+        width: 48%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $MAX_TABLET) {
+  .reportsHolder {
+    max-width: 412px;
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      .item {
+        width: 100%;
+      }
+    }
+  }
+}

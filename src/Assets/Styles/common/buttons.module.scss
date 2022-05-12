@@ -83,3 +83,15 @@
   border: solid $RED 1px;
   color: $RED;
 }
+
+.switchButton {
+  box-sizing: border-box;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 36px;
+  width: 120px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: $WHITE;
+}
