@@ -195,7 +195,8 @@ const sortTags = [
 ];
 
 export default function ReportsTable() {
-  const [reportList, setReportList] = useState([]);
+  // state for reports to use instead of dummyReports array.
+  // const [reportList, setReportList] = useState([]);
   const [cultures, setCultureList] = useState([]);
   const [renderList, setRenderList] = useState(cultures);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -216,13 +217,14 @@ export default function ReportsTable() {
   const onNextPage = () => setPage((prev) => (prev += itemCount));
   const onPrevPage = () => setPage((prev) => (prev -= itemCount));
 
-  const filterReportsByMarks = useCallback(() => {
-    setRenderList(() =>
-      reportList.filter(
+  const filterReportsByMarks = useCallback(
+    (newRenderList) => {
+      return newRenderList.filter(
         (report) => report.mark === currentSortTag || currentSortTag === NEUTRAL
-      )
-    );
-  }, [currentSortTag, reportList]);
+      );
+    },
+    [currentSortTag]
+  );
 
   useEffect(() => {
     setCultureList(retrieveCultures(dummyReports));
@@ -233,9 +235,10 @@ export default function ReportsTable() {
     const filteredReports = dummyReports.filter(
       (report) => report.culture === currentCulture
     );
-    setReportList(filteredReports);
-    setRenderList(sortReportsByDate(filteredReports, order));
-  }, [cultures, currentIndex, order]);
+    setRenderList(
+      filterReportsByMarks(sortReportsByDate(filteredReports, order))
+    );
+  }, [cultures, currentIndex, order, filterReportsByMarks]);
 
   useEffect(() => {
     setPage(itemCount);
@@ -255,9 +258,9 @@ export default function ReportsTable() {
     });
   }, [width]);
 
-  useEffect(() => {
-    filterReportsByMarks();
-  }, [filterReportsByMarks]);
+  // useEffect(() => {
+  //   filterReportsByMarks();
+  // }, [filterReportsByMarks]);
 
   return (
     <div className={style.reportsHolder}>
