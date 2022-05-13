@@ -230,11 +230,12 @@ export default function ReportsTable() {
 
   useEffect(() => {
     const currentCulture = cultures[currentIndex]?.name;
-    setReportList(
-      dummyReports.filter((report) => report.culture === currentCulture)
+    const filteredReports = dummyReports.filter(
+      (report) => report.culture === currentCulture
     );
-    setRenderList(sortReportsByDate(reportList, order));
-  }, [cultures, currentIndex, order, reportList]);
+    setReportList(filteredReports);
+    setRenderList(sortReportsByDate(filteredReports, order));
+  }, [cultures, currentIndex, order]);
 
   useEffect(() => {
     setPage(itemCount);
