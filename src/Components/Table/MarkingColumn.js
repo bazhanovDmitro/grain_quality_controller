@@ -1,11 +1,13 @@
 import style from "../../Assets/Styles/table.module.scss";
 import { ReactComponent as Check } from "../../Assets/Svg/Check.svg";
+import { ReactComponent as Plus } from "../../Assets/Svg/Plus.svg";
 
 export default function MarkingColumn({
   rowCount,
   onMarkChange,
   onMarkAll,
   markedRows,
+  onOpenCreateModal,
 }) {
   const generateEmptyArray = () => {
     const emptyArray = [];
@@ -42,6 +44,11 @@ export default function MarkingColumn({
           </button>
         </div>
       ))}
+      <div className={style.checkRow}>
+        <button className={style.plus} onClick={onOpenCreateModal}>
+          <Plus />
+        </button>
+      </div>
     </div>
   ) : null;
 }

@@ -46,3 +46,6 @@ export const ASC = "A-Z";
 export const DESC = "Z-A";
 export const EMPLOYEE_SEARCH_PLACEHOLDER = "Employee name";
 export const NO_EMPLOYEE = "Click to add employee";
+export const ADD_EMPLOYEE = "Add employee";
+export const ADD = "Add";
+export const MIN_NAME = "This field must contain at least 2 letters";

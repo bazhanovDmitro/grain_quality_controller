@@ -3,15 +3,38 @@ import {
   EMPLOYEE_SEARCH_PLACEHOLDER,
   STAFF_TABLE,
   NO_EMPLOYEE,
+  ADD_EMPLOYEE,
 } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Column from "./Column";
 import MarkingColumn from "./MarkingColumn";
 import NoContent from "./NoContent";
+import CreateEmployeeForm from "./CreateEmployeeForm";
+import { TABLET_VIEW } from "../../Constants/numbers";
+import { UserContext } from "../../App";
+import Filters from "./Filters";
 
 const workers = [
+  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
+  {
+    fullname: "Vlados DotNet",
+    email: "dotNet@gmail.com",
+    date: "1552367292842",
+  },
+  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
+  {
+    fullname: "Vlados DotNet",
+    email: "dotNet@gmail.com",
+    date: "1552367292842",
+  },
+  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
+  {
+    fullname: "Vlados DotNet",
+    email: "dotNet@gmail.com",
+    date: "1552367292842",
+  },
   { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
   {
     fullname: "Vlados DotNet",
@@ -40,10 +63,17 @@ export default function Table({
   searchValue,
   sortValue,
   onSortChange,
+  onCreateObject,
+  onDeleteObject,
 }) {
   const [tableRows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [markedRows, setMarkedRows] = useState({});
+  const [modal, setModal] = useState(false);
+
+  const onOpenCreateModal = () => setModal(true);
+
+  const { width } = useContext(UserContext);
 
   const onDelete = () => {
     const newRows = [...tableRows];
@@ -51,12 +81,19 @@ export default function Table({
     Object.keys(markedRows)
       .reverse()
       .forEach((id) => {
-        console.log(tableRows[id]); // Delete request
+        onDeleteObject(tableRows[id]); // Delete request
         newRows.splice(id, 1);
         delete marked[id];
       });
     setMarkedRows(marked);
     setRows(newRows);
+  };
+
+  const onCreate = (values) => {
+    onCreateObject(values);
+    setRows((prev) => {
+      return [...prev, values];
+    });
   };
 
   const onMarkChange = (event) => {
@@ -96,30 +133,56 @@ export default function Table({
         searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
         onSortChange={onSortChange}
         onDelete={onDelete}
+        isMarksPresent={Object.keys(markedRows).length}
       />
+      {width <= TABLET_VIEW ? (
+        <Filters
+          sortValue={sortValue}
+          onSearchChange={onSearchChange}
+          onDelete={onDelete}
+          onSortChange={onSortChange}
+          searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+          searchValue={searchValue}
+          isMarksPresent={Object.keys(markedRows).length}
+        />
+      ) : null}
       <div className={style.table}>
         <MarkingColumn
           rowCount={tableRows.length}
           onMarkChange={onMarkChange}
           onMarkAll={onChangeAllMarks}
           markedRows={markedRows}
+          onOpenCreateModal={onOpenCreateModal}
         />
-        {columns.map((rows, index) => (
-          <Column
-            key={index}
-            rows={rows.rows}
-            header={rows.header}
-            isLast={index === columns.length - 1}
-            markedRows={markedRows}
-          />
-        ))}
+        <div className={style.tableWrapper}>
+          {columns.map((rows, index) => (
+            <Column
+              key={index}
+              rows={rows.rows}
+              header={rows.header}
+              isLast={index === columns.length - 1}
+              markedRows={markedRows}
+              addObjectText={ADD_EMPLOYEE}
+              onOpenCreateModal={onOpenCreateModal}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
 
   return (
     <div className={style.tableHolder}>
-      {tableRows.length > 0 ? table : <NoContent text={NO_EMPLOYEE} />}
+      {tableRows.length > 0 ? (
+        table
+      ) : (
+        <NoContent text={NO_EMPLOYEE} onAdd={onOpenCreateModal} />
+      )}
+      <CreateEmployeeForm
+        isVisible={modal}
+        onClose={() => setModal(false)}
+        onCreate={onCreate}
+      />
     </div>
   );
 }

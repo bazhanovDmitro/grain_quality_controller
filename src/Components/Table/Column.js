@@ -1,10 +1,19 @@
 import style from "../../Assets/Styles/table.module.scss";
+import { ReactComponent as Plus } from "../../Assets/Svg/Plus.svg";
+import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 
-export default function Column({ rows, header, markedRows, isLast }) {
+export default function Column({
+  rows,
+  header,
+  markedRows,
+  isLast,
+  addObjectText,
+  onOpenCreateModal,
+}) {
   return (
     <div className={style.column}>
       <div className={`${style.header} ${isLast ? style.lastHeader : null}`}>
-        {header}
+        {EMPLOYEE_TABLE[header]}
       </div>
       {rows.map((row, index) => (
         <div
@@ -17,6 +26,12 @@ export default function Column({ rows, header, markedRows, isLast }) {
           {row}
         </div>
       ))}
+      <div className={style.row}>
+        <h3 className={style.addObject} onClick={onOpenCreateModal}>
+          <Plus />
+          {addObjectText}
+        </h3>
+      </div>
     </div>
   );
 }

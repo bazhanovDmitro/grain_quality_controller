@@ -1,9 +1,8 @@
 import style from "../../Assets/Styles/table.module.scss";
-import { ASC, DESC } from "../../Constants/text";
-import { ReactComponent as Trash } from "../../Assets/Svg/Trash.svg";
-import buttonStyle from "../../Assets/Styles/common/buttons.module.scss";
-import SwitchButton from "../Buttons/SwitcherButton";
-import Search from "../Search";
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import { TABLET_VIEW } from "../../Constants/numbers";
+import Filters from "./Filters";
 
 export default function TableDashboard({
   sortValue,
@@ -13,33 +12,37 @@ export default function TableDashboard({
   searchValue,
   header,
   onDelete,
+  isMarksPresent,
 }) {
+  const { width } = useContext(UserContext);
+
+  const rightHalf = (
+    <Filters
+      sortValue={sortValue}
+      onSearchChange={onSearchChange}
+      onDelete={onDelete}
+      onSortChange={onSortChange}
+      searchPlaceholder={searchPlaceholder}
+      searchValue={searchValue}
+      isMarksPresent={isMarksPresent}
+    />
+  );
+
   return (
     <div className={style.tableDashboard}>
-      <div className={style.halfLeft}>
-        <h2>{header}</h2>
+      <div
+        className={style.halfLeft}
+        style={width <= TABLET_VIEW ? { width: `100%` } : null}
+      >
+        <h2
+          style={
+            width <= TABLET_VIEW ? { width: `100%`, textAlign: `center` } : null
+          }
+        >
+          {header}
+        </h2>
       </div>
-      <div className={style.halfRight}>
-        <button className={buttonStyle.delete} onClick={onDelete}>
-          <Trash />
-        </button>
-        <SwitchButton
-          initialText={ASC}
-          secondaryText={DESC}
-          value={sortValue}
-          onSwitch={onSortChange}
-          style={{
-            width: `fit-content`,
-            padding: `0px 15px`,
-            boxSizing: `border-box`,
-          }}
-        />
-        <Search
-          placeholder={searchPlaceholder}
-          onChange={onSearchChange}
-          value={searchValue}
-        />
-      </div>
+      {width > TABLET_VIEW ? rightHalf : null}
     </div>
   );
 }
