@@ -41,3 +41,7 @@ export const LAST_ANALYSIS_REPORTS = "Last analysis reports";
 export const REPORT_FROM = "Report from ";
 export const NEW_FIRST = "New first";
 export const OLD_FIRST = "Old first";
+export const STAFF_TABLE = "Staff table";
+export const ASC = "A-Z";
+export const DESC = "Z-A";
+export const EMPLOYEE_SEARCH_PLACEHOLDER = "Employee name";

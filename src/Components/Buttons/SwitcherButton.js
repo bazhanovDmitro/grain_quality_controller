@@ -5,9 +5,14 @@ export default function SwitchButton({
   value,
   initialText,
   secondaryText,
+  style,
 }) {
   return (
-    <button className={buttonStyle.switchButton} onClick={onSwitch}>
+    <button
+      className={buttonStyle.switchButton}
+      onClick={onSwitch}
+      style={style && style}
+    >
       {value ? initialText : secondaryText}
     </button>
   );

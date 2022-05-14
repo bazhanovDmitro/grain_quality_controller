@@ -13,6 +13,27 @@
   border: solid 1px $BLACK;
 }
 
+.delete {
+  position: relative;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: $RED;
+  border: solid 1px $RED;
+  color: $WHITE;
+  padding: 17px;
+  cursor: pointer;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 25px;
+    max-height: 25px;
+  }
+}
+
 @mixin button {
   font-weight: 600;
   padding: 4px 40px;
