@@ -45,3 +45,4 @@ export const STAFF_TABLE = "Staff table";
 export const ASC = "A-Z";
 export const DESC = "Z-A";
 export const EMPLOYEE_SEARCH_PLACEHOLDER = "Employee name";
+export const NO_EMPLOYEE = "Click to add employee";

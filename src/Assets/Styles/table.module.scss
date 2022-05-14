@@ -7,6 +7,20 @@
   align-items: center;
   width: 100%;
   height: 90%;
+  .empty {
+    width: 100%;
+    height: 100%;
+    color: $WHITE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      border: dashed $WHITE 1px;
+    }
+  }
   .tableHolder {
     background-color: $SIDEBAR_BROWN;
     width: 100%;
@@ -16,15 +30,18 @@
     padding: 25px;
     box-sizing: border-box;
 
+    h2 {
+      font-size: 30px;
+    }
+
     .table {
       display: inline-flex;
       width: 100%;
-      margin-top: 20px;
+      margin-top: 17px;
       @mixin defaultRow {
         display: flex;
         align-items: center;
         height: 35px;
-        // border: solid 0.05em $BLACK;
         
         &:nth-child(even) {
           background-color: $TABLE_LIGHT;
@@ -51,6 +68,8 @@
         background-color: $TABLE_DARK;
         box-sizing: border-box;
         border-bottom: 1px solid $BLACK;
+        font-size: 24px;
+        font-weight: bold;
       }
 
       .column {
@@ -88,6 +107,20 @@
           border: solid $BLACK 1px;
           border-radius: 5px;
           cursor: pointer;
+
+          svg {
+            display: none;
+          }
+        }
+        .checkboxActive {
+          background-color: $BLUE;
+          svg {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            width: 15px;
+            pointer-events: none;
+          }
         }
       }
     }

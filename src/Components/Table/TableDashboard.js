@@ -12,6 +12,7 @@ export default function TableDashboard({
   searchPlaceholder,
   searchValue,
   header,
+  onDelete,
 }) {
   return (
     <div className={style.tableDashboard}>
@@ -19,7 +20,7 @@ export default function TableDashboard({
         <h2>{header}</h2>
       </div>
       <div className={style.halfRight}>
-        <button className={buttonStyle.delete}>
+        <button className={buttonStyle.delete} onClick={onDelete}>
           <Trash />
         </button>
         <SwitchButton
