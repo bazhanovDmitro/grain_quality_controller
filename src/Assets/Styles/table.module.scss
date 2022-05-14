@@ -16,6 +16,82 @@
     padding: 25px;
     box-sizing: border-box;
 
+    .table {
+      display: inline-flex;
+      width: 100%;
+      margin-top: 20px;
+      @mixin defaultRow {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        // border: solid 0.05em $BLACK;
+        
+        &:nth-child(even) {
+          background-color: $TABLE_LIGHT;
+        }
+        &:nth-child(odd) {
+          background-color: $TABLE_DARK;
+        }
+
+      }
+      .row {
+        @include defaultRow();
+        padding-left: 5px;
+      }
+      .checkRow {
+        @include defaultRow();
+        justify-content: center;
+      }
+
+      @mixin header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        background-color: $TABLE_DARK;
+        box-sizing: border-box;
+        border-bottom: 1px solid $BLACK;
+      }
+
+      .column {
+        background-color: $HEADER_BROWN;
+        max-width: 230px;
+        height: 400px;
+        overflow: scroll;
+        width: 100%;
+        border: {
+          top: solid $BLACK 1px;
+          bottom: solid $BLACK 1px;
+          left: solid $BLACK 1px;
+        }
+        &:nth-child(2) {
+          border-left: none;
+        }
+        &:last-child {
+          border-right: solid $BLACK 1px;
+        }
+        .header {
+          @include header();
+        }
+      }
+      .markingColumn {
+        background-color: $HEADER_BROWN;
+        width: 55px;
+        border: solid 1px $BLACK;
+        .header {
+          @include header();
+        }
+        .checkbox {
+          width: 22px;
+          height: 22px;
+          background-color: $WHITE;
+          border: solid $BLACK 1px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+
     .tableDashboard {
       display: inline-flex;
       justify-content: space-between;
