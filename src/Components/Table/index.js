@@ -7,7 +7,7 @@ import {
 } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import Column from "./Column";
 import MarkingColumn from "./MarkingColumn";
 import NoContent from "./NoContent";
@@ -15,6 +15,7 @@ import CreateEmployeeForm from "./CreateEmployeeForm";
 import { TABLET_VIEW } from "../../Constants/numbers";
 import { UserContext } from "../../App";
 import Filters from "./Filters";
+import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 
 const workers = [
   { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
@@ -74,6 +75,25 @@ export default function Table({
   const onOpenCreateModal = () => setModal(true);
 
   const { width } = useContext(UserContext);
+
+  const headerRef = useRef(null);
+  const tableRef = useRef(null);
+  const marksRef = useRef(null);
+
+  const scrollX = (event) => {
+    headerRef.current.scrollLeft = event.target.scrollLeft;
+    tableRef.current.scrollLeft = event.target.scrollLeft;
+  };
+
+  const scrollY = (event) => {
+    tableRef.current.scrollTop = event.target.scrollTop;
+    marksRef.current.scrollTop = event.target.scrollTop;
+  };
+
+  const combinedScroll = (event) => {
+    scrollX(event);
+    scrollY(event);
+  };
 
   const onDelete = () => {
     const newRows = [...tableRows];
@@ -148,24 +168,41 @@ export default function Table({
       ) : null}
       <div className={style.table}>
         <MarkingColumn
+          refference={marksRef}
           rowCount={tableRows.length}
           onMarkChange={onMarkChange}
           onMarkAll={onChangeAllMarks}
           markedRows={markedRows}
           onOpenCreateModal={onOpenCreateModal}
+          scrollY={scrollY}
         />
-        <div className={style.tableWrapper}>
-          {columns.map((rows, index) => (
-            <Column
-              key={index}
-              rows={rows.rows}
-              header={rows.header}
-              isLast={index === columns.length - 1}
-              markedRows={markedRows}
-              addObjectText={ADD_EMPLOYEE}
-              onOpenCreateModal={onOpenCreateModal}
-            />
-          ))}
+        <div className={style.content}>
+          <div className={style.headerRow} onScroll={scrollX} ref={headerRef}>
+            {tableRows.length > 0
+              ? Object.keys(tableRows[0]).map((row, index) => (
+                  <div className={style.header} key={index}>
+                    {EMPLOYEE_TABLE[row]}
+                  </div>
+                ))
+              : null}
+          </div>
+          <div
+            className={style.tableWrapper}
+            onScroll={combinedScroll}
+            ref={tableRef}
+          >
+            {columns.map((rows, index) => (
+              <Column
+                key={index}
+                rows={rows.rows}
+                header={rows.header}
+                isLast={index === columns.length - 1}
+                markedRows={markedRows}
+                addObjectText={ADD_EMPLOYEE}
+                onOpenCreateModal={onOpenCreateModal}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>

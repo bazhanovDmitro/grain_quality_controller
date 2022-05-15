@@ -8,6 +8,8 @@ export default function MarkingColumn({
   onMarkAll,
   markedRows,
   onOpenCreateModal,
+  refference,
+  scrollY,
 }) {
   const generateEmptyArray = () => {
     const emptyArray = [];
@@ -18,7 +20,7 @@ export default function MarkingColumn({
   const array = generateEmptyArray();
 
   return rowCount > 0 ? (
-    <div className={style.markingColumn}>
+    <div>
       <div className={style.header}>
         <button
           className={`${style.checkbox} ${
@@ -31,23 +33,25 @@ export default function MarkingColumn({
           <Check />
         </button>
       </div>
-      {array.map((id) => (
-        <div className={style.checkRow} key={id}>
-          <button
-            className={`${style.checkbox} ${
-              markedRows[id] ? style.checkboxActive : null
-            }`}
-            id={id}
-            onClick={onMarkChange}
-          >
-            <Check />
+      <div className={style.markingColumn} ref={refference} onScroll={scrollY}>
+        {array.map((id) => (
+          <div className={style.checkRow} key={id}>
+            <button
+              className={`${style.checkbox} ${
+                markedRows[id] ? style.checkboxActive : null
+              }`}
+              id={id}
+              onClick={onMarkChange}
+            >
+              <Check />
+            </button>
+          </div>
+        ))}
+        <div className={style.checkRow}>
+          <button className={style.plus} onClick={onOpenCreateModal}>
+            <Plus />
           </button>
         </div>
-      ))}
-      <div className={style.checkRow}>
-        <button className={style.plus} onClick={onOpenCreateModal}>
-          <Plus />
-        </button>
       </div>
     </div>
   ) : null;

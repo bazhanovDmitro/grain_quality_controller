@@ -37,9 +37,11 @@
 
     .table {
       position: relative;
-      display: inline-flex;
-      margin-top: 17px;
+      display: flex;
+      flex-direction: inline;
+      margin-top: 25px;
       overflow: hidden;
+      border: solid $BLACK 1px;
       @mixin defaultRow {
         display: flex;
         align-items: center;
@@ -99,60 +101,66 @@
         height: 60px;
         background-color: $TABLE_DARK;
         box-sizing: border-box;
-        border-bottom: 1px solid $BLACK;
+        border-left: 1px solid $BLACK;
+        border-bottom: solid 1px $BLACK;;
+        width: 100%;
+        max-width: 230px;
         font-size: 24px;
         font-weight: bold;
-      }
 
+        &:first-child {
+          border-left: none;
+          border-right: solid 1px $BLACK;
+        }
+      }
+      .header {
+        @include header();
+      }
       .column {
         background-color: $HEADER_BROWN;
         max-width: 230px;
         border: {
-          top: solid $BLACK 1px;
-          bottom: solid $BLACK 1px;
           left: solid $BLACK 1px;
         }
-        &:nth-child(1) {
+        &:first-child {
           border-left: none;
         }
-        &:last-child {
-          border-right: solid $BLACK 1px;
+      }
+      .header {
+        @include header();
+      }
+      .checkbox {
+        width: 22px;
+        height: 22px;
+        background-color: $WHITE;
+        border: solid $BLACK 1px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        svg {
+          display: none;
         }
-        .header {
-          @include header();
+      }
+      .checkboxActive {
+        background-color: $BLUE;
+        svg {
+          display: flex;
+          margin-left: auto;
+          margin-right: auto;
+          width: 15px;
+          pointer-events: none;
         }
       }
       .markingColumn {
         background-color: $HEADER_BROWN;
         width: 55px;
-        border: solid 1px $BLACK;
-        height: 100%;
         overflow: scroll;
-        .header {
-          @include header();
-        }
-        .checkbox {
-          width: 22px;
-          height: 22px;
-          background-color: $WHITE;
-          border: solid $BLACK 1px;
-          border-radius: 5px;
-          cursor: pointer;
+        border-right: solid 1px $BLACK;
 
-          svg {
-            display: none;
-          }
+        &::-webkit-scrollbar {
+          display: none;
         }
-        .checkboxActive {
-          background-color: $BLUE;
-          svg {
-            display: flex;
-            margin-left: auto;
-            margin-right: auto;
-            width: 15px;
-            pointer-events: none;
-          }
-        }
+        
       }
     }
 
@@ -185,18 +193,30 @@
 @media screen and (min-width: $MIN_DESCTOP) {
   .tableHolder {
     max-width: 780px;
+    .markingColumn {
+      height: 85%;
+    }
     .tableWrapper {
       display: inline-flex;
       overflow: scroll;
-      height: 100%;
+      height: 85%;
       width: 100%;
     }
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      .headerRow {
+        display: inline-flex;
+        width: 100%;
+      }
+    }
     .table {
-      height: 88%;
+      height: 83%;
       width: 100%;
       .column {
         width: 100%;
-        height: 400px;
+        height: fit-content;
       }
     }
   }
@@ -208,17 +228,36 @@
     .halfRight {
       justify-content: space-between;
     }
+    .markingColumn {
+      height: 83%;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      .headerRow {
+        display: inline-flex;
+        width: 100%;
+        overflow: scroll;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .header {
+          min-width: 100%;
+        }
+      }
+    }
     .table {
-      height: 78%;
+      height: 75.2%;
       width: 100%;
     .tableWrapper {
       overflow: scroll;
       display: inline-flex;
       width: 100%;
-      height: 100%;
-      overflow: scroll;    
+      height: 83%;
       .column {
-        height: 340px;
+        height: fit-content;
         min-width: 100%;
       }
       }
