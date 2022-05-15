@@ -1,0 +1,278 @@
+@import "./common/colors.module.scss";
+@import "./common/resolution.module.scss";
+
+.tablePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+  .noOneFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 32px;
+    color: $WHITE;
+    font-weight: 600;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .empty {
+    width: 100%;
+    height: 100%;
+    color: $WHITE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      border: dashed $WHITE 1px;
+    }
+  }
+
+  .tableHolder {
+    background-color: $SIDEBAR_BROWN;
+    width: 100%;
+    height: 100%;
+    max-height: 502px;
+    border-radius: 15px;
+    padding: 25px;
+    box-sizing: border-box;
+
+    h2 {
+      font-size: 30px;
+    }
+
+    .table {
+      position: relative;
+      display: flex;
+      flex-direction: inline;
+      margin-top: 25px;
+      overflow: hidden;
+      border: solid $BLACK 1px;
+      @mixin defaultRow {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        
+        &:nth-child(even) {
+          background-color: $TABLE_LIGHT;
+        }
+        &:nth-child(odd) {
+          background-color: $TABLE_DARK;
+        }
+
+      }
+      .row {
+        @include defaultRow();
+        padding-left: 5px;
+        
+        .addObject {
+          display: inline-flex;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          color: $BLUE;
+          font-weight: 300;
+          font-size: 16px;
+          margin-left: -5px;
+          cursor: pointer;
+          svg {
+            width: 12px;
+            height: 16px;
+            margin-right: 5px;
+          }
+        }
+      }
+      .checkRow {
+        @include defaultRow();
+        justify-content: center;
+
+        .plus {
+          width: 22px;
+          height: 22px;
+          background-color: transparent;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+
+          svg {
+            width: 18px;
+          }
+        }
+      }
+
+      @mixin header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        background-color: $TABLE_DARK;
+        box-sizing: border-box;
+        border-left: 1px solid $BLACK;
+        border-bottom: solid 1px $BLACK;;
+        width: 100%;
+        max-width: 230px;
+        font-size: 24px;
+        font-weight: bold;
+
+        &:first-child {
+          border-left: none;
+          border-right: solid 1px $BLACK;
+        }
+      }
+      .header {
+        @include header();
+      }
+      .column {
+        background-color: $HEADER_BROWN;
+        max-width: 230px;
+        border: {
+          left: solid $BLACK 1px;
+        }
+        &:first-child {
+          border-left: none;
+        }
+      }
+      .header {
+        @include header();
+      }
+      .checkbox {
+        width: 22px;
+        height: 22px;
+        background-color: $WHITE;
+        border: solid $BLACK 1px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        svg {
+          display: none;
+        }
+      }
+      .checkboxActive {
+        background-color: $BLUE;
+        svg {
+          display: flex;
+          margin-left: auto;
+          margin-right: auto;
+          width: 15px;
+          pointer-events: none;
+        }
+      }
+      .markingColumn {
+        background-color: $HEADER_BROWN;
+        width: 55px;
+        overflow: scroll;
+        border-right: solid 1px $BLACK;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        
+      }
+    }
+
+    .tableDashboard {
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+
+      @mixin half {
+        display: inline-flex;
+        width: 50%;
+
+        h2 {
+          color: $WHITE;
+        }
+      }
+      .halfLeft {
+        @include half();
+      }
+      .halfRight {
+        @include half();
+        justify-content: flex-end;
+        column-gap: 10px;
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: $MIN_DESCTOP) {
+  .tableHolder {
+    max-width: 780px;
+    .markingColumn {
+      height: 85%;
+    }
+    .tableWrapper {
+      display: inline-flex;
+      overflow: scroll;
+      height: 85%;
+      width: 100%;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      .headerRow {
+        display: inline-flex;
+        width: 100%;
+      }
+    }
+    .table {
+      height: 83%;
+      width: 100%;
+      .column {
+        width: 100%;
+        height: fit-content;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $MAX_TABLET) {
+  .tableHolder {
+    max-width: 410px;
+    .halfRight {
+      justify-content: space-between;
+    }
+    .markingColumn {
+      height: 83%;
+    }
+    .content {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      .headerRow {
+        display: inline-flex;
+        width: 100%;
+        overflow: scroll;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .header {
+          min-width: 100%;
+        }
+      }
+    }
+    .table {
+      height: 75.2%;
+      width: 100%;
+    .tableWrapper {
+      overflow: scroll;
+      display: inline-flex;
+      width: 100%;
+      height: 83%;
+      .column {
+        height: fit-content;
+        min-width: 100%;
+      }
+      }
+    }
+  }
+}

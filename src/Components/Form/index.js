@@ -170,7 +170,9 @@ export default function CustomForm({
                 <Field
                   type={field.type}
                   name={field.name}
-                  placeholder={field.name}
+                  placeholder={
+                    field?.placeholder ? field.placeholder : field.name
+                  }
                 />
                 <ErrorMessage
                   name={field.name}

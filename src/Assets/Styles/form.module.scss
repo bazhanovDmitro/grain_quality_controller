@@ -156,7 +156,7 @@
 .form_mobile {
   @include comonStyles();
   max-width: 400px;
-
+  box-sizing: border-box;
   .field {
     input {
       width: 100%;

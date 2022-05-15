@@ -258,10 +258,6 @@ export default function ReportsTable() {
     });
   }, [width]);
 
-  // useEffect(() => {
-  //   filterReportsByMarks();
-  // }, [filterReportsByMarks]);
-
   return (
     <div className={style.reportsHolder}>
       <div className={style.reportHeader}>

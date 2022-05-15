@@ -1,0 +1,24 @@
+.searchWrapper {
+  position: relative;
+  max-width: 230px;
+  width: 100%;
+  .magnifier {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+  }
+  .search {
+    height: 36px;
+    border-radius: 5px;
+    max-width: 230px;
+    width: 100%;
+    border: none;
+    font-size: 18px;
+    padding-left: 35px;
+    padding-right: 5px;
+    box-sizing: border-box;
+  }
+}
