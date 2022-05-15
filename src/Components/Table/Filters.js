@@ -13,6 +13,7 @@ export default function Filters({
   sortValue,
   onSearchChange,
   onSortChange,
+  onSearch,
   searchPlaceholder,
   searchValue,
   isMarksPresent,
@@ -53,6 +54,7 @@ export default function Filters({
       />
       <Search
         placeholder={searchPlaceholder}
+        onSearch={onSearch}
         onChange={onSearchChange}
         value={searchValue}
       />

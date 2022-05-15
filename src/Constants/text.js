@@ -49,3 +49,4 @@ export const NO_EMPLOYEE = "Click to add employee";
 export const ADD_EMPLOYEE = "Add employee";
 export const ADD = "Add";
 export const MIN_NAME = "This field must contain at least 2 letters";
+export const NO_SUCH_EMPLOYEE = "No employee found..";

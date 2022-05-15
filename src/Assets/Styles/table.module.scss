@@ -7,6 +7,18 @@
   align-items: center;
   width: 100%;
   height: 90%;
+  .noOneFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 32px;
+    color: $WHITE;
+    font-weight: 600;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
   .empty {
     width: 100%;
     height: 100%;
@@ -21,7 +33,7 @@
       border: dashed $WHITE 1px;
     }
   }
-  
+
   .tableHolder {
     background-color: $SIDEBAR_BROWN;
     width: 100%;

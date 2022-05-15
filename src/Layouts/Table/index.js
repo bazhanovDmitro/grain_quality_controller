@@ -19,6 +19,7 @@ export default function TableLayout() {
       onSearchChange={(event) => setSearch(event.target.value)}
       sortValue={sortValue}
       sortField={"fullname"}
+      searchField={"fullname"}
       onSortChange={() => setSort((prev) => !prev)}
       onDeleteObject={onDeleteObject}
       onCreateObject={onCreateObject}

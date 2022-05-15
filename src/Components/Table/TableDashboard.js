@@ -7,6 +7,7 @@ import Filters from "./Filters";
 export default function TableDashboard({
   sortValue,
   onSearchChange,
+  onSearch,
   onSortChange,
   searchPlaceholder,
   searchValue,
@@ -19,6 +20,7 @@ export default function TableDashboard({
   const rightHalf = (
     <Filters
       sortValue={sortValue}
+      onSearch={onSearch}
       onSearchChange={onSearchChange}
       onDelete={onDelete}
       onSortChange={onSortChange}

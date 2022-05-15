@@ -2,8 +2,14 @@ import style from "../../Assets/Styles/search.module.scss";
 import { ReactComponent as Magnifier } from "../../Assets/Svg/Magnifier.svg";
 import { useState } from "react";
 
-export default function Search({ placeholder, onChange, value }) {
+export default function Search({ placeholder, onChange, value, onSearch }) {
   const [isActive, setActive] = useState(false);
+
+  const onEnterClick = (event) => {
+    if (event.key === "Enter") {
+      onSearch(event.target.value);
+    }
+  };
 
   const determineActive = (onFocusHandler = false) => {
     if (value || onFocusHandler) {
@@ -27,6 +33,7 @@ export default function Search({ placeholder, onChange, value }) {
         style={isActive ? { paddingLeft: `5px` } : null}
         onFocus={() => determineActive(true)}
         onBlur={() => determineActive()}
+        onKeyDown={onEnterClick}
       />
     </div>
   );

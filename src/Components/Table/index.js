@@ -4,6 +4,7 @@ import {
   STAFF_TABLE,
   NO_EMPLOYEE,
   ADD_EMPLOYEE,
+  NO_SUCH_EMPLOYEE,
 } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
@@ -16,6 +17,7 @@ import { TABLET_VIEW } from "../../Constants/numbers";
 import { UserContext } from "../../App";
 import Filters from "./Filters";
 import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
+import filterArray from "../../Utils/filterArray";
 
 const workers = [
   { fullname: "ADimon", email: "dimon@gmail.com", date: "1652367292842" },
@@ -62,12 +64,14 @@ const workers = [
 export default function Table({
   onSearchChange,
   searchValue,
+  searchField,
   sortValue,
   sortField,
   onSortChange,
   onCreateObject,
   onDeleteObject,
 }) {
+  const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [markedRows, setMarkedRows] = useState({});
@@ -108,22 +112,34 @@ export default function Table({
     scrollY(event);
   };
 
+  const onSearch = (word) => {
+    const filteredRows = sortBy(
+      filterArray(objects, searchField, word),
+      sortField,
+      sortValue
+    );
+    if (filteredRows.length > 0) setRows(filteredRows);
+    else setRows([]);
+  };
+
   const onDelete = () => {
-    const newRows = [...tableRows];
+    const newObjects = [...objects];
     const marked = { ...markedRows };
     Object.keys(markedRows)
       .reverse()
       .forEach((id) => {
         onDeleteObject(tableRows[id]); // Delete request
-        newRows.splice(id, 1);
+        newObjects.splice(id, 1);
         delete marked[id];
       });
     setMarkedRows(marked);
-    setRows(newRows);
+    setObjects(newObjects);
+    setRows(newObjects);
   };
 
   const onCreate = (values) => {
     onCreateObject(values);
+    setObjects((prev) => [...prev, values]);
     setRows((prev) => {
       return [...prev, values];
     });
@@ -149,6 +165,7 @@ export default function Table({
   };
 
   useEffect(() => {
+    setObjects(workers);
     setRows(workers);
   }, []);
 
@@ -170,6 +187,7 @@ export default function Table({
       <TableDashboard
         header={STAFF_TABLE}
         onSearchChange={onSearchChange}
+        onSearch={onSearch}
         searchValue={searchValue}
         sortValue={sortValue}
         searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
@@ -181,6 +199,8 @@ export default function Table({
         <Filters
           sortValue={sortValue}
           onSearchChange={onSearchChange}
+          onSearch={onSearch}
+          searchField={searchField}
           onDelete={onDelete}
           onSortChange={onSortChange}
           searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
@@ -200,13 +220,15 @@ export default function Table({
         />
         <div className={style.content}>
           <div className={style.headerRow} onScroll={scrollX} ref={headerRef}>
-            {tableRows.length > 0
-              ? Object.keys(tableRows[0]).map((row, index) => (
-                  <div className={style.header} key={index}>
-                    {EMPLOYEE_TABLE[row]}
-                  </div>
-                ))
-              : null}
+            {tableRows.length > 0 ? (
+              Object.keys(tableRows[0]).map((row, index) => (
+                <div className={style.header} key={index}>
+                  {EMPLOYEE_TABLE[row]}
+                </div>
+              ))
+            ) : (
+              <div className={style.noOneFound}>{NO_SUCH_EMPLOYEE}</div>
+            )}
           </div>
           <div
             className={style.tableWrapper}
@@ -232,7 +254,7 @@ export default function Table({
 
   return (
     <div className={style.tableHolder}>
-      {tableRows.length > 0 ? (
+      {objects.length > 0 ? (
         table
       ) : (
         <NoContent text={NO_EMPLOYEE} onAdd={onOpenCreateModal} />
