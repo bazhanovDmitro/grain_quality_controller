@@ -1,16 +1,18 @@
 import Table from "../../Components/Table";
 import { useState } from "react";
 
-export default function TableLayout() {
+export default function TableLayout({ onDeleteToast, onCreateToast }) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
 
   const onDeleteObject = (object) => {
     console.log(`${object.fullname} - deleted`);
+    onDeleteToast();
   };
 
   const onCreateObject = (values) => {
     console.log(values);
+    onCreateToast();
   };
 
   return (
