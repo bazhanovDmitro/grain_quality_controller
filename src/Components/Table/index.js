@@ -18,7 +18,7 @@ import Filters from "./Filters";
 import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 
 const workers = [
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
+  { fullname: "ADimon", email: "dimon@gmail.com", date: "1652367292842" },
   {
     fullname: "Vlados DotNet",
     email: "dotNet@gmail.com",
@@ -39,7 +39,7 @@ const workers = [
   { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
   {
     fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
+    email: "AdotNet@gmail.com",
     date: "1552367292842",
   },
   {
@@ -63,6 +63,7 @@ export default function Table({
   onSearchChange,
   searchValue,
   sortValue,
+  sortField,
   onSortChange,
   onCreateObject,
   onDeleteObject,
@@ -88,6 +89,18 @@ export default function Table({
   const scrollY = (event) => {
     tableRef.current.scrollTop = event.target.scrollTop;
     marksRef.current.scrollTop = event.target.scrollTop;
+  };
+
+  const sortBy = (array, filter, sortDirection) => {
+    return array.sort((a, b) => {
+      if (a[filter] <= b[filter]) {
+        if (sortDirection) return -1;
+        else return 1;
+      } else {
+        if (sortDirection) return 1;
+        else return -1;
+      }
+    });
   };
 
   const combinedScroll = (event) => {
@@ -140,8 +153,17 @@ export default function Table({
   }, []);
 
   useEffect(() => {
+    setRows((prev) => {
+      if (prev.length > 0) {
+        return sortBy(prev, sortField, sortValue);
+      }
+      return prev;
+    });
+  }, [sortValue, sortField]);
+
+  useEffect(() => {
     setColumns(extractColumnsFromTableObject(tableRows));
-  }, [tableRows]);
+  }, [tableRows, sortValue]);
 
   const table = (
     <>
