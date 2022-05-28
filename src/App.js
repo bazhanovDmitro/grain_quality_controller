@@ -2,14 +2,16 @@ import { createContext, useState, useEffect } from "react";
 import Header from "./Layouts/Header";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Components/Sidebar/index";
+import { ANON } from "./Constants/roles";
 
 export const UserContext = createContext();
 
 function App() {
-  const [role, setRole] = useState(2);
+  const [role, setRole] = useState(ANON);
 
   const [width, setWidth] = useState(null);
   const [isSidebarVisible, setSidebar] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   const { pathname } = useLocation();
 
@@ -28,6 +30,8 @@ function App() {
   }, []);
 
   const contextValue = {
+    userInfo: userInfo,
+    setUserInfo: setUserInfo,
     role: role,
     setRole: setRole,
     width: width,

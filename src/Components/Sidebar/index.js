@@ -72,7 +72,6 @@ export default function Sidebar() {
                 ? style.currentLocation
                 : style.standardButton
             }
-            onClick={(event) => button.onClick(event)}
           >
             {button?.svg}
             {button.text}

@@ -12,13 +12,13 @@ export default function ProtectedRoute({ element, requiredRoles }) {
   useEffect(() => {
     if (role === ANON) navigate(INITIAL_DEFAULT);
     else if (Array.isArray(requiredRoles)) {
-      if (!requiredRoles.includes(role)) {
+      if (!requiredRoles.includes(+role)) {
         navigate(ABOUT);
       }
-    } else if (role !== requiredRoles) {
+    } else if (+role !== requiredRoles) {
       navigate(ABOUT);
     }
   }, [role, requiredRoles, navigate]);
 
-  return element;
+  return role !== ANON ? element : null;
 }
