@@ -6,6 +6,9 @@ export default function TableLayout({
   onCreateToast,
   getObjects,
   onDeleteObject,
+  formSubmitText,
+  createObjectFormFields,
+  createObjectValidationSchema,
 }) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
@@ -25,12 +28,15 @@ export default function TableLayout({
       searchValue={searchValue}
       onSearchChange={(event) => setSearch(event.target.value)}
       sortValue={sortValue}
-      sortField={"fullname"}
-      searchField={"fullname"}
+      sortField={"lastName"}
+      searchField={"lastName"}
       onSortChange={() => setSort((prev) => !prev)}
       onDeleteObject={onDelete}
       onCreateObject={onCreate}
       getObjects={getObjects}
+      formSubmitText={formSubmitText}
+      createObjectFormFields={createObjectFormFields}
+      createObjectValidationSchema={createObjectValidationSchema}
     />
   );
 }

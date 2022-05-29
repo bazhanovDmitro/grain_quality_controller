@@ -12,12 +12,13 @@ import { useState, useEffect, useContext, useRef } from "react";
 import Column from "./Column";
 import MarkingColumn from "./MarkingColumn";
 import NoContent from "./NoContent";
-import CreateEmployeeForm from "./CreateEmployeeForm";
 import { TABLET_VIEW } from "../../Constants/numbers";
 import { UserContext } from "../../App";
 import Filters from "./Filters";
 import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 import filterArray from "../../Utils/filterArray";
+import Modal from "../Modal/index";
+import Form from "../Form/index";
 
 export default function Table({
   onSearchChange,
@@ -29,6 +30,9 @@ export default function Table({
   onCreateObject,
   onDeleteObject,
   getObjects,
+  createObjectFormFields,
+  createObjectValidationSchema,
+  formSubmitText,
 }) {
   const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
@@ -234,11 +238,18 @@ export default function Table({
       ) : (
         <NoContent text={NO_EMPLOYEE} onAdd={onOpenCreateModal} />
       )}
-      <CreateEmployeeForm
-        isVisible={modal}
-        onClose={() => setModal(false)}
-        onCreate={onCreate}
-      />
+      {modal ? (
+        <Modal onOtsideClick={() => setModal(false)}>
+          <Form
+            fields={createObjectFormFields}
+            submitText={formSubmitText}
+            onCancel={() => setModal(false)}
+            onSubmit={onCreate}
+            validationSchema={createObjectValidationSchema}
+            formHeader={ADD_EMPLOYEE}
+          />
+        </Modal>
+      ) : null}
     </div>
   );
 }

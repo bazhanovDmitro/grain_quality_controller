@@ -3,76 +3,79 @@ import style from "../Assets/Styles/table.module.scss";
 import HintCard from "../Components/HintCard";
 import { useState } from "react";
 import {
+  ADD,
   EMPLOYEE_ACTION,
   EMPLOYEE_CREATED,
   EMPLOYEE_DELETED,
 } from "../Constants/text";
+import { createUserFields } from "../Utils/objects/staticFormFields";
+import { newUserSchema } from "../Validation/createUser";
 
 const getUsers = async () => [
   {
-    fullname: "ADimon",
+    firstName: "ADimon",
+    lastName: "adsdasd",
     email: "dimon@gmail.com",
-    date: "1652367292842",
     id: "1432",
   },
   {
-    fullname: "Vlados DotNet",
+    firstName: "Vlados DotNet",
+    lastName: "cadsdasd",
     email: "dotNet@gmail.com",
-    date: "1552367292842",
     id: "223",
   },
   {
-    fullname: "Dimon",
+    firstName: "Dimon",
+    lastName: "xadsdasd",
     email: "dimon@gmail.com",
-    date: "1652367292842",
     id: "342334",
   },
   {
-    fullname: "Vlados DotNet",
+    firstName: "Vlados DotNet",
+    lastName: "zadsdasd",
     email: "dotNet@gmail.com",
-    date: "1552367292842",
     id: "4233",
   },
   {
-    fullname: "Dimon",
+    firstName: "Dimon",
+    lastName: "qadsdasd",
     email: "dimon@gmail.com",
-    date: "1652367292842",
     id: "5333",
   },
   {
-    fullname: "Vlados DotNet",
+    firstName: "Vlados DotNet",
+    lastName: "zadsdasd",
     email: "dotNet@gmail.com",
-    date: "1552367292842",
     id: "668",
   },
   {
-    fullname: "Dimon",
+    firstName: "Dimon",
+    lastName: "xadsdasd",
     email: "dimon@gmail.com",
-    date: "1652367292842",
     id: "7392",
   },
   {
-    fullname: "Vlados DotNet",
+    firstName: "Vlados DotNet",
+    lastName: "radsdasd",
     email: "AdotNet@gmail.com",
-    date: "1552367292842",
     id: "843",
   },
   {
-    fullname: "Semenov Olec Mykola",
+    firstName: "Semenov Olec Mykola",
+    lastName: "wwadsdasd",
     email: "auction.io@gmail.com",
-    date: "1452367292842",
     id: "91231",
   },
   {
-    fullname: "Semenov Olec Mykola",
+    firstName: "Semenov Olec Mykola",
+    lastName: "dadsdasd",
     email: "auction.io@gmail.com",
-    date: "1452367292842",
     id: "10",
   },
   {
-    fullname: "Semenov Olec Mykola",
+    firstName: "Semenov Olec Mykola",
+    lastName: "fadsdasd",
     email: "auction.io@gmail.com",
-    date: "1452367292842",
     id: "1133333",
   },
 ];
@@ -114,6 +117,9 @@ export default function TablePage() {
         onCreateToast={() => setCreationVisibility(true)}
         onDeleteObject={onUserDelete}
         getObjects={getUsers}
+        formSubmitText={ADD}
+        createObjectFormFields={createUserFields}
+        createObjectValidationSchema={newUserSchema}
       />
       {creationToast}
       {deletionToast}
