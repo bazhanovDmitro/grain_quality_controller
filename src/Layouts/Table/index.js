@@ -6,6 +6,7 @@ export default function TableLayout({
   onCreateToast,
   getObjects,
   onDeleteObject,
+  onCreateObject,
   formSubmitText,
   createObjectFormFields,
   createObjectValidationSchema,
@@ -19,8 +20,8 @@ export default function TableLayout({
   };
 
   const onCreate = (values) => {
-    console.log(values);
     if (onCreateToast) onCreateToast();
+    return onCreateObject(values);
   };
 
   return (

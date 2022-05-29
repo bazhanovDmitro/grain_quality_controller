@@ -36,7 +36,6 @@ function App() {
     if (user) {
       setUserInfo(user);
       setRole(user.role);
-      console.log("User info");
     }
     setLoaded(true);
   }, []);

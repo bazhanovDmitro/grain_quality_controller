@@ -42,7 +42,7 @@ export default function Table({
 
   const onOpenCreateModal = () => setModal(true);
 
-  const { width } = useContext(UserContext);
+  const { width, userInfo } = useContext(UserContext);
 
   const headerRef = useRef(null);
   const tableRef = useRef(null);
@@ -104,12 +104,13 @@ export default function Table({
     setRows(newObjects);
   };
 
-  const onCreate = (values) => {
-    onCreateObject(values);
-    setObjects((prev) => [...prev, values]);
+  const onCreate = async (values) => {
+    const userID = await onCreateObject(values).then((userID) => userID);
+    setObjects((prev) => [...prev, { id: userID, ...values }]);
     setRows((prev) => {
-      return [...prev, values];
+      return [...prev, { id: userID, ...values }];
     });
+    setModal(false);
   };
 
   const onMarkChange = (event) => {
@@ -133,13 +134,13 @@ export default function Table({
 
   useEffect(() => {
     const objectsRequest = async () => {
-      const objects = await getObjects();
+      const objects = await getObjects(userInfo.OrganizationId);
       setObjects(objects);
       setRows(objects);
     };
 
     objectsRequest();
-  }, [getObjects]);
+  }, [getObjects, userInfo]);
 
   useEffect(() => {
     setRows((prev) => {

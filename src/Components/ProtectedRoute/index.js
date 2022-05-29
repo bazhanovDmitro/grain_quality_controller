@@ -11,8 +11,6 @@ export default function ProtectedRoute({ element, requiredRoles }) {
 
   useEffect(() => {
     if (isAppLoaded) {
-      console.log(`render`);
-
       if (+role === ANON) navigate(INITIAL_DEFAULT);
       else if (Array.isArray(requiredRoles)) {
         if (!requiredRoles.includes(+role)) {
