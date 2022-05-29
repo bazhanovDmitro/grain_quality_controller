@@ -1,5 +1,5 @@
 export const EMPLOYEE_TABLE = {
-  fullname: "Fullname",
+  firstName: "First name",
+  lastName: "Last name",
   email: "Email",
-  date: "Registration date",
 };

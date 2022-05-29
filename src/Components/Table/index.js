@@ -1,65 +1,18 @@
 import style from "../../Assets/Styles/table.module.scss";
-import {
-  EMPLOYEE_SEARCH_PLACEHOLDER,
-  STAFF_TABLE,
-  NO_EMPLOYEE,
-  ADD_EMPLOYEE,
-  NO_SUCH_EMPLOYEE,
-} from "../../Constants/text";
+import { NO_EMPLOYEE, NO_SUCH_EMPLOYEE } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
 import { useState, useEffect, useContext, useRef } from "react";
 import Column from "./Column";
 import MarkingColumn from "./MarkingColumn";
 import NoContent from "./NoContent";
-import CreateEmployeeForm from "./CreateEmployeeForm";
 import { TABLET_VIEW } from "../../Constants/numbers";
 import { UserContext } from "../../App";
 import Filters from "./Filters";
 import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 import filterArray from "../../Utils/filterArray";
-
-const workers = [
-  { fullname: "ADimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "AdotNet@gmail.com",
-    date: "1552367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-];
+import Modal from "../Modal/index";
+import Form from "../Form/index";
 
 export default function Table({
   onSearchChange,
@@ -70,6 +23,13 @@ export default function Table({
   onSortChange,
   onCreateObject,
   onDeleteObject,
+  getObjects,
+  createObjectFormFields,
+  createObjectValidationSchema,
+  formSubmitText,
+  addObjectText,
+  tableHeader,
+  searchPlaceholder,
 }) {
   const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
@@ -79,7 +39,7 @@ export default function Table({
 
   const onOpenCreateModal = () => setModal(true);
 
-  const { width } = useContext(UserContext);
+  const { width, userInfo } = useContext(UserContext);
 
   const headerRef = useRef(null);
   const tableRef = useRef(null);
@@ -93,6 +53,10 @@ export default function Table({
   const scrollY = (event) => {
     tableRef.current.scrollTop = event.target.scrollTop;
     marksRef.current.scrollTop = event.target.scrollTop;
+  };
+
+  const extractEachRowID = (columns) => {
+    return columns?.find((column) => column.header === `id`)?.rows;
   };
 
   const sortBy = (array, filter, sortDirection) => {
@@ -137,12 +101,13 @@ export default function Table({
     setRows(newObjects);
   };
 
-  const onCreate = (values) => {
-    onCreateObject(values);
-    setObjects((prev) => [...prev, values]);
+  const onCreate = async (values) => {
+    const userID = await onCreateObject(values).then((userID) => userID);
+    setObjects((prev) => [...prev, { id: userID, ...values }]);
     setRows((prev) => {
-      return [...prev, values];
+      return [...prev, { id: userID, ...values }];
     });
+    setModal(false);
   };
 
   const onMarkChange = (event) => {
@@ -165,9 +130,14 @@ export default function Table({
   };
 
   useEffect(() => {
-    setObjects(workers);
-    setRows(workers);
-  }, []);
+    const objectsRequest = async () => {
+      const objects = await getObjects(userInfo.OrganizationId);
+      setObjects(objects);
+      setRows(objects);
+    };
+
+    objectsRequest();
+  }, [getObjects, userInfo]);
 
   useEffect(() => {
     setRows((prev) => {
@@ -185,12 +155,12 @@ export default function Table({
   const table = (
     <>
       <TableDashboard
-        header={STAFF_TABLE}
+        header={tableHeader}
         onSearchChange={onSearchChange}
         onSearch={onSearch}
         searchValue={searchValue}
         sortValue={sortValue}
-        searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+        searchPlaceholder={searchPlaceholder}
         onSortChange={onSortChange}
         onDelete={onDelete}
         isMarksPresent={Object.keys(markedRows).length}
@@ -203,7 +173,7 @@ export default function Table({
           searchField={searchField}
           onDelete={onDelete}
           onSortChange={onSortChange}
-          searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+          searchPlaceholder={searchPlaceholder}
           searchValue={searchValue}
           isMarksPresent={Object.keys(markedRows).length}
         />
@@ -211,7 +181,7 @@ export default function Table({
       <div className={style.table}>
         <MarkingColumn
           refference={marksRef}
-          rowCount={tableRows.length}
+          rows={tableRows}
           onMarkChange={onMarkChange}
           onMarkAll={onChangeAllMarks}
           markedRows={markedRows}
@@ -221,11 +191,13 @@ export default function Table({
         <div className={style.content}>
           <div className={style.headerRow} onScroll={scrollX} ref={headerRef}>
             {tableRows.length > 0 ? (
-              Object.keys(tableRows[0]).map((row, index) => (
-                <div className={style.header} key={index}>
-                  {EMPLOYEE_TABLE[row]}
-                </div>
-              ))
+              Object.keys(tableRows[0]).map((row, index) =>
+                row !== `id` ? (
+                  <div className={style.header} key={index}>
+                    {EMPLOYEE_TABLE[row]}
+                  </div>
+                ) : null
+              )
             ) : (
               <div className={style.noOneFound}>{NO_SUCH_EMPLOYEE}</div>
             )}
@@ -235,17 +207,22 @@ export default function Table({
             onScroll={combinedScroll}
             ref={tableRef}
           >
-            {columns.map((rows, index) => (
-              <Column
-                key={index}
-                rows={rows.rows}
-                header={rows.header}
-                isLast={index === columns.length - 1}
-                markedRows={markedRows}
-                addObjectText={ADD_EMPLOYEE}
-                onOpenCreateModal={onOpenCreateModal}
-              />
-            ))}
+            {columns.map((rows, index) =>
+              // {header: id, rows: [id, id, id, ...]} пропустить объект rows.rows где header = id как objectsID
+              // и использовать его в Columns для назначения правмильных id
+              rows.header !== `id` ? (
+                <Column
+                  key={index}
+                  rows={rows.rows}
+                  idArray={extractEachRowID(columns)}
+                  header={rows.header}
+                  isLast={index === columns.length - 1}
+                  markedRows={markedRows}
+                  addObjectText={addObjectText}
+                  onOpenCreateModal={onOpenCreateModal}
+                />
+              ) : null
+            )}
           </div>
         </div>
       </div>
@@ -259,11 +236,18 @@ export default function Table({
       ) : (
         <NoContent text={NO_EMPLOYEE} onAdd={onOpenCreateModal} />
       )}
-      <CreateEmployeeForm
-        isVisible={modal}
-        onClose={() => setModal(false)}
-        onCreate={onCreate}
-      />
+      {modal ? (
+        <Modal onOtsideClick={() => setModal(false)}>
+          <Form
+            fields={createObjectFormFields}
+            submitText={formSubmitText}
+            onCancel={() => setModal(false)}
+            onSubmit={onCreate}
+            validationSchema={createObjectValidationSchema}
+            formHeader={addObjectText}
+          />
+        </Modal>
+      ) : null}
     </div>
   );
 }

@@ -22,7 +22,7 @@ import { WORKER, MANAGER, ADMIN } from "./Constants/roles";
 import About from "./Pages/About";
 import ChangeCredentials from "./Pages/ChangeCredentials";
 import Reports from "./Pages/Reports";
-import TablePage from "./Pages/TablePage";
+import EmployeeTablePage from "./Pages/EmployeeTablePage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -81,7 +81,10 @@ root.render(
           <Route
             path={EMPLOYEE_LIST}
             element={
-              <ProtectedRoute requiredRoles={MANAGER} element={<TablePage />} />
+              <ProtectedRoute
+                requiredRoles={MANAGER}
+                element={<EmployeeTablePage />}
+              />
             }
           />
           <Route

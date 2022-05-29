@@ -7,6 +7,7 @@ export default function Column({
   isLast,
   addObjectText,
   onOpenCreateModal,
+  idArray,
 }) {
   return (
     <div className={style.column}>
