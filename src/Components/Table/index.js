@@ -1,11 +1,5 @@
 import style from "../../Assets/Styles/table.module.scss";
-import {
-  EMPLOYEE_SEARCH_PLACEHOLDER,
-  STAFF_TABLE,
-  NO_EMPLOYEE,
-  ADD_EMPLOYEE,
-  NO_SUCH_EMPLOYEE,
-} from "../../Constants/text";
+import { NO_EMPLOYEE, NO_SUCH_EMPLOYEE } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
 import { useState, useEffect, useContext, useRef } from "react";
@@ -33,6 +27,9 @@ export default function Table({
   createObjectFormFields,
   createObjectValidationSchema,
   formSubmitText,
+  addObjectText,
+  tableHeader,
+  searchPlaceholder,
 }) {
   const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
@@ -158,12 +155,12 @@ export default function Table({
   const table = (
     <>
       <TableDashboard
-        header={STAFF_TABLE}
+        header={tableHeader}
         onSearchChange={onSearchChange}
         onSearch={onSearch}
         searchValue={searchValue}
         sortValue={sortValue}
-        searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+        searchPlaceholder={searchPlaceholder}
         onSortChange={onSortChange}
         onDelete={onDelete}
         isMarksPresent={Object.keys(markedRows).length}
@@ -176,7 +173,7 @@ export default function Table({
           searchField={searchField}
           onDelete={onDelete}
           onSortChange={onSortChange}
-          searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+          searchPlaceholder={searchPlaceholder}
           searchValue={searchValue}
           isMarksPresent={Object.keys(markedRows).length}
         />
@@ -221,7 +218,7 @@ export default function Table({
                   header={rows.header}
                   isLast={index === columns.length - 1}
                   markedRows={markedRows}
-                  addObjectText={ADD_EMPLOYEE}
+                  addObjectText={addObjectText}
                   onOpenCreateModal={onOpenCreateModal}
                 />
               ) : null
@@ -247,7 +244,7 @@ export default function Table({
             onCancel={() => setModal(false)}
             onSubmit={onCreate}
             validationSchema={createObjectValidationSchema}
-            formHeader={ADD_EMPLOYEE}
+            formHeader={addObjectText}
           />
         </Modal>
       ) : null}

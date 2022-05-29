@@ -10,6 +10,9 @@ export default function TableLayout({
   formSubmitText,
   createObjectFormFields,
   createObjectValidationSchema,
+  addObjectText,
+  tableHeader,
+  searchPlaceholder,
 }) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
@@ -38,6 +41,9 @@ export default function TableLayout({
       formSubmitText={formSubmitText}
       createObjectFormFields={createObjectFormFields}
       createObjectValidationSchema={createObjectValidationSchema}
+      addObjectText={addObjectText}
+      tableHeader={tableHeader}
+      searchPlaceholder={searchPlaceholder}
     />
   );
 }

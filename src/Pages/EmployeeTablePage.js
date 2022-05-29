@@ -5,9 +5,12 @@ import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import {
   ADD,
+  ADD_EMPLOYEE,
   EMPLOYEE_ACTION,
   EMPLOYEE_CREATED,
   EMPLOYEE_DELETED,
+  EMPLOYEE_SEARCH_PLACEHOLDER,
+  STAFF_TABLE,
 } from "../Constants/text";
 import { createUserFields } from "../Utils/objects/staticFormFields";
 import { newUserSchema } from "../Validation/createUser";
@@ -64,6 +67,9 @@ export default function TablePage() {
         formSubmitText={ADD}
         createObjectFormFields={createUserFields}
         createObjectValidationSchema={newUserSchema}
+        addObjectText={ADD_EMPLOYEE}
+        tableHeader={STAFF_TABLE}
+        searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
       />
       {creationToast}
       {deletionToast}
