@@ -3,7 +3,7 @@ import { ReactComponent as Check } from "../../Assets/Svg/Check.svg";
 import { ReactComponent as Plus } from "../../Assets/Svg/Plus.svg";
 
 export default function MarkingColumn({
-  rowCount,
+  rows,
   onMarkChange,
   onMarkAll,
   markedRows,
@@ -13,13 +13,13 @@ export default function MarkingColumn({
 }) {
   const generateEmptyArray = () => {
     const emptyArray = [];
-    for (let i = 0; i < rowCount; i++) emptyArray.push(i);
+    for (let i = 0; i < rows.length; i++) emptyArray.push(i);
     return emptyArray;
   };
 
   const array = generateEmptyArray();
 
-  return rowCount > 0 ? (
+  return rows.length > 0 ? (
     <div>
       <div className={style.header}>
         <button
@@ -34,13 +34,13 @@ export default function MarkingColumn({
         </button>
       </div>
       <div className={style.markingColumn} ref={refference} onScroll={scrollY}>
-        {array.map((id) => (
-          <div className={style.checkRow} key={id}>
+        {rows.map((row, index) => (
+          <div className={style.checkRow} key={row.id}>
             <button
               className={`${style.checkbox} ${
-                markedRows[id] ? style.checkboxActive : null
+                markedRows[index] ? style.checkboxActive : null
               }`}
-              id={id}
+              id={index}
               onClick={onMarkChange}
             >
               <Check />

@@ -19,48 +19,6 @@ import Filters from "./Filters";
 import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 import filterArray from "../../Utils/filterArray";
 
-const workers = [
-  { fullname: "ADimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "dotNet@gmail.com",
-    date: "1552367292842",
-  },
-  { fullname: "Dimon", email: "dimon@gmail.com", date: "1652367292842" },
-  {
-    fullname: "Vlados DotNet",
-    email: "AdotNet@gmail.com",
-    date: "1552367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-  {
-    fullname: "Semenov Olec Mykola",
-    email: "auction.io@gmail.com",
-    date: "1452367292842",
-  },
-];
-
 export default function Table({
   onSearchChange,
   searchValue,
@@ -70,6 +28,7 @@ export default function Table({
   onSortChange,
   onCreateObject,
   onDeleteObject,
+  getObjects,
 }) {
   const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
@@ -93,6 +52,10 @@ export default function Table({
   const scrollY = (event) => {
     tableRef.current.scrollTop = event.target.scrollTop;
     marksRef.current.scrollTop = event.target.scrollTop;
+  };
+
+  const extractEachRowID = (columns) => {
+    return columns?.find((column) => column.header === `id`)?.rows;
   };
 
   const sortBy = (array, filter, sortDirection) => {
@@ -165,9 +128,14 @@ export default function Table({
   };
 
   useEffect(() => {
-    setObjects(workers);
-    setRows(workers);
-  }, []);
+    const objectsRequest = async () => {
+      const objects = await getObjects();
+      setObjects(objects);
+      setRows(objects);
+    };
+
+    objectsRequest();
+  }, [getObjects]);
 
   useEffect(() => {
     setRows((prev) => {
@@ -211,7 +179,7 @@ export default function Table({
       <div className={style.table}>
         <MarkingColumn
           refference={marksRef}
-          rowCount={tableRows.length}
+          rows={tableRows}
           onMarkChange={onMarkChange}
           onMarkAll={onChangeAllMarks}
           markedRows={markedRows}
@@ -221,11 +189,13 @@ export default function Table({
         <div className={style.content}>
           <div className={style.headerRow} onScroll={scrollX} ref={headerRef}>
             {tableRows.length > 0 ? (
-              Object.keys(tableRows[0]).map((row, index) => (
-                <div className={style.header} key={index}>
-                  {EMPLOYEE_TABLE[row]}
-                </div>
-              ))
+              Object.keys(tableRows[0]).map((row, index) =>
+                row !== `id` ? (
+                  <div className={style.header} key={index}>
+                    {EMPLOYEE_TABLE[row]}
+                  </div>
+                ) : null
+              )
             ) : (
               <div className={style.noOneFound}>{NO_SUCH_EMPLOYEE}</div>
             )}
@@ -235,17 +205,22 @@ export default function Table({
             onScroll={combinedScroll}
             ref={tableRef}
           >
-            {columns.map((rows, index) => (
-              <Column
-                key={index}
-                rows={rows.rows}
-                header={rows.header}
-                isLast={index === columns.length - 1}
-                markedRows={markedRows}
-                addObjectText={ADD_EMPLOYEE}
-                onOpenCreateModal={onOpenCreateModal}
-              />
-            ))}
+            {columns.map((rows, index) =>
+              // {header: id, rows: [id, id, id, ...]} пропустить объект rows.rows где header = id как objectsID
+              // и использовать его в Columns для назначения правмильных id
+              rows.header !== `id` ? (
+                <Column
+                  key={index}
+                  rows={rows.rows}
+                  idArray={extractEachRowID(columns)}
+                  header={rows.header}
+                  isLast={index === columns.length - 1}
+                  markedRows={markedRows}
+                  addObjectText={ADD_EMPLOYEE}
+                  onOpenCreateModal={onOpenCreateModal}
+                />
+              ) : null
+            )}
           </div>
         </div>
       </div>

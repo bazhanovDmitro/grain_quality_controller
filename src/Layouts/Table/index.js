@@ -1,18 +1,23 @@
 import Table from "../../Components/Table";
 import { useState } from "react";
 
-export default function TableLayout({ onDeleteToast, onCreateToast }) {
+export default function TableLayout({
+  onDeleteToast,
+  onCreateToast,
+  getObjects,
+  onDeleteObject,
+}) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
 
-  const onDeleteObject = (object) => {
-    console.log(`${object.fullname} - deleted`);
-    onDeleteToast();
+  const onDelete = (object) => {
+    onDeleteObject(object);
+    if (onDeleteToast) onDeleteToast();
   };
 
-  const onCreateObject = (values) => {
+  const onCreate = (values) => {
     console.log(values);
-    onCreateToast();
+    if (onCreateToast) onCreateToast();
   };
 
   return (
@@ -23,8 +28,9 @@ export default function TableLayout({ onDeleteToast, onCreateToast }) {
       sortField={"fullname"}
       searchField={"fullname"}
       onSortChange={() => setSort((prev) => !prev)}
-      onDeleteObject={onDeleteObject}
-      onCreateObject={onCreateObject}
+      onDeleteObject={onDelete}
+      onCreateObject={onCreate}
+      getObjects={getObjects}
     />
   );
 }
