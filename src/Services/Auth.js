@@ -3,13 +3,15 @@ import { LOGIN_URL } from "../Constants/api_roots";
 import jwtDecode from "jwt-decode";
 import { USER_TOKEN } from "../Constants/localStorage";
 
-export const login = async ({ email, password }) => {
-  // Checking if a user has already logged in
+export const checkIfLogged = () => {
   const userToken = localStorage.getItem(USER_TOKEN);
   if (userToken) {
     return jwtDecode(userToken);
   }
+  return false;
+};
 
+export const login = async ({ email, password }) => {
   // If not make a request
   return axios
     .post(`${process.env.REACT_APP_API_ROOT}${LOGIN_URL}`, {

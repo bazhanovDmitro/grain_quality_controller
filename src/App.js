@@ -3,6 +3,7 @@ import Header from "./Layouts/Header";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Components/Sidebar/index";
 import { ANON } from "./Constants/roles";
+import { checkIfLogged } from "./Services/Auth";
 
 export const UserContext = createContext();
 
@@ -12,6 +13,7 @@ function App() {
   const [width, setWidth] = useState(null);
   const [isSidebarVisible, setSidebar] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [isAppLoaded, setLoaded] = useState(false);
 
   const { pathname } = useLocation();
 
@@ -29,6 +31,16 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const user = checkIfLogged();
+    if (user) {
+      setUserInfo(user);
+      setRole(user.role);
+      console.log("User info");
+    }
+    setLoaded(true);
+  }, []);
+
   const contextValue = {
     userInfo: userInfo,
     setUserInfo: setUserInfo,
@@ -38,6 +50,7 @@ function App() {
     pathname: pathname,
     isSidebarVisible: isSidebarVisible,
     setSidebar: setSidebar,
+    isAppLoaded: isAppLoaded,
   };
 
   return (
