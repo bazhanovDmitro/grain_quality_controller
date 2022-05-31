@@ -46,3 +46,7 @@ export const registerNewUser = async ({
     })
     .catch((error) => console.log(error));
 };
+
+export const logout = () => {
+  localStorage.removeItem(USER_TOKEN);
+};

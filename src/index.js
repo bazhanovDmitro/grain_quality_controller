@@ -10,6 +10,7 @@ import {
   EMPLOYEE_LIST,
   INITIAL,
   INITIAL_DEFAULT,
+  LOGOUT,
   NORMS,
   ORGANIZATION_LIST,
   REPORTS,
@@ -23,6 +24,7 @@ import About from "./Pages/About";
 import ChangeCredentials from "./Pages/ChangeCredentials";
 import Reports from "./Pages/Reports";
 import EmployeeTablePage from "./Pages/EmployeeTablePage";
+import Logout from "./Pages/Logout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -115,6 +117,15 @@ root.render(
               />
             }
           />
+          <Route
+          path={LOGOUT}
+          element={
+            <ProtectedRoute
+              requiredRoles={[WORKER, MANAGER, ADMIN]}
+              element={<Logout />}
+            />
+          }
+        />
         </Route>
       </Routes>
     </BrowserRouter>

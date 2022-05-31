@@ -3,7 +3,8 @@ import Logo from "../../Components/Logo/index";
 import { Link } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../App";
-import { LOGOUT } from "../../Constants/text";
+import { LOGOUT } from "../../Constants/links";
+import { LOGOUT as LOGOUT_TEXT } from "../../Constants/text";
 import { ReactComponent as Leave } from "../../Assets/Svg/Leave.svg";
 import {
   SIDEBAR_BUTTONS,
@@ -78,10 +79,10 @@ export default function Sidebar() {
           </Link>
         ))}
 
-        <button className={style.logout} onClick={() => alert(`logout`)}>
+        <Link className={style.logout} to={LOGOUT}>
           <Leave />
-          {LOGOUT}
-        </button>
+          {LOGOUT_TEXT}
+        </Link>
       </aside>
       {isSidebarVisible ? <Fencing /> : null}
     </>
