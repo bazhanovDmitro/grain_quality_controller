@@ -70,6 +70,8 @@ export default function TablePage() {
         addObjectText={ADD_EMPLOYEE}
         tableHeader={STAFF_TABLE}
         searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
+        sortField={"lastName"}
+        searchField={"lastName"}
       />
       {creationToast}
       {deletionToast}

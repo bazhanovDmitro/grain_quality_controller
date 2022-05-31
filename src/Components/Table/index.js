@@ -31,6 +31,7 @@ export default function Table({
   tableHeader,
   searchPlaceholder,
 }) {
+  const [isTableReady, setReadiness] = useState(false);
   const [objects, setObjects] = useState([]);
   const [tableRows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -134,6 +135,7 @@ export default function Table({
       const objects = await getObjects(userInfo.OrganizationId);
       setObjects(objects);
       setRows(objects);
+      setReadiness(true);
     };
 
     objectsRequest();
@@ -141,12 +143,12 @@ export default function Table({
 
   useEffect(() => {
     setRows((prev) => {
-      if (prev.length > 0) {
+      if (prev.length > 0 && isTableReady) {
         return sortBy(prev, sortField, sortValue);
       }
       return prev;
     });
-  }, [sortValue, sortField]);
+  }, [sortValue, sortField, isTableReady]);
 
   useEffect(() => {
     setColumns(extractColumnsFromTableObject(tableRows));

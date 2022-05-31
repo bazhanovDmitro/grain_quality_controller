@@ -25,6 +25,7 @@ import ChangeCredentials from "./Pages/ChangeCredentials";
 import Reports from "./Pages/Reports";
 import EmployeeTablePage from "./Pages/EmployeeTablePage";
 import Logout from "./Pages/Logout";
+import OrganizationsTable from "./Pages/OrganizationsTable";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -94,7 +95,7 @@ root.render(
             element={
               <ProtectedRoute
                 requiredRoles={ADMIN}
-                element={<div>ORGANIZATION LIST</div>}
+                element={<OrganizationsTable />}
               />
             }
           />
@@ -118,14 +119,14 @@ root.render(
             }
           />
           <Route
-          path={LOGOUT}
-          element={
-            <ProtectedRoute
-              requiredRoles={[WORKER, MANAGER, ADMIN]}
-              element={<Logout />}
-            />
-          }
-        />
+            path={LOGOUT}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER, ADMIN]}
+                element={<Logout />}
+              />
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -13,6 +13,8 @@ export default function TableLayout({
   addObjectText,
   tableHeader,
   searchPlaceholder,
+  sortField,
+  searchField,
 }) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
@@ -32,8 +34,8 @@ export default function TableLayout({
       searchValue={searchValue}
       onSearchChange={(event) => setSearch(event.target.value)}
       sortValue={sortValue}
-      sortField={"lastName"}
-      searchField={"lastName"}
+      sortField={sortField}
+      searchField={searchField}
       onSortChange={() => setSort((prev) => !prev)}
       onDeleteObject={onDelete}
       onCreateObject={onCreate}

@@ -53,3 +53,12 @@ export const NO_SUCH_EMPLOYEE = "No employee found..";
 export const EMPLOYEE_ACTION = "Employee action";
 export const EMPLOYEE_CREATED = "Employee created";
 export const EMPLOYEE_DELETED = "Employee deleted";
+export const ADD_ORGANIZATION = "Add Organization";
+export const ORGANIZATION_LIST = "Organization list";
+export const ORGANIZATION_SEARCH_PLACEHOLDER = "Organization name";
+export const ORGANIZATION_NAME_LENGTH_ECXEPTION =
+  "Organization name should be longer";
+export const ORGANIZATION_NAME_TO_LONG = "Should be shorter than 40";
+export const ORGANIZATION_ACTION = "Organization action";
+export const ORGANIZATION_DELETED_MESSAGE = "Organization deleted";
+export const ORGANIZATION_CREATED_MESSAGE = "Organization created";

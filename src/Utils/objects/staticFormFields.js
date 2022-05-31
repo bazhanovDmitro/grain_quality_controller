@@ -19,3 +19,36 @@ export const createUserFields = [
     placeholder: "Password",
   },
 ];
+
+export const createOrganizationFields = [
+  {
+    type: "text",
+    name: "organizationName",
+    initialValue: "",
+    placeholder: "Organization name",
+  },
+  {
+    type: "text",
+    name: "managerName",
+    initialValue: "",
+    placeholder: "Manager name",
+  },
+  {
+    type: "text",
+    name: "managerLastName",
+    initialValue: "",
+    placeholder: "Manager lastname",
+  },
+  {
+    type: "email",
+    name: "managerEmail",
+    initialValue: "",
+    placeholder: "Manager email",
+  },
+  {
+    type: "password",
+    name: "managerPassword",
+    initialValue: "",
+    placeholder: "Manager password",
+  },
+];
