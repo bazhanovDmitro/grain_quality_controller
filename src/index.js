@@ -27,6 +27,7 @@ import EmployeeTablePage from "./Pages/EmployeeTablePage";
 import Logout from "./Pages/Logout";
 import OrganizationsTable from "./Pages/OrganizationsTable";
 import Analizer from "./Pages/Analizer";
+import Norms from "./Pages/Norms";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -100,10 +101,7 @@ root.render(
           <Route
             path={NORMS}
             element={
-              <ProtectedRoute
-                requiredRoles={ADMIN}
-                element={<div>NORM FORM</div>}
-              />
+              <ProtectedRoute requiredRoles={ADMIN} element={<Norms />} />
             }
           />
 

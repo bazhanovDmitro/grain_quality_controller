@@ -63,3 +63,7 @@ export const ORGANIZATION_ACTION = "Organization action";
 export const ORGANIZATION_DELETED_MESSAGE = "Organization deleted";
 export const ORGANIZATION_CREATED_MESSAGE = "Organization created";
 export const ANALIZE_TEXT = "Analize";
+export const SELECT_ACTION = "Select the action";
+export const SELECT_FORM = "Select the culture";
+export const CREATE = "Create";
+export const UPDATE = "Update";
