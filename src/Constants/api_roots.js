@@ -9,3 +9,4 @@ export const GET_ALL_ORGANIZATIONS = "/api/Organization/GetAllOrganizations";
 export const CREATE_ORGANIZATION = "/api/Organization/CreateOrganization";
 export const ADD_TO_ROLE = "/api/Role/AddToRole";
 export const DELETE_ORGANIZATION = "/api/Organization/DeleteOrganization";
+export const GET_ALL_NOMRS = "/api/Standarts/GetAllStandarts";

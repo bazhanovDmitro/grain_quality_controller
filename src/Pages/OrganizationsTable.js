@@ -4,6 +4,7 @@ import {
   ADD,
   ADD_ORGANIZATION,
   ORGANIZATION_ACTION,
+  ORGANIZATION_CREATED_MESSAGE,
   ORGANIZATION_DELETED_MESSAGE,
   ORGANIZATION_SEARCH_PLACEHOLDER,
 } from "../Constants/text";
@@ -34,7 +35,7 @@ export default function OrganizationsTable() {
   const creationToast = isCreationVisible ? (
     <HintCard
       header={ORGANIZATION_ACTION}
-      text={ORGANIZATION_DELETED_MESSAGE}
+      text={ORGANIZATION_CREATED_MESSAGE}
       closeButton={true}
       onClose={() => setCreationVisibility(false)}
       timing={5000}

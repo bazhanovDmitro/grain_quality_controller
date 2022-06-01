@@ -62,3 +62,4 @@ export const ORGANIZATION_NAME_TO_LONG = "Should be shorter than 40";
 export const ORGANIZATION_ACTION = "Organization action";
 export const ORGANIZATION_DELETED_MESSAGE = "Organization deleted";
 export const ORGANIZATION_CREATED_MESSAGE = "Organization created";
+export const ANALIZE_TEXT = "Analize";

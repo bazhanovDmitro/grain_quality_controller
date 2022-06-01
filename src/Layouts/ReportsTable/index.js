@@ -26,112 +26,112 @@ import { ReactComponent as Negative } from "../../Assets/Svg/Negative.svg";
 const dummyReports = [
   {
     id: "1",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367292842",
     author: "somebody@gmail.com",
   },
   {
     id: "22",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 2,
     date: "1652367292823",
     author: "somebody@gmail.com",
   },
   {
     id: "23",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652337292842",
     author: "somebody@gmail.com",
   },
   {
     id: "24",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367292846",
     author: "somebody@gmail.com",
   },
   {
     id: "25",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367293123",
     author: "somebody@gmail.com",
   },
   {
     id: "26",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 2,
     date: "1652347292842",
     author: "somebody@gmail.com",
   },
   {
     id: "27",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 2,
     date: "1652367262442",
     author: "somebody@gmail.com",
   },
   {
     id: "11",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367292811",
     author: "somebody@gmail.com",
   },
   {
     id: "12",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1624367292842",
     author: "somebody@gmail.com",
   },
   {
     id: "13",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 2,
     date: "1652365692842",
     author: "somebody@gmail.com",
   },
   {
     id: "14",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1522367292842",
     author: "somebody@gmail.com",
   },
   {
     id: "15",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367542842",
     author: "somebody@gmail.com",
   },
   {
     id: "16",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367135682",
     author: "somebody@gmail.com",
   },
   {
     id: "17",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1452367292842",
     author: "somebody@gmail.com",
   },
   {
     id: "18",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652367292432",
     author: "somebody@gmail.com",
   },
   {
     id: "19",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 2,
     date: "1636997292842",
     author: "somebody@gmail.com",
@@ -139,49 +139,49 @@ const dummyReports = [
 
   {
     id: "2",
-    culture: "Wheat",
+    cultureName: "Wheat",
     mark: 1,
     date: "1652388292442",
     author: "somebody@gmail.com",
   },
   {
     id: "3",
-    culture: "Rice",
+    cultureName: "Rice",
     mark: 2,
     date: "1632367292842",
     author: "somebody@gmail.com",
   },
   {
     id: "4",
-    culture: "Corn",
+    cultureName: "Corn",
     mark: 1,
     date: "1652367214642",
     author: "somebody@gmail.com",
   },
   {
     id: "5",
-    culture: "Rice",
+    cultureName: "Rice",
     mark: 1,
     date: "1622347292842",
     author: "somebody@gmail.com",
   },
   {
     id: "6",
-    culture: "Corn",
+    cultureName: "Corn",
     mark: 2,
     date: "1652369992842",
     author: "somebody@gmail.com",
   },
   {
     id: "7",
-    culture: "Rice",
+    cultureName: "Rice",
     mark: 2,
     date: "1621567249812",
     author: "somebody@gmail.com",
   },
   {
     id: "8",
-    culture: "Corn",
+    cultureName: "Corn",
     mark: 1,
     date: "1652373216542",
     author: "somebody@gmail.com",
@@ -210,7 +210,9 @@ export default function ReportsTable() {
   const { width } = useContext(UserContext);
 
   const onItemChange = (name) => {
-    const culture = cultures.findIndex((culture) => culture.name === name);
+    const culture = cultures.findIndex(
+      (culture) => culture.cultureName === name
+    );
     setCurrentIndex(culture);
   };
 
@@ -231,9 +233,9 @@ export default function ReportsTable() {
   }, []);
 
   useEffect(() => {
-    const currentCulture = cultures[currentIndex]?.name;
+    const currentCulture = cultures[currentIndex]?.cultureName;
     const filteredReports = dummyReports.filter(
-      (report) => report.culture === currentCulture
+      (report) => report.cultureName === currentCulture
     );
     setRenderList(
       filterReportsByMarks(sortReportsByDate(filteredReports, order))

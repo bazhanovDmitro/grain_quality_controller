@@ -23,8 +23,11 @@ export default function Submenu({ list, onItemChange, onClose }) {
     <ul className={`${style.submenu}`} id="list">
       {isListAnArray
         ? list.map((item) => (
-            <li key={item?.name} onClick={() => onItemChange(item?.name)}>
-              {item?.name}
+            <li
+              key={item?.cultureName}
+              onClick={() => onItemChange(item?.cultureName)}
+            >
+              {item?.cultureName}
             </li>
           ))
         : null}

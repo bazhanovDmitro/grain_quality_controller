@@ -26,6 +26,7 @@ import Reports from "./Pages/Reports";
 import EmployeeTablePage from "./Pages/EmployeeTablePage";
 import Logout from "./Pages/Logout";
 import OrganizationsTable from "./Pages/OrganizationsTable";
+import Analizer from "./Pages/Analizer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -37,10 +38,7 @@ root.render(
           <Route
             path={ANALIZER}
             element={
-              <ProtectedRoute
-                requiredRoles={WORKER}
-                element={<div>ANALIZER</div>}
-              />
+              <ProtectedRoute requiredRoles={WORKER} element={<Analizer />} />
             }
           />
           <Route
