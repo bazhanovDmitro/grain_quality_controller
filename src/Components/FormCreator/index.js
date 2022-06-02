@@ -1,15 +1,21 @@
 import style from "../../Assets/Styles/fomrCreator.module.scss";
 import { useState, useEffect } from "react";
 import { ReactComponent as Cross } from "../../Assets/Svg/Cross.svg";
+import Modal from "../Modal";
+import CreateFieldInput from "./CreateFieldInput";
+import Confirm from "../../Components/Confirm";
 
 export default function FormCreator({
   initialFields,
   onSubmit,
   formName,
   header,
+  createFieldPlaceholder,
 }) {
   const [fields, setFields] = useState({});
   const [formNameValue, setFormName] = useState("");
+  const [modal, setModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const renderFields = (fields) => {
     const keys = Object.keys(fields);
@@ -36,13 +42,18 @@ export default function FormCreator({
     ));
   };
 
-  const addField = (name, value) => {
+  const addField = () => {
+    setModal(true);
+  };
+
+  const commitField = (name, value) => {
     setFields((prev) => {
       return {
         ...prev,
         [name]: value,
       };
     });
+    setModal(false);
   };
 
   const removeField = (name) => {
@@ -73,19 +84,36 @@ export default function FormCreator({
           />
         </div>
         {renderFields(fields)}
-        <button
-          className={style.addFieldButton}
-          onClick={() => addField("test", "text")}
-        >
+        <button className={style.addFieldButton} onClick={addField}>
           Add field
         </button>
-        <button
-          className={style.submitButton}
-          onClick={() => onSubmit(formNameValue, fields)}
-        >
+        <button className={style.submitButton} onClick={() => setConfirm(true)}>
           Create norm
         </button>
       </form>
+      {modal && (
+        <Modal onOtsideClick={() => setModal(false)}>
+          <CreateFieldInput
+            placeholder={createFieldPlaceholder}
+            onCancel={() => setModal(false)}
+            onCreateField={commitField}
+          />
+        </Modal>
+      )}
+      {confirm && (
+        <Modal onOtsideClick={() => setConfirm(false)}>
+          <Confirm
+            onAccept={() => onSubmit(formNameValue, fields)}
+            onDecline={() => setConfirm(false)}
+            acceptText={"Proceed"}
+            declineText={"Decline"}
+            text={
+              "The new norm would be created in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?"
+            }
+            header={"Norm creation"}
+          />
+        </Modal>
+      )}
     </>
   );
 }

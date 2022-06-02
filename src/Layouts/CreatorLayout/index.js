@@ -16,6 +16,7 @@ export default function CreatorLayout() {
         formName="Wheat"
         onSubmit={(formName, values) => console.log(formName, values)}
         header="Create new norm"
+        createFieldPlaceholder={"Analysis field name"}
       />
     </div>
   );
