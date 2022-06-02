@@ -12,3 +12,6 @@ export const EMPLOYEE_LIST = "/employee";
 export const ORGANIZATION_LIST = "/organizations";
 export const NORMS = "/norms/change";
 export const LOGOUT = "/auth/logout";
+
+export const NORM_CONSTRUCTOR_CREATE = "/norms/constructor/create";
+export const NORM_CONSTRUCTOR_UPDATE = "/norms/constructor/update";

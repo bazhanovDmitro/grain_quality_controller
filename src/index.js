@@ -12,6 +12,7 @@ import {
   INITIAL_DEFAULT,
   LOGOUT,
   NORMS,
+  NORM_CONSTRUCTOR_CREATE,
   ORGANIZATION_LIST,
   REPORTS,
   REPORT_PREVIEW,
@@ -28,6 +29,7 @@ import Logout from "./Pages/Logout";
 import OrganizationsTable from "./Pages/OrganizationsTable";
 import Analizer from "./Pages/Analizer";
 import Norms from "./Pages/Norms";
+import NormConstructor from "./Pages/NormConstructor";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -120,6 +122,15 @@ root.render(
               <ProtectedRoute
                 requiredRoles={[WORKER, MANAGER, ADMIN]}
                 element={<Logout />}
+              />
+            }
+          />
+          <Route
+            path={NORM_CONSTRUCTOR_CREATE}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<NormConstructor />}
               />
             }
           />

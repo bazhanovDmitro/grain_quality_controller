@@ -4,10 +4,14 @@ import Selector from "../Layouts/Selector";
 import { useState, useEffect } from "react";
 import { getNorms } from "../Services/Analizer";
 import { CREATE, UPDATE, DELETE } from "../Constants/text";
+import { useNavigate } from "react-router-dom";
+import { NORM_CONSTRUCTOR_CREATE } from "../Constants/links";
 
 export default function Norms() {
   const [cultures, setCultures] = useState([]);
   const [selectedCulture, setSelected] = useState(null);
+
+  const navigate = useNavigate();
 
   const onSelect = (cultureName) => {
     setSelected(
@@ -29,7 +33,12 @@ export default function Norms() {
           onSelect={onSelect}
         />
         <div className={style.actionButtons}>
-          <button disabled={selectedCulture === null}>{CREATE}</button>
+          <button
+            disabled={selectedCulture !== null}
+            onClick={() => navigate(NORM_CONSTRUCTOR_CREATE)}
+          >
+            {CREATE}
+          </button>
           <button disabled={selectedCulture === null}>{UPDATE}</button>
           <button disabled={selectedCulture === null}>{DELETE}</button>
         </div>
