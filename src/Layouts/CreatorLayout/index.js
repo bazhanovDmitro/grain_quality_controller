@@ -1,6 +1,15 @@
 import FormCreator from "../../Components/FormCreator";
 
-export default function CreatorLayout() {
+export default function CreatorLayout({
+  initialFields,
+  formName,
+  header,
+  createFieldPlaceholder,
+  formNamePlaceholder,
+  onSubmit,
+  redirectLink,
+  confirmationText,
+}) {
   return (
     <div
       style={{
@@ -12,11 +21,14 @@ export default function CreatorLayout() {
       }}
     >
       <FormCreator
-        initialFields={{ biba: "Boba" }}
-        formName="Wheat"
-        onSubmit={(formName, values) => console.log(formName, values)}
-        header="Create new norm"
-        createFieldPlaceholder={"Analysis field name"}
+        initialFields={initialFields}
+        formName={formName}
+        onSubmit={(formName, values) => onSubmit(formName, values)}
+        header={header}
+        createFieldPlaceholder={createFieldPlaceholder}
+        formNamePlaceholder={formNamePlaceholder}
+        redirectLink={redirectLink}
+        confirmationText={confirmationText}
       />
     </div>
   );

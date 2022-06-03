@@ -14,6 +14,7 @@ function App() {
   const [isSidebarVisible, setSidebar] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [isAppLoaded, setLoaded] = useState(false);
+  const [selectedNorm, setNorm] = useState(null);
 
   const { pathname } = useLocation();
 
@@ -50,6 +51,8 @@ function App() {
     isSidebarVisible: isSidebarVisible,
     setSidebar: setSidebar,
     isAppLoaded: isAppLoaded,
+    selectedNorm: selectedNorm,
+    setNorm: setNorm,
   };
 
   return (

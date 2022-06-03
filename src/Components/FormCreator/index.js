@@ -4,6 +4,7 @@ import { ReactComponent as Cross } from "../../Assets/Svg/Cross.svg";
 import Modal from "../Modal";
 import CreateFieldInput from "./CreateFieldInput";
 import Confirm from "../../Components/Confirm";
+import { useNavigate } from "react-router-dom";
 
 export default function FormCreator({
   initialFields,
@@ -11,11 +12,20 @@ export default function FormCreator({
   formName,
   header,
   createFieldPlaceholder,
+  formNamePlaceholder,
+  redirectLink,
+  confirmationText,
 }) {
   const [fields, setFields] = useState({});
   const [formNameValue, setFormName] = useState("");
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmitForm = (name, fields) => {
+    onSubmit(name, fields).then(() => navigate(redirectLink));
+  };
 
   const renderFields = (fields) => {
     const keys = Object.keys(fields);
@@ -81,6 +91,7 @@ export default function FormCreator({
             name="formName"
             value={formNameValue}
             onChange={(event) => setFormName(event.target.value)}
+            placeholder={formNamePlaceholder}
           />
         </div>
         {renderFields(fields)}
@@ -88,7 +99,7 @@ export default function FormCreator({
           Add field
         </button>
         <button className={style.submitButton} onClick={() => setConfirm(true)}>
-          Create norm
+          {header}
         </button>
       </form>
       {modal && (
@@ -103,14 +114,12 @@ export default function FormCreator({
       {confirm && (
         <Modal onOtsideClick={() => setConfirm(false)}>
           <Confirm
-            onAccept={() => onSubmit(formNameValue, fields)}
+            onAccept={() => onSubmitForm(formNameValue, fields)}
             onDecline={() => setConfirm(false)}
             acceptText={"Proceed"}
             declineText={"Decline"}
-            text={
-              "The new norm would be created in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?"
-            }
-            header={"Norm creation"}
+            text={confirmationText}
+            header={header}
           />
         </Modal>
       )}

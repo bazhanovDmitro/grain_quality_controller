@@ -17,6 +17,7 @@ import {
   REPORTS,
   REPORT_PREVIEW,
   RESTORE_PASSWORD,
+  NORM_CONSTRUCTOR_UPDATE,
 } from "./Constants/links";
 import LoginForm from "./Layouts/LoginForm";
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -29,7 +30,8 @@ import Logout from "./Pages/Logout";
 import OrganizationsTable from "./Pages/OrganizationsTable";
 import Analizer from "./Pages/Analizer";
 import Norms from "./Pages/Norms";
-import NormConstructor from "./Pages/NormConstructor";
+import NormConstructorCreate from "./Pages/NormConstructorCreate";
+import NormConstructorUpdate from "./Pages/NormConstructorUpdate";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -130,7 +132,16 @@ root.render(
             element={
               <ProtectedRoute
                 requiredRoles={ADMIN}
-                element={<NormConstructor />}
+                element={<NormConstructorCreate />}
+              />
+            }
+          />
+          <Route
+            path={NORM_CONSTRUCTOR_UPDATE}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<NormConstructorUpdate />}
               />
             }
           />

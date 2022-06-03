@@ -9,7 +9,7 @@ export default function Selector({
 }) {
   return (
     <div className={style.selector}>
-      <h1>{header}</h1>
+      <h2>{header}</h2>
       <Select
         itemList={selectArray}
         currentItemIndex={selectedIndex}
