@@ -1,6 +1,12 @@
 import CreatorLayout from "../Layouts/CreatorLayout";
 import { createNorm } from "../Services/Analizer";
 import { NORMS } from "../Constants/links";
+import {
+  ANALYSIS_PLACEHOLDER,
+  CREATE_NEW_NORM,
+  CREATE_NORM_CONFIRMATION_TEXT,
+  CULTURE_NAME,
+} from "../Constants/text";
 
 export default function NormConstructor() {
   return (
@@ -8,14 +14,12 @@ export default function NormConstructor() {
       <CreatorLayout
         initialFields={{}}
         formName=""
-        header="Create new norm"
-        createFieldPlaceholder="Analysis field name"
-        formNamePlaceholder={"Culture name"}
+        header={CREATE_NEW_NORM}
+        createFieldPlaceholder={ANALYSIS_PLACEHOLDER}
+        formNamePlaceholder={CULTURE_NAME}
         onSubmit={createNorm}
         redirectLink={NORMS}
-        confirmationText={
-          "The new norm would be created in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?"
-        }
+        confirmationText={CREATE_NORM_CONFIRMATION_TEXT}
       />
     </div>
   );

@@ -5,6 +5,7 @@ import Modal from "../Modal";
 import CreateFieldInput from "./CreateFieldInput";
 import Confirm from "../../Components/Confirm";
 import { useNavigate } from "react-router-dom";
+import { ADD_FIELD, DECLINE, PROCEED } from "../../Constants/text";
 
 export default function FormCreator({
   initialFields,
@@ -96,7 +97,7 @@ export default function FormCreator({
         </div>
         {renderFields(fields)}
         <button className={style.addFieldButton} onClick={addField}>
-          Add field
+          {ADD_FIELD}
         </button>
         <button className={style.submitButton} onClick={() => setConfirm(true)}>
           {header}
@@ -116,8 +117,8 @@ export default function FormCreator({
           <Confirm
             onAccept={() => onSubmitForm(formNameValue, fields)}
             onDecline={() => setConfirm(false)}
-            acceptText={"Proceed"}
-            declineText={"Decline"}
+            acceptText={PROCEED}
+            declineText={DECLINE}
             text={confirmationText}
             header={header}
           />

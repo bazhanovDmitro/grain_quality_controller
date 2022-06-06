@@ -1,5 +1,6 @@
 import style from "../../Assets/Styles/fomrCreator.module.scss";
 import { useState } from "react";
+import { ADD_FIELD, CANCEL, VALUE } from "../../Constants/text";
 
 export default function CreateFieldInput({
   onCreateField,
@@ -11,7 +12,7 @@ export default function CreateFieldInput({
 
   return (
     <div className={style.createInput}>
-      <h2>Add field</h2>
+      <h2>{ADD_FIELD}</h2>
       <div className={style.inputHolder}>
         <input
           className={style.fieldName}
@@ -21,7 +22,7 @@ export default function CreateFieldInput({
         />
         <input
           className={style.fieldValue}
-          placeholder="Value"
+          placeholder={VALUE}
           value={value}
           onChange={(event) => setValue(event.target.value)}
         />
@@ -32,10 +33,10 @@ export default function CreateFieldInput({
           className={style.add}
           onClick={() => onCreateField(name, value)}
         >
-          Add field
+          {ADD_FIELD}
         </button>
         <button className={style.cancel} onClick={onCancel}>
-          Cancel
+          {CANCEL}
         </button>
       </div>
     </div>

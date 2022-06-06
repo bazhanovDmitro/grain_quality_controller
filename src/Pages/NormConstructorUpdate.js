@@ -4,6 +4,12 @@ import { NORMS } from "../Constants/links";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import {
+  ANALYSIS_PLACEHOLDER,
+  CULTURE_NAME,
+  UPDATE_NORM,
+  UPDATE_NORM_CONFIRMATION_TEXT,
+} from "../Constants/text";
 
 export default function NormConstructorUpdate() {
   const { selectedNorm, setNorm } = useContext(UserContext);
@@ -25,14 +31,12 @@ export default function NormConstructorUpdate() {
         <CreatorLayout
           initialFields={selectedNorm.fieldsToCheck}
           formName={selectedNorm.cultureName}
-          header="Update norm"
-          createFieldPlaceholder="Analysis field name"
-          formNamePlaceholder="Culture name"
+          header={UPDATE_NORM}
+          createFieldPlaceholder={ANALYSIS_PLACEHOLDER}
+          formNamePlaceholder={CULTURE_NAME}
           onSubmit={onUpdateNorm}
           redirectLink={NORMS}
-          confirmationText={
-            "The norm values will be edited in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?"
-          }
+          confirmationText={UPDATE_NORM_CONFIRMATION_TEXT}
         />
       </div>
     )
