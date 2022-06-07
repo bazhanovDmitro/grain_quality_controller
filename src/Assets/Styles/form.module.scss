@@ -146,6 +146,11 @@
     right: 40px;
   }
 
+  .selectHolder {
+    margin-top: 18px;
+    width: 100%;
+  }
+
   .field {
     input {
       width: 100%;
@@ -156,6 +161,10 @@
 .form_mobile {
   @include comonStyles();
   max-width: 400px;
+  .selectHolder {
+    margin-top: 18px;
+    width: 100%;
+  }
   .field {
     input {
       width: 100%;

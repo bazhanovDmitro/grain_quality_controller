@@ -48,11 +48,6 @@ export default function CustomForm({
     const reservedForSelector = onChangeForm ? 1 : 0;
 
     onChangeForm(formName);
-    console.log(
-      width <= TABLET_VIEW
-        ? INPUT_COUNT_ON_SINGLE_PAGE - reservedForSelector
-        : 2 * INPUT_COUNT_ON_SINGLE_PAGE
-    );
     setPage(
       width <= TABLET_VIEW
         ? INPUT_COUNT_ON_SINGLE_PAGE - reservedForSelector
@@ -147,6 +142,20 @@ export default function CustomForm({
     else return style.form_tablet;
   };
 
+  const getFormikKey = (formFields) => {
+    if (
+      typeof formFields === `object` &&
+      !Array.isArray(formFields) &&
+      formFields !== null
+    ) {
+      const fields = Object.keys(formFields).map((key) => key);
+
+      return fields[0];
+    } else {
+      return formFields?.[0]?.name;
+    }
+  };
+
   useEffect(() => {
     const reservedForSelector = onChangeForm ? 1 : 0;
 
@@ -170,10 +179,13 @@ export default function CustomForm({
 
   return (
     <Formik
-      key={formFields?.[0]?.name}
+      key={getFormikKey(formFields)}
       initialValues={getInitValuesObject(formFields)}
       validationSchema={validationSchema}
-      onSubmit={(values) => onSubmit(values)}
+      onSubmit={(values, { resetForm }) => {
+        onSubmit(values);
+        resetForm();
+      }}
     >
       {() => (
         <Form

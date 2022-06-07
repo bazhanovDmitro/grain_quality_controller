@@ -1,16 +1,18 @@
 import axios from "axios";
 import {
+  ANALIZE,
   CREATE_NORM,
   DELETE_NORM,
   GET_ALL_NOMRS,
   UPDATE_NORM,
 } from "../Constants/api_roots";
+import clearNormValues from "../Utils/clearNormValues";
 
 export const getNorms = async () => {
   const normList = await axios.get(
     `${process.env.REACT_APP_API_ROOT}${GET_ALL_NOMRS}`
   );
-  return normList.data;
+  return clearNormValues(normList.data);
 };
 
 export const createNorm = async (name, fields) => {
@@ -38,6 +40,36 @@ export const updateNorm = async (normId, name, newFields) => {
         id: normId,
         cultureName: name,
         fieldsToCheck: newFields,
+      },
+    }
+  );
+};
+
+export const analize = async (
+  userID,
+  organizationID,
+  values,
+  cultureName,
+  cultureID
+) => {
+  return axios.post(
+    `${process.env.REACT_APP_API_ROOT}${ANALIZE}`,
+    {
+      id: cultureID,
+      cultureName: cultureName,
+      contractDefinedValues: {
+        physicalWeight: 0,
+        intakeMoistureIndexPercentage: 0,
+        moistureDueToContract: 0,
+        indicatorOfWeedImpurityPercentage: 0,
+        indicatorOfWeedImpurityToTheContract: 0,
+      },
+      fieldToCheck: values,
+    },
+    {
+      params: {
+        userId: userID,
+        organizationId: organizationID,
       },
     }
   );
