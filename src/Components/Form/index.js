@@ -29,31 +29,120 @@ export default function CustomForm({
   const [formFields, setFormFields] = useState([]);
 
   const getInitValuesObject = (fields) => {
+    if (
+      typeof fields === `object` &&
+      !Array.isArray(fields) &&
+      fields !== null
+    ) {
+      return fields;
+    }
+
     const initialValues = {};
     fields?.forEach(
       (field) => (initialValues[field.name] = field.initialValue)
     );
-
     return initialValues;
   };
 
-  const onDecrease = () => setPage((prev) => prev - input_count);
-  const onIncrease = () => setPage((prev) => prev + input_count);
+  const onFormChange = (formName, width, onChangeForm) => {
+    const reservedForSelector = onChangeForm ? 1 : 0;
+
+    onChangeForm(formName);
+    console.log(
+      width <= TABLET_VIEW
+        ? INPUT_COUNT_ON_SINGLE_PAGE - reservedForSelector
+        : 2 * INPUT_COUNT_ON_SINGLE_PAGE
+    );
+    setPage(
+      width <= TABLET_VIEW
+        ? INPUT_COUNT_ON_SINGLE_PAGE - reservedForSelector
+        : 2 * INPUT_COUNT_ON_SINGLE_PAGE
+    );
+  };
+
+  const isFieldsCountAcceptable = () => {
+    if (!formFields) return false;
+
+    if (Array.isArray(formFields)) {
+      return formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE;
+    }
+    return Object.keys(formFields).length >= INPUT_COUNT_ON_SINGLE_PAGE;
+  };
+
+  const isFieldsCountAcceptableForTablet = () => {
+    if (!formFields) return false;
+    if (Array.isArray(formFields)) {
+      return formFields?.length < INPUT_COUNT_ON_SINGLE_PAGE;
+    }
+    return Object.keys(formFields).length < INPUT_COUNT_ON_SINGLE_PAGE;
+  };
+
+  const renderFields = () => {
+    let fields = formFields;
+    if (
+      typeof formFields === `object` &&
+      !Array.isArray(formFields) &&
+      formFields !== null
+    ) {
+      fields = Object.keys(formFields).map((key) => {
+        return {
+          name: key,
+          initialValue: formFields[key],
+          type: "text",
+        };
+      });
+    }
+
+    return fields?.map((field, index) => (
+      <div
+        key={field.name}
+        style={
+          page - input_count <= index && index < page
+            ? { display: `flex` }
+            : { display: `none` }
+        }
+        className={style?.field}
+      >
+        <Field
+          type={field.type}
+          name={field.name}
+          placeholder={field?.placeholder ? field.placeholder : field.name}
+        />
+        <ErrorMessage
+          name={field.name}
+          render={(message) => (
+            <Error message={message} className={style?.error} />
+          )}
+        />
+      </div>
+    ));
+  };
+
+  const onDecrease = (event) => {
+    event.preventDefault();
+    setPage((prev) => prev - input_count);
+  };
+  const onIncrease = (event) => {
+    event.preventDefault();
+    setPage((prev) => prev + input_count);
+  };
 
   const onCancelButtonClick = (event) => {
     event.preventDefault();
     onCancel();
   };
 
-  const isPaginatorVisible = formFields?.length > input_count;
+  const isPaginatorVisible = () => {
+    if (!formFields) return false;
+
+    if (Array.isArray(formFields)) return formFields?.length > input_count;
+    return Object.keys(formFields).length > input_count;
+  };
 
   const formClass = () => {
     if (width <= MOBILE_VIEW) return style.form_mobile;
     else if (width <= TABLET_VIEW) return style.form_tablet;
-    else if (
-      width > TABLET_VIEW &&
-      formFields?.length > INPUT_COUNT_ON_SINGLE_PAGE
-    )
+    else if (width > TABLET_VIEW && isFieldsCountAcceptable())
       return style.form;
     else return style.form_tablet;
   };
@@ -90,7 +179,7 @@ export default function CustomForm({
         <Form
           className={formClass()}
           style={
-            formFields?.length > INPUT_COUNT_ON_SINGLE_PAGE
+            isFieldsCountAcceptable()
               ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54 + 124}px` }
               : null
           }
@@ -98,40 +187,42 @@ export default function CustomForm({
           <div
             className={style.nameContainer}
             style={
-              width <= TABLET_VIEW && isPaginatorVisible
+              width <= TABLET_VIEW && isPaginatorVisible()
                 ? { display: `none` }
                 : null
             }
           >
             <h1
               className={style?.name}
-              style={
-                !(formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE)
-                  ? { width: `100%` }
-                  : null
-              }
+              style={!isFieldsCountAcceptable() ? { width: `100%` } : null}
             >
               {formHeader}
             </h1>
             {onChangeForm &&
             width > TABLET_VIEW &&
-            formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE ? (
+            isFieldsCountAcceptable() ? (
               <div className={style.selectHolder}>
                 <Select
                   itemList={formList}
-                  onItemChange={onChangeForm}
+                  onItemChange={(name) =>
+                    onFormChange(name, width, onChangeForm)
+                  }
                   currentItemIndex={currentFormIndex}
                 />
               </div>
             ) : null}
           </div>
-          {width <= TABLET_VIEW && isPaginatorVisible ? (
+          {width <= TABLET_VIEW && isPaginatorVisible() ? (
             <Paginator
               page={page}
               elementsNumberOnPage={input_count}
               onPageDecrease={onDecrease}
               onPageIncrease={onIncrease}
-              totalRecordNumber={formFields?.length}
+              totalRecordNumber={
+                formFields?.length
+                  ? formFields?.length
+                  : Object.keys(formFields)?.length
+              }
               children={
                 <h3 className={style?.paginatorHeader}>{FILL_THE_FORM}</h3>
               }
@@ -141,55 +232,36 @@ export default function CustomForm({
           <div
             className={style?.fieldContainer}
             style={
-              formFields?.length >= INPUT_COUNT_ON_SINGLE_PAGE
+              isFieldsCountAcceptable()
                 ? { height: `${INPUT_COUNT_ON_SINGLE_PAGE * 54}px` }
                 : null
             }
           >
             {(onChangeForm && width <= TABLET_VIEW) ||
-            (onChangeForm &&
-              formFields?.length < INPUT_COUNT_ON_SINGLE_PAGE) ? (
+            (onChangeForm && isFieldsCountAcceptableForTablet()) ? (
               <div className={style.selectHolder}>
                 <Select
                   itemList={formList}
-                  onItemChange={onChangeForm}
+                  onItemChange={(name) =>
+                    onFormChange(name, width, onChangeForm)
+                  }
                   currentItemIndex={currentFormIndex}
                 />
               </div>
             ) : null}
-            {formFields?.map((field, index) => (
-              <div
-                key={field.name}
-                style={
-                  page - input_count <= index && index < page
-                    ? { display: `flex` }
-                    : { display: `none` }
-                }
-                className={style?.field}
-              >
-                <Field
-                  type={field.type}
-                  name={field.name}
-                  placeholder={
-                    field?.placeholder ? field.placeholder : field.name
-                  }
-                />
-                <ErrorMessage
-                  name={field.name}
-                  render={(message) => (
-                    <Error message={message} className={style?.error} />
-                  )}
-                />
-              </div>
-            ))}
+            {renderFields()}
           </div>
-          {width > TABLET_VIEW && isPaginatorVisible ? (
+          {width > TABLET_VIEW && isPaginatorVisible() ? (
             <Paginator
               page={page}
               elementsNumberOnPage={input_count}
               onPageDecrease={onDecrease}
               onPageIncrease={onIncrease}
-              totalRecordNumber={formFields?.length}
+              totalRecordNumber={
+                formFields?.length
+                  ? formFields?.length
+                  : Object.keys(formFields)?.length
+              }
               children={
                 <div
                   className={style.buttonContainer}
@@ -212,12 +284,12 @@ export default function CustomForm({
             />
           ) : null}
           <div className={style.buttonContainer}>
-            {!isPaginatorVisible || width <= TABLET_VIEW ? (
+            {!isPaginatorVisible() || width <= TABLET_VIEW ? (
               <button type="submit" className={style?.submit}>
                 {submitText}
               </button>
             ) : null}
-            {(!isPaginatorVisible && onCancel) ||
+            {(!isPaginatorVisible() && onCancel) ||
             (width <= TABLET_VIEW && onCancel) ? (
               <button className={style.cancel} onClick={onCancelButtonClick}>
                 {CANCEL}
