@@ -14,3 +14,6 @@ export const CREATE_NORM = "/api/Standarts/CreateStandart";
 export const DELETE_NORM = "/api/Standarts/DeleteStandart";
 export const UPDATE_NORM = "/api/Standarts/UpdateStandart";
 export const ANALIZE = "/api/Analyze/Analyze";
+export const GET_WORKER_REPORTS = "/api/Statistics/GetStatisticsByUserId";
+export const GET_ORGANIZATION_REPORTS =
+  "/api/Statistics/GetStatisticsByOrganizationId";
