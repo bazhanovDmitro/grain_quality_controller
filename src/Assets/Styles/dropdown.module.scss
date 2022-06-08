@@ -2,11 +2,13 @@
 
 .wrapper {
   display: flex;
-  position: relative;
   width: fit-content;
-  height: fit-content;
+  height: 100%;
   .menu {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     width: fit-content;
     height: fit-content;
     padding: 10px 20px;
@@ -14,5 +16,6 @@
     background-color: $WHITE;
     box-shadow: 0px 0px 10px $TRANSPARENT_BLACK;
     border-radius: 5px;
+    z-index: 10000;
   }
 }

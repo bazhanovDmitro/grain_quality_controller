@@ -1,0 +1,108 @@
+@import "./common/colors.module.scss";
+@import "./logo.module.scss";
+
+.reportPage {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reportHolder {
+  position: relative;
+  padding: {
+    top: 0;
+    left: 50px;
+    right: 50px;
+    bottom: 10px;
+  };
+  box-sizing: border-box;
+  background-color: $WHITE;
+  height: 100%;
+  width: 100%;
+  max-width: 720px;
+  box-shadow: 0 0 3px $BLACK;
+  overflow-y: scroll;
+
+  .reportHeader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+
+    .header {
+      color: $BLACK;
+      font-size: 48px;
+      margin-top: -8px;
+    }
+
+    @include logo();
+    .container {
+      color: $BLACK;
+
+      svg {
+        path {
+          fill: $BLACK;
+        }
+      }
+    }
+  }
+  .reportBody {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    h2 {
+      font-size: 36px;
+    }
+    .indicators {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      .row {
+        position: relative;
+        font-size: 18px;
+        padding-left: 40px;
+        box-sizing: border-box;
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-between;
+        overflow: hidden;
+
+        div {
+          background-color: $WHITE;
+          z-index: 2;
+        }
+
+        span {
+          background-color: $WHITE;
+          z-index: 2;
+        }
+
+        &::before {
+          z-index: 1;
+          position: absolute;
+          content: " ......................................................................................................................................................................................................... ";
+        }
+      }
+    }
+    .conclusion {
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+      p {
+        font-size: 18px;
+        padding-left: 40px;
+      }
+    }
+  }
+  .reportFooter {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 25px;
+    font-weight: 600;
+    justify-content: space-between;
+  }
+}
