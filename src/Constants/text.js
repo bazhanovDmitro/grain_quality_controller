@@ -62,3 +62,20 @@ export const ORGANIZATION_NAME_TO_LONG = "Should be shorter than 40";
 export const ORGANIZATION_ACTION = "Organization action";
 export const ORGANIZATION_DELETED_MESSAGE = "Organization deleted";
 export const ORGANIZATION_CREATED_MESSAGE = "Organization created";
+export const ANALIZE_TEXT = "Analize";
+export const SELECT_ACTION = "Select the action";
+export const SELECT_FORM = "Select the culture";
+export const CREATE = "Create";
+export const UPDATE = "Update";
+export const ADD_FIELD = "Add field";
+export const VALUE = "Value";
+export const PROCEED = "Proceed";
+export const DECLINE = "Decline";
+export const CREATE_NEW_NORM = "Create new norm";
+export const ANALYSIS_PLACEHOLDER = "Analysis field name";
+export const CULTURE_NAME = "Culture name";
+export const CREATE_NORM_CONFIRMATION_TEXT =
+  "The new norm would be created in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?";
+export const UPDATE_NORM = "Update norm";
+export const UPDATE_NORM_CONFIRMATION_TEXT =
+  "The norm values will be edited in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?";

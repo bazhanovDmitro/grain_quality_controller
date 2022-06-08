@@ -12,10 +12,12 @@ import {
   INITIAL_DEFAULT,
   LOGOUT,
   NORMS,
+  NORM_CONSTRUCTOR_CREATE,
   ORGANIZATION_LIST,
   REPORTS,
   REPORT_PREVIEW,
   RESTORE_PASSWORD,
+  NORM_CONSTRUCTOR_UPDATE,
 } from "./Constants/links";
 import LoginForm from "./Layouts/LoginForm";
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -26,6 +28,10 @@ import Reports from "./Pages/Reports";
 import EmployeeTablePage from "./Pages/EmployeeTablePage";
 import Logout from "./Pages/Logout";
 import OrganizationsTable from "./Pages/OrganizationsTable";
+import Analizer from "./Pages/Analizer";
+import Norms from "./Pages/Norms";
+import NormConstructorCreate from "./Pages/NormConstructorCreate";
+import NormConstructorUpdate from "./Pages/NormConstructorUpdate";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -37,10 +43,7 @@ root.render(
           <Route
             path={ANALIZER}
             element={
-              <ProtectedRoute
-                requiredRoles={WORKER}
-                element={<div>ANALIZER</div>}
-              />
+              <ProtectedRoute requiredRoles={WORKER} element={<Analizer />} />
             }
           />
           <Route
@@ -102,10 +105,7 @@ root.render(
           <Route
             path={NORMS}
             element={
-              <ProtectedRoute
-                requiredRoles={ADMIN}
-                element={<div>NORM FORM</div>}
-              />
+              <ProtectedRoute requiredRoles={ADMIN} element={<Norms />} />
             }
           />
 
@@ -124,6 +124,24 @@ root.render(
               <ProtectedRoute
                 requiredRoles={[WORKER, MANAGER, ADMIN]}
                 element={<Logout />}
+              />
+            }
+          />
+          <Route
+            path={NORM_CONSTRUCTOR_CREATE}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<NormConstructorCreate />}
+              />
+            }
+          />
+          <Route
+            path={NORM_CONSTRUCTOR_UPDATE}
+            element={
+              <ProtectedRoute
+                requiredRoles={ADMIN}
+                element={<NormConstructorUpdate />}
               />
             }
           />

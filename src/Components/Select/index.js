@@ -18,7 +18,7 @@ export default function Select({ itemList, onItemChange, currentItemIndex }) {
       onClick={switchSelect}
     >
       <div className={style.inputArea}>
-        {itemList?.[currentItemIndex]?.name}
+        {itemList?.[currentItemIndex]?.cultureName}
       </div>
       <SmallArrow />
       {isOpen && (

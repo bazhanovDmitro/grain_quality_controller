@@ -1,0 +1,108 @@
+@import "./common/colors.module.scss";
+@import "./common/buttons.module.scss";
+
+@mixin form {
+  display: flex;
+  flex-direction: column;
+  background-color: $SIDEBAR_BROWN;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 25px 40px;
+}
+
+@mixin input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 18px;
+  border: none;
+}
+
+.formCreator {
+  @include form();
+  max-height: 600px;
+  overflow: scroll;
+
+  .header {
+    color: $WHITE;
+    text-align: center;
+  }
+
+  .inputHolder {
+      margin-top: 18px;
+      display: inline-flex;
+      column-gap: 10px;
+    button {
+      box-sizing: border-box;
+      width: 40px;
+      height: 36px;
+      padding: 0 5px;
+      background-color: $WHITE;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      .cross {
+        path {
+          fill: $RED;
+        }
+      }
+    }
+    .input {
+      @include input();
+    }
+  }
+
+  .addFieldButton {
+    @include blue_small();
+    margin-top: 18px;
+  }
+
+  .submitButton {
+    @include blue_small();
+    margin-top: 20px;
+  }
+}
+.createInput {
+  @include form();
+  .inputHolder {
+    display: flex;
+    column-gap: 10px;
+    margin-top: 18px;
+    flex-direction: inline;
+  }
+  .fieldName {
+    @include input();
+    width: 100%;
+  }
+  .fieldValue {
+    @include input();
+    width: 100%;
+    max-width: 55px;
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+    color: $WHITE;
+  }
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    margin-top: 20px;
+    .add {
+      @include blue_small();
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      max-width: 150px;
+    }
+    .cancel {
+      @include red_small();
+      max-width: 150px;
+    }
+  }
+}

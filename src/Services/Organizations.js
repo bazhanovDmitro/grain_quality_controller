@@ -28,7 +28,12 @@ export const addNewUserToOrganization = async (
     .catch((error) => console.log(error));
 
   await addRole(newUserID, role).catch((error) => console.log(error));
-  return newUserID;
+  return {
+    id: newUserID,
+    lastName: values.lastName,
+    firstName: values.firstName,
+    email: values.email,
+  };
 };
 
 export const deleteUserFromOrganization = async (userID, organizationID) => {
@@ -95,7 +100,10 @@ export const createOrganizationWithManager = async ({
     MANAGER_ROLE_ID
   );
 
-  return lastCreated;
+  return {
+    id: lastCreated,
+    organizationName: organizationName,
+  };
 };
 
 export const deleteOrganization = async (organizationObject) => {

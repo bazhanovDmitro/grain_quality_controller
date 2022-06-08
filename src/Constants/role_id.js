@@ -1,3 +1,3 @@
-export const WORKER_ROLE_ID = "ec1a7084-d362-42c8-81c3-bb3fc6fc3583";
-export const MANAGER_ROLE_ID = "61008112-121b-40f9-871d-a3ed246cff77";
-export const ADMIN_ROLE_ID = "136cdb70-e136-4db4-b208-bbee43d508a4";
+export const WORKER_ROLE_ID = "e9342e68-1984-4daf-98a2-d5a27f61490b";
+export const MANAGER_ROLE_ID = "cb6fab1e-349c-44dd-9e8b-6126f74acb1a";
+export const ADMIN_ROLE_ID = "56ee90d2-7aea-4a97-83ef-9c2101c467fa";

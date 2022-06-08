@@ -1,5 +1,5 @@
 import style from "../../Assets/Styles/table.module.scss";
-import { NO_EMPLOYEE, NO_SUCH_EMPLOYEE } from "../../Constants/text";
+import { NO_SUCH_EMPLOYEE } from "../../Constants/text";
 import extractColumnsFromTableObject from "../../Utils/extractColumnsFromTableObject";
 import TableDashboard from "./TableDashboard";
 import { useState, useEffect, useContext, useRef } from "react";
@@ -103,10 +103,10 @@ export default function Table({
   };
 
   const onCreate = async (values) => {
-    const userID = await onCreateObject(values).then((userID) => userID);
-    setObjects((prev) => [...prev, { id: userID, ...values }]);
+    const object = await onCreateObject(values).then((userID) => userID);
+    setObjects((prev) => [...prev, object]);
     setRows((prev) => {
-      return [...prev, { id: userID, ...values }];
+      return [...prev, object];
     });
     setModal(false);
   };
@@ -236,7 +236,7 @@ export default function Table({
       {objects.length > 0 ? (
         table
       ) : (
-        <NoContent text={NO_EMPLOYEE} onAdd={onOpenCreateModal} />
+        <NoContent text={addObjectText} onAdd={onOpenCreateModal} />
       )}
       {modal ? (
         <Modal onOtsideClick={() => setModal(false)}>
