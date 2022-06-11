@@ -15,6 +15,7 @@ export default function TableLayout({
   searchPlaceholder,
   sortField,
   searchField,
+  excludeObjectsIdArray,
 }) {
   const [searchValue, setSearch] = useState("");
   const [sortValue, setSort] = useState(true);
@@ -46,6 +47,7 @@ export default function TableLayout({
       addObjectText={addObjectText}
       tableHeader={tableHeader}
       searchPlaceholder={searchPlaceholder}
+      excludeObjectsIdArray={excludeObjectsIdArray}
     />
   );
 }

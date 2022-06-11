@@ -17,8 +17,8 @@ export default function Menu({
           className={button.className}
           style={button.style}
           onClick={(event) => {
-            button.onClick(event);
             onClose(event, closeAfterClick);
+            setTimeout(() => button.onClick(event), 1);
           }}
         >
           {button.text}

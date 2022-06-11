@@ -25,34 +25,12 @@ import { reportFooterMargin } from "../Assets/Styles/styleObjects";
 import transformMilisecondsToDate from "../Utils/transfromMilisecondsToDate";
 import DropdownMenu from "../Components/DropdownMenu";
 import buttonStyle from "../Assets/Styles/common/buttons.module.scss";
-
-export const buttons = [
-  {
-    text: PRINT,
-    className: buttonStyle.transparentBlue_ordinary,
-    style: {},
-    onClick: () => alert("Print preview"),
-  },
-  {
-    text: SAVE,
-    className: buttonStyle.transparentBlue_ordinary,
-    style: {},
-    onClick: () => alert("Save pdf"),
-  },
-  {
-    text: DELETE,
-    className: buttonStyle.transparentRed_ordinary,
-    style: {},
-    onClick: () => alert("Delete report"),
-  },
-];
+import createPDF from "../Utils/createPDF";
 
 export default function ReportPage() {
   const { reportID } = useParams();
   const { userInfo } = useContext(UserContext);
   const [reportDetails, setDetails] = useState(null);
-
-  const reportContainerRef = useRef(null);
 
   const determineConclusion = (results) => {
     if (!results) return null;
@@ -61,6 +39,38 @@ export default function ReportPage() {
     if (mark === POSSITIVE) return CONCLUSION_TEXT_POSSITIVE;
     return CONCLUSION_TEXT_NEGATIVE;
   };
+
+  const conclusion = determineConclusion(reportDetails?.result?.resultSet);
+  const dateString = transformMilisecondsToDate(reportDetails?.checkDate);
+
+  const buttons = [
+    {
+      text: PRINT,
+      className: buttonStyle.transparentBlue_ordinary,
+      style: {},
+      onClick: () =>
+        createPDF(
+          reportDetails?.result?.resultSet,
+          reportDetails?.standart?.fieldsToCheck,
+          conclusion,
+          dateString
+        ),
+    },
+    {
+      text: SAVE,
+      className: buttonStyle.transparentBlue_ordinary,
+      style: {},
+      onClick: () => alert("Save pdf"),
+    },
+    {
+      text: DELETE,
+      className: buttonStyle.transparentRed_ordinary,
+      style: {},
+      onClick: () => alert("Delete report"),
+    },
+  ];
+
+  const reportContainerRef = useRef(null);
 
   useEffect(() => {
     getOrganizationReports(userInfo.OrganizationId).then((reports) => {
@@ -89,7 +99,7 @@ export default function ReportPage() {
             />
             <div className={style.conclusion}>
               <h2>{CONCLUSION_TEXT}</h2>
-              <p>{determineConclusion(reportDetails?.result?.resultSet)}</p>
+              <p>{conclusion}</p>
             </div>
           </div>
           <div
@@ -102,8 +112,7 @@ export default function ReportPage() {
           >
             <p>{REPORT_BY_TEXT}</p>
             <p>
-              {REPORT_FROM_TEXT}{" "}
-              {transformMilisecondsToDate(reportDetails?.checkDate)}
+              {REPORT_FROM_TEXT} {dateString}
             </p>
           </div>
         </div>
