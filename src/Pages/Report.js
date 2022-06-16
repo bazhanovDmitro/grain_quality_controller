@@ -26,6 +26,7 @@ import transformMilisecondsToDate from "../Utils/transfromMilisecondsToDate";
 import DropdownMenu from "../Components/DropdownMenu";
 import buttonStyle from "../Assets/Styles/common/buttons.module.scss";
 import createPDF from "../Utils/createPDF";
+import { useReactToPrint } from "react-to-print";
 
 export default function ReportPage() {
   const { reportID } = useParams();
@@ -43,9 +44,33 @@ export default function ReportPage() {
   const conclusion = determineConclusion(reportDetails?.result?.resultSet);
   const dateString = transformMilisecondsToDate(reportDetails?.checkDate);
 
+  const reportContainerRef = useRef(null);
+
+  const handlePrint = useReactToPrint({
+    content: () => reportContainerRef.current,
+  });
+
+  const onPrint = (event) => {
+    reportContainerRef.current.style.height = "fit-content";
+    reportContainerRef.current.style.maxWidth = "none";
+
+    const pageCount = Math.ceil(reportContainerRef.current.offsetHeight / 1040);
+    reportContainerRef.current.style.height = `${pageCount * 1055}px`;
+
+    handlePrint(event);
+    reportContainerRef.current.style.height = "100%";
+    reportContainerRef.current.style.maxWidth = "720px";
+  };
+
   const buttons = [
     {
       text: PRINT,
+      className: buttonStyle.transparentBlue_ordinary,
+      style: {},
+      onClick: (event) => onPrint(event),
+    },
+    {
+      text: SAVE,
       className: buttonStyle.transparentBlue_ordinary,
       style: {},
       onClick: () =>
@@ -57,20 +82,12 @@ export default function ReportPage() {
         ),
     },
     {
-      text: SAVE,
-      className: buttonStyle.transparentBlue_ordinary,
-      style: {},
-      onClick: () => alert("Save pdf"),
-    },
-    {
       text: DELETE,
       className: buttonStyle.transparentRed_ordinary,
       style: {},
       onClick: () => alert("Delete report"),
     },
   ];
-
-  const reportContainerRef = useRef(null);
 
   useEffect(() => {
     getOrganizationReports(userInfo.OrganizationId).then((reports) => {
