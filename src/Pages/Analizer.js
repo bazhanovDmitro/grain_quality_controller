@@ -4,6 +4,7 @@ import { ANALIZER_TEXT, ANALIZE_TEXT } from "../Constants/text";
 import { analize, getNorms } from "../Services/Analizer";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
+import Spinner from "../Components/Spinner/index";
 
 export default function Analizer() {
   const [formsList, setList] = useState([]);
@@ -28,7 +29,7 @@ export default function Analizer() {
 
   return (
     <div className={style.page}>
-      {isReady && (
+      {isReady ? (
         <Form
           formHeader={ANALIZER_TEXT}
           submitText={ANALIZE_TEXT}
@@ -50,6 +51,8 @@ export default function Analizer() {
               : null
           }
         />
+      ) : (
+        <Spinner />
       )}
     </div>
   );

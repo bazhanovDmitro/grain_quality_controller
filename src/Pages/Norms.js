@@ -12,8 +12,10 @@ import {
 import Confirm from "../Components/Confirm";
 import Modal from "../Components/Modal";
 import { UserContext } from "../App";
+import Spinner from "../Components/Spinner";
 
 export default function Norms() {
+  const [pageReady, setReainess] = useState(false);
   const [cultures, setCultures] = useState([]);
   const [selectedCulture, setSelected] = useState(null);
   const [confirm, setConfirm] = useState(false);
@@ -45,36 +47,43 @@ export default function Norms() {
   };
 
   useEffect(() => {
-    getNorms().then((cultures) => setCultures(cultures));
+    getNorms().then((cultures) => {
+      setCultures(cultures);
+      setReainess(true);
+    });
   }, []);
 
   return (
     <div className={style.page}>
-      <div className={style.selectorWrapper}>
-        <Selector
-          header={selectedCulture === null ? SELECT_FORM : SELECT_ACTION}
-          selectArray={cultures}
-          selectedIndex={selectedCulture}
-          onSelect={onSelect}
-        />
-        <div className={style.actionButtons}>
-          <button
-            disabled={selectedCulture !== null}
-            onClick={() => navigate(NORM_CONSTRUCTOR_CREATE)}
-          >
-            {CREATE}
-          </button>
-          <button onClick={onUpdateClick} disabled={selectedCulture === null}>
-            {UPDATE}
-          </button>
-          <button
-            onClick={() => setConfirm(true)}
-            disabled={selectedCulture === null}
-          >
-            {DELETE}
-          </button>
+      {pageReady ? (
+        <div className={style.selectorWrapper}>
+          <Selector
+            header={selectedCulture === null ? SELECT_FORM : SELECT_ACTION}
+            selectArray={cultures}
+            selectedIndex={selectedCulture}
+            onSelect={onSelect}
+          />
+          <div className={style.actionButtons}>
+            <button
+              disabled={selectedCulture !== null}
+              onClick={() => navigate(NORM_CONSTRUCTOR_CREATE)}
+            >
+              {CREATE}
+            </button>
+            <button onClick={onUpdateClick} disabled={selectedCulture === null}>
+              {UPDATE}
+            </button>
+            <button
+              onClick={() => setConfirm(true)}
+              disabled={selectedCulture === null}
+            >
+              {DELETE}
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Spinner />
+      )}
       {confirm && (
         <Modal onOtsideClick={() => setConfirm(false)}>
           <Confirm

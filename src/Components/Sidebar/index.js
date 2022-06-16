@@ -73,6 +73,7 @@ export default function Sidebar() {
                 ? style.currentLocation
                 : style.standardButton
             }
+            onClick={() => setSidebar(false)}
           >
             {button?.svg}
             {button.text}

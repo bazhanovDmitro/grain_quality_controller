@@ -13,6 +13,7 @@ import { EMPLOYEE_TABLE } from "../../Utils/objects/tableHeaders";
 import filterArray from "../../Utils/filterArray";
 import Modal from "../Modal/index";
 import Form from "../Form/index";
+import Spinner from "../Spinner";
 
 export default function Table({
   onSearchChange,
@@ -220,8 +221,6 @@ export default function Table({
             ref={tableRef}
           >
             {columns.map((rows, index) =>
-              // {header: id, rows: [id, id, id, ...]} пропустить объект rows.rows где header = id как objectsID
-              // и использовать его в Columns для назначения правмильных id
               rows.header !== `id` ? (
                 <Column
                   key={index}
@@ -241,7 +240,7 @@ export default function Table({
     </>
   );
 
-  return (
+  return isTableReady ? (
     <div className={style.tableHolder}>
       {objects.length > 0 ? (
         table
@@ -261,5 +260,7 @@ export default function Table({
         </Modal>
       ) : null}
     </div>
+  ) : (
+    <Spinner />
   );
 }

@@ -27,6 +27,7 @@ export default function CustomForm({
   const [input_count, setCount] = useState(INPUT_COUNT_ON_SINGLE_PAGE);
   const [page, setPage] = useState(input_count);
   const [formFields, setFormFields] = useState([]);
+  const [blockForm, setBlock] = useState(false);
 
   const getInitValuesObject = (fields) => {
     if (
@@ -99,6 +100,7 @@ export default function CustomForm({
         className={style?.field}
       >
         <Field
+          disabled={blockForm}
           type={field.type}
           name={field.name}
           placeholder={field?.placeholder ? field.placeholder : field.name}
@@ -183,8 +185,11 @@ export default function CustomForm({
       initialValues={getInitValuesObject(formFields)}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        onSubmit(values);
-        resetForm();
+        setBlock(true);
+        const promise = onSubmit(values);
+        if (!promise) setBlock(false);
+        else promise.then(() => setBlock(false));
+        // resetForm();
       }}
     >
       {() => (
@@ -279,7 +284,11 @@ export default function CustomForm({
                   className={style.buttonContainer}
                   style={width > TABLET_VIEW ? { width: `50%` } : null}
                 >
-                  <button type="submit" className={style?.submit}>
+                  <button
+                    type="submit"
+                    className={style?.submit}
+                    disabled={blockForm}
+                  >
                     {submitText}
                   </button>
                   {onCancel ? (
@@ -297,7 +306,11 @@ export default function CustomForm({
           ) : null}
           <div className={style.buttonContainer}>
             {!isPaginatorVisible() || width <= TABLET_VIEW ? (
-              <button type="submit" className={style?.submit}>
+              <button
+                type="submit"
+                className={style?.submit}
+                disabled={blockForm}
+              >
                 {submitText}
               </button>
             ) : null}

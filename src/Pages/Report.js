@@ -8,7 +8,6 @@ import {
   CONCLUSION_TEXT,
   CONCLUSION_TEXT_NEGATIVE,
   CONCLUSION_TEXT_POSSITIVE,
-  DELETE,
   PRINT,
   REPORT_BY_TEXT,
   REPORT_FROM_TEXT,
@@ -26,6 +25,7 @@ import transformMilisecondsToDate from "../Utils/transfromMilisecondsToDate";
 import DropdownMenu from "../Components/DropdownMenu";
 import buttonStyle from "../Assets/Styles/common/buttons.module.scss";
 import createPDF from "../Utils/createPDF";
+import Spinner from "../Components/Spinner";
 import { useReactToPrint } from "react-to-print";
 
 export default function ReportPage() {
@@ -81,12 +81,6 @@ export default function ReportPage() {
           dateString
         ),
     },
-    {
-      text: DELETE,
-      className: buttonStyle.transparentRed_ordinary,
-      style: {},
-      onClick: () => alert("Delete report"),
-    },
   ];
 
   useEffect(() => {
@@ -96,7 +90,7 @@ export default function ReportPage() {
     });
   }, [userInfo, reportID]);
 
-  return (
+  return reportDetails ? (
     <div className={style.reportPage}>
       <DropdownMenu buttons={buttons}>
         <div className={style.reportHolder} ref={reportContainerRef}>
@@ -135,5 +129,7 @@ export default function ReportPage() {
         </div>
       </DropdownMenu>
     </div>
+  ) : (
+    <Spinner />
   );
 }

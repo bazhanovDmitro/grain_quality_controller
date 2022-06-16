@@ -24,6 +24,7 @@ import { ReactComponent as Neutral } from "../../Assets/Svg/Neutral.svg";
 import { ReactComponent as Negative } from "../../Assets/Svg/Negative.svg";
 import { getOrganizationReports, getUserReports } from "../../Services/Reports";
 import { MANAGER, WORKER } from "../../Constants/roles";
+import Spinner from "../../Components/Spinner/index";
 
 const sortTags = [
   { id: POSSITIVE, svg: <Positive /> },
@@ -33,6 +34,7 @@ const sortTags = [
 
 export default function ReportsTable() {
   const [reportList, setReportList] = useState([]);
+  const [pageReady, setReadiness] = useState(false);
   const [cultures, setCultureList] = useState([]);
   const [renderList, setRenderList] = useState(cultures);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -66,11 +68,15 @@ export default function ReportsTable() {
 
   useEffect(() => {
     if (+userInfo.role === WORKER)
-      getUserReports(userInfo.UserId).then((reports) => setReportList(reports));
+      getUserReports(userInfo.UserId).then((reports) => {
+        setReportList(reports);
+        setReadiness(true);
+      });
     else if (+userInfo.role === MANAGER)
-      getOrganizationReports(userInfo.OrganizationId).then((reports) =>
-        setReportList(reports)
-      );
+      getOrganizationReports(userInfo.OrganizationId).then((reports) => {
+        setReportList(reports);
+        setReadiness(true);
+      });
   }, [userInfo]);
 
   useEffect(() => {
@@ -105,8 +111,8 @@ export default function ReportsTable() {
     });
   }, [width]);
 
-  if (reportList.length > 0)
-    return (
+  if (pageReady)
+    return reportList.length > 0 ? (
       <div className={style.reportsHolder}>
         <div className={style.reportHeader}>
           <div className={style.half}>
@@ -173,6 +179,6 @@ export default function ReportsTable() {
           onPageIncrease={onNextPage}
         />
       </div>
-    );
-  else return null;
+    ) : null;
+  else return <Spinner />;
 }

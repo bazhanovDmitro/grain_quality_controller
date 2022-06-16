@@ -59,6 +59,7 @@ export default function OrganizationsTable() {
         searchPlaceholder={ORGANIZATION_SEARCH_PLACEHOLDER}
         sortField={"organizationName"}
         searchField={"organizationName"}
+        excludeObjectsIdArray={[]}
       />
       {deletionToast}
       {creationToast}
