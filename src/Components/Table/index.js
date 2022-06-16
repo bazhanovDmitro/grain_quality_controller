@@ -30,6 +30,7 @@ export default function Table({
   addObjectText,
   tableHeader,
   searchPlaceholder,
+  excludeObjectsIdArray,
 }) {
   const [isTableReady, setReadiness] = useState(false);
   const [objects, setObjects] = useState([]);
@@ -130,16 +131,25 @@ export default function Table({
     });
   };
 
+  const excludeObjects = (objects, excludeObjectsIdArray) => {
+    return objects.filter(
+      (object) =>
+        object.id !== excludeObjectsIdArray.find((id) => id === object.id)
+    );
+  };
+
   useEffect(() => {
     const objectsRequest = async () => {
-      const objects = await getObjects(userInfo.OrganizationId);
+      const responseObjects = await getObjects(userInfo.OrganizationId);
+      const objects = excludeObjects(responseObjects, excludeObjectsIdArray);
+
       setObjects(objects);
       setRows(objects);
       setReadiness(true);
     };
 
     objectsRequest();
-  }, [getObjects, userInfo]);
+  }, [getObjects, userInfo, excludeObjectsIdArray]);
 
   useEffect(() => {
     setRows((prev) => {

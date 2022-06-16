@@ -32,6 +32,7 @@ import Analizer from "./Pages/Analizer";
 import Norms from "./Pages/Norms";
 import NormConstructorCreate from "./Pages/NormConstructorCreate";
 import NormConstructorUpdate from "./Pages/NormConstructorUpdate";
+import ReportPage from "./Pages/Report";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -60,7 +61,7 @@ root.render(
             element={
               <ProtectedRoute
                 requiredRoles={[WORKER, MANAGER]}
-                element={<div>REPORT PREVIEW</div>}
+                element={<ReportPage />}
               />
             }
           />

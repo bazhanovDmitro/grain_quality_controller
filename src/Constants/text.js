@@ -3,7 +3,7 @@ export const DELETE = "Delete";
 export const CANCEL = "Cancel";
 export const SAVE = "Save";
 
-export const PRONT = "Print";
+export const PRINT = "Print";
 export const SYSTEM_FULL_NAME = "Grain Quality Controller";
 export const SYSTEM_SHORT_NAME = "GQC";
 export const LOGOUT = "Logout";
@@ -79,3 +79,14 @@ export const CREATE_NORM_CONFIRMATION_TEXT =
 export const UPDATE_NORM = "Update norm";
 export const UPDATE_NORM_CONFIRMATION_TEXT =
   "The norm values will be edited in Grain Guality Conrol system after form submitting. Are you sure you want to proceed?";
+export const REPORT_HEADER_TEXT = "Report details";
+export const REPORT_HEADER_INDICATORS = "Indicators";
+export const STANDART_VALUE_PREFIX = "Value should be ";
+export const STANDARD_HEADER = "Standard";
+export const CONCLUSION_TEXT = "Conclusion";
+export const CONCLUSION_TEXT_POSSITIVE =
+  "Most indicators are within norms.The product have high chance of successful certification procedure.";
+export const CONCLUSION_TEXT_NEGATIVE =
+  "Many indicators are below standards. The product most likely will not pass certification procedure.";
+export const REPORT_BY_TEXT = "Report by ";
+export const REPORT_FROM_TEXT = "Report from";

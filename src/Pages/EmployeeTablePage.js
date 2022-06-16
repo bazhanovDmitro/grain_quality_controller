@@ -72,6 +72,7 @@ export default function TablePage() {
         searchPlaceholder={EMPLOYEE_SEARCH_PLACEHOLDER}
         sortField={"lastName"}
         searchField={"lastName"}
+        excludeObjectsIdArray={[userInfo.UserId]}
       />
       {creationToast}
       {deletionToast}
