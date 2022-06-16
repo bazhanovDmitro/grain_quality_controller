@@ -27,11 +27,15 @@ import buttonStyle from "../Assets/Styles/common/buttons.module.scss";
 import createPDF from "../Utils/createPDF";
 import Spinner from "../Components/Spinner";
 import { useReactToPrint } from "react-to-print";
+import { useNavigate } from "react-router-dom";
+import { REPORTS } from "../Constants/links";
 
 export default function ReportPage() {
   const { reportID } = useParams();
   const { userInfo } = useContext(UserContext);
   const [reportDetails, setDetails] = useState(null);
+
+  const navigate = useNavigate();
 
   const determineConclusion = (results) => {
     if (!results) return null;
@@ -86,9 +90,11 @@ export default function ReportPage() {
   useEffect(() => {
     getOrganizationReports(userInfo.OrganizationId).then((reports) => {
       const chosenReport = reports.find((report) => +report.id === +reportID);
-      setDetails(chosenReport.fullReportInfo);
+      if (chosenReport?.fullReportInfo) {
+        setDetails(chosenReport.fullReportInfo);
+      } else navigate(REPORTS);
     });
-  }, [userInfo, reportID]);
+  }, [userInfo, reportID, navigate]);
 
   return reportDetails ? (
     <div className={style.reportPage}>

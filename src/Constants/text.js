@@ -90,3 +90,5 @@ export const CONCLUSION_TEXT_NEGATIVE =
   "Many indicators are below standards. The product most likely will not pass certification procedure.";
 export const REPORT_BY_TEXT = "Report by ";
 export const REPORT_FROM_TEXT = "Report from";
+export const CONTACT_ADMIN_TEXT = "Contact administrator or your manager";
+export const NO_REPORTS_EXISTS = "There are no reports yet.";

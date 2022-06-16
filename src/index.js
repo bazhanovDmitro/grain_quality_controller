@@ -33,6 +33,7 @@ import Norms from "./Pages/Norms";
 import NormConstructorCreate from "./Pages/NormConstructorCreate";
 import NormConstructorUpdate from "./Pages/NormConstructorUpdate";
 import ReportPage from "./Pages/Report";
+import RestorePage from "./Pages/RestorationPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -111,15 +112,6 @@ root.render(
           />
 
           <Route
-            path={RESTORE_PASSWORD}
-            element={
-              <ProtectedRoute
-                requiredRoles={[WORKER, MANAGER, ADMIN]}
-                element={<div>RESTORE PAGE</div>}
-              />
-            }
-          />
-          <Route
             path={LOGOUT}
             element={
               <ProtectedRoute
@@ -147,6 +139,8 @@ root.render(
             }
           />
         </Route>
+
+        <Route path={RESTORE_PASSWORD} element={<RestorePage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

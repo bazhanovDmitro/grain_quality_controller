@@ -2,6 +2,7 @@ import style from "../../Assets/Styles/reports.module.scss";
 import {
   LAST_ANALYSIS_REPORTS,
   NEW_FIRST,
+  NO_REPORTS_EXISTS,
   OLD_FIRST,
 } from "../../Constants/text";
 import Select from "../../Components/Select/index";
@@ -25,6 +26,7 @@ import { ReactComponent as Negative } from "../../Assets/Svg/Negative.svg";
 import { getOrganizationReports, getUserReports } from "../../Services/Reports";
 import { MANAGER, WORKER } from "../../Constants/roles";
 import Spinner from "../../Components/Spinner/index";
+import NoContent from "../../Components/Table/NoContent";
 
 const sortTags = [
   { id: POSSITIVE, svg: <Positive /> },
@@ -179,6 +181,8 @@ export default function ReportsTable() {
           onPageIncrease={onNextPage}
         />
       </div>
-    ) : null;
+    ) : (
+      <NoContent text={NO_REPORTS_EXISTS} onAdd={null} />
+    );
   else return <Spinner />;
 }
