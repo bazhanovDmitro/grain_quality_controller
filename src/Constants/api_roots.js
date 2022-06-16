@@ -17,3 +17,5 @@ export const ANALIZE = "/api/Analyze/Analyze";
 export const GET_WORKER_REPORTS = "/api/Statistics/GetStatisticsByUserId";
 export const GET_ORGANIZATION_REPORTS =
   "/api/Statistics/GetStatisticsByOrganizationId";
+export const GET_STATISTICS_BY_TIME =
+  "/api/Statistics/GetStatisticsByDateRangeAndOrganizationId";

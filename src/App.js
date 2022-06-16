@@ -4,6 +4,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Components/Sidebar/index";
 import { ANON } from "./Constants/roles";
 import { checkIfLogged } from "./Services/Auth";
+import { getStatisticsInTimeDiapason } from "./Services/Statistics";
+import generateDateArray from "./Utils/generateChartArrayData";
 
 export const UserContext = createContext();
 
@@ -39,6 +41,13 @@ function App() {
       setRole(user.role);
     }
     setLoaded(true);
+    getStatisticsInTimeDiapason(
+      1545410150867,
+      1655410150867,
+      user.OrganizationId
+    ).then((response) => {
+      console.log(generateDateArray(response.data));
+    });
   }, []);
 
   const contextValue = {
