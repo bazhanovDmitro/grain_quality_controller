@@ -19,3 +19,5 @@ export const GET_ORGANIZATION_REPORTS =
   "/api/Statistics/GetStatisticsByOrganizationId";
 export const GET_STATISTICS_BY_TIME =
   "/api/Statistics/GetStatisticsByDateRangeAndOrganizationId";
+export const GET_STATISTICS_BY_TIME_AND_USER =
+  "/api/Statistics/GetStatisticsByDateRangeAndUserId";

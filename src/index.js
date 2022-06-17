@@ -18,6 +18,7 @@ import {
   REPORT_PREVIEW,
   RESTORE_PASSWORD,
   NORM_CONSTRUCTOR_UPDATE,
+  CHARTS,
 } from "./Constants/links";
 import LoginForm from "./Layouts/LoginForm";
 import ProtectedRoute from "./Components/ProtectedRoute";
@@ -34,6 +35,7 @@ import NormConstructorCreate from "./Pages/NormConstructorCreate";
 import NormConstructorUpdate from "./Pages/NormConstructorUpdate";
 import ReportPage from "./Pages/Report";
 import RestorePage from "./Pages/RestorationPage";
+import Charts from "./Pages/Charts";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -135,6 +137,15 @@ root.render(
               <ProtectedRoute
                 requiredRoles={ADMIN}
                 element={<NormConstructorUpdate />}
+              />
+            }
+          />
+          <Route
+            path={CHARTS}
+            element={
+              <ProtectedRoute
+                requiredRoles={[WORKER, MANAGER]}
+                element={<Charts />}
               />
             }
           />
