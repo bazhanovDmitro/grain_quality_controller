@@ -42,7 +42,7 @@ export default function TablePage() {
   };
 
   const onUserDelete = async (user) => {
-    deleteUserFromOrganization(user.id, userInfo.OrganizationId);
+    return deleteUserFromOrganization(user.id, userInfo.OrganizationId);
   };
 
   const deletionToast = isCreationVisible ? (

@@ -38,10 +38,6 @@ export const getUserStatisticsInDiapason = async (
   const fromISOFormat = fromDate.toISOString();
   const toISOFormat = toDate.toISOString();
 
-  console.log(fromISOFormat);
-  console.log(toISOFormat);
-  console.log(userId);
-
   return axios.get(
     `${process.env.REACT_APP_API_ROOT}${GET_STATISTICS_BY_TIME_AND_USER}`,
     {
