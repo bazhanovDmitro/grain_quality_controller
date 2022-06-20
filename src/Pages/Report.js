@@ -45,6 +45,20 @@ export default function ReportPage() {
     return CONCLUSION_TEXT_NEGATIVE;
   };
 
+  const retrieveContract = (report) => {
+    return {
+      "Control weight":
+        Math.round((report.controlWeight + Number.EPSILON) * 100) / 100,
+      "Humidity decreasing percentage":
+        Math.round(
+          (report.humidityDecreasingPercentage + Number.EPSILON) * 100
+        ) / 100,
+      "Weed reduction percentage":
+        Math.round((report.weedReductionPercentage + Number.EPSILON) * 100) /
+        100,
+    };
+  };
+
   const conclusion = determineConclusion(reportDetails?.result?.resultSet);
   const dateString = transformMilisecondsToDate(reportDetails?.checkDate);
 
@@ -107,7 +121,10 @@ export default function ReportPage() {
           <div className={style.reportBody}>
             <ReportBody
               header={REPORT_HEADER_INDICATORS}
-              dataSet={reportDetails?.result?.resultSet}
+              dataSet={{
+                ...reportDetails?.result?.resultSet,
+                ...retrieveContract(reportDetails),
+              }}
             />
             <ReportBody
               header={STANDARD_HEADER}

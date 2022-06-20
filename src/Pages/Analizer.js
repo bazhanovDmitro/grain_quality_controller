@@ -5,6 +5,7 @@ import { analize, getNorms } from "../Services/Analizer";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../App";
 import Spinner from "../Components/Spinner/index";
+import { contractFields } from "../Utils/objects/staticFormFields";
 
 export default function Analizer() {
   const [formsList, setList] = useState([]);
@@ -18,6 +19,13 @@ export default function Analizer() {
       (form) => form.cultureName === cultureName
     );
     setCurrent(cultureIndex);
+  };
+
+  const generateFields = (formIndex, formList) => {
+    return {
+      ...formList[formIndex].fieldsToCheck,
+      ...contractFields,
+    };
   };
 
   useEffect(() => {
@@ -47,7 +55,7 @@ export default function Analizer() {
           }
           fields={
             formsList.length > 0
-              ? formsList[currentFormIndex].fieldsToCheck
+              ? generateFields(currentFormIndex, formsList)
               : null
           }
         />

@@ -7,6 +7,7 @@ import {
   UPDATE_NORM,
 } from "../Constants/api_roots";
 import clearNormValues from "../Utils/clearNormValues";
+import { contractFields } from "../Utils/objects/staticFormFields";
 
 export const getNorms = async () => {
   const normList = await axios.get(
@@ -52,19 +53,31 @@ export const analize = async (
   cultureName,
   cultureID
 ) => {
+  const clearValueKeys = Object.keys(values).filter((valueKey) => {
+    const fieldNames = Object.keys(contractFields);
+    if (!fieldNames.includes(valueKey)) return true;
+    return false;
+  });
+
+  const clearValues = {};
+  clearValueKeys.forEach((key) => (clearValues[key] = values[key]));
+
   return axios.post(
     `${process.env.REACT_APP_API_ROOT}${ANALIZE}`,
     {
       id: cultureID,
       cultureName: cultureName,
       contractDefinedValues: {
-        physicalWeight: 0,
-        intakeMoistureIndexPercentage: 0,
-        moistureDueToContract: 0,
-        indicatorOfWeedImpurityPercentage: 0,
-        indicatorOfWeedImpurityToTheContract: 0,
+        physicalWeight: +values["Physical weight"],
+        intakeMoistureIndexPercentage:
+          +values["Intake moisture index percentage"],
+        moistureDueToContract: +values["Moisture due to contract"],
+        indicatorOfWeedImpurityPercentage:
+          +values["Indicator of weed impurity percentage"],
+        indicatorOfWeedImpurityToTheContract:
+          +values["Indicator of weed impurity to the contract"],
       },
-      fieldToCheck: values,
+      fieldToCheck: clearValues,
     },
     {
       params: {
