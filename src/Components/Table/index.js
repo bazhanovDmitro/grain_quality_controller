@@ -150,7 +150,8 @@ export default function Table({
     };
 
     objectsRequest();
-  }, [getObjects, userInfo, excludeObjectsIdArray]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getObjects, userInfo]);
 
   useEffect(() => {
     setRows((prev) => {

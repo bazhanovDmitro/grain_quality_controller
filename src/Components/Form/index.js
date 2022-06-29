@@ -189,7 +189,7 @@ export default function CustomForm({
         const promise = onSubmit(values);
         if (!promise) setBlock(false);
         else promise.then(() => setBlock(false));
-        // resetForm();
+        resetForm();
       }}
     >
       {() => (

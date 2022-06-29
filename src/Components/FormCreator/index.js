@@ -36,6 +36,7 @@ export default function FormCreator({
           className={style.input}
           type="text"
           name={key}
+          placeholder={key}
           value={fields[key]}
           onChange={(event) =>
             setFields((prev) => {

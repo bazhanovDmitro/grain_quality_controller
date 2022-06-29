@@ -107,7 +107,7 @@ export const createOrganizationWithManager = async ({
 };
 
 export const deleteOrganization = async (organizationObject) => {
-  await axios
+  return axios
     .delete(`${process.env.REACT_APP_API_ROOT}${DELETE_ORGANIZATION}`, {
       params: {
         organizationId: organizationObject.id,

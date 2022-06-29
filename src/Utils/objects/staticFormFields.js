@@ -52,3 +52,11 @@ export const createOrganizationFields = [
     placeholder: "Manager password",
   },
 ];
+
+export const contractFields = {
+  "Physical weight": "",
+  "Intake moisture index percentage": "",
+  "Moisture due to contract": "",
+  "Indicator of weed impurity percentage": "",
+  "Indicator of weed impurity to the contract": "",
+};

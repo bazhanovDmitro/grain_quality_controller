@@ -4,6 +4,7 @@ import { ReactComponent as Wheat } from "../../Assets/Svg/Wheat.svg";
 import { ReactComponent as Gear } from "../../Assets/Svg/Gear.svg";
 import { ReactComponent as Human } from "../../Assets/Svg/Human.svg";
 import { ReactComponent as Humans } from "../../Assets/Svg/Humans.svg";
+import { ReactComponent as Chart } from "../../Assets/Svg/chart.svg";
 import {
   ANALIZER_TEXT,
   CHANGE_CREDENTIALS_TEXT,
@@ -12,6 +13,7 @@ import {
   EMPLOYEE_LIST_TEXT,
   ORGANIZATION_LIST_TEXT,
   NORMS_TEXT,
+  CHARTS_SIDEBAR_BUTTON_TEXT,
 } from "../../Constants/text";
 import {
   ANALIZER,
@@ -21,6 +23,7 @@ import {
   EMPLOYEE_LIST,
   ORGANIZATION_LIST,
   NORMS,
+  CHARTS,
 } from "../../Constants/links";
 import { MANAGER, ADMIN, WORKER } from "../../Constants/roles";
 
@@ -45,6 +48,11 @@ const WORKER_BUTTONS = [
     svg: <Gear />,
     text: CHANGE_CREDENTIALS_TEXT,
   },
+  {
+    link: CHARTS,
+    svg: <Chart />,
+    text: CHARTS_SIDEBAR_BUTTON_TEXT,
+  },
 ];
 
 const MANAGER_BUTTONS = [
@@ -67,6 +75,11 @@ const MANAGER_BUTTONS = [
     link: CHANGE_CREDENTIALS,
     svg: <Gear />,
     text: CHANGE_CREDENTIALS_TEXT,
+  },
+  {
+    link: CHARTS,
+    svg: <Chart />,
+    text: CHARTS_SIDEBAR_BUTTON_TEXT,
   },
 ];
 

@@ -21,8 +21,8 @@ export default function TableLayout({
   const [sortValue, setSort] = useState(true);
 
   const onDelete = (object) => {
-    onDeleteObject(object);
     if (onDeleteToast) onDeleteToast();
+    return onDeleteObject(object);
   };
 
   const onCreate = (values) => {
